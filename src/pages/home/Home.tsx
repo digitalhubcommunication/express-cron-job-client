@@ -1,5 +1,10 @@
+import PageLoading from "@/components/shared/PageLoading";
+
 export default function Home() {
   return (
-    <div>Home page</div>
+    <div>
+      <h1>Page loading</h1>
+      <PageLoading  />
+    </div>
   )
 }

@@ -2,8 +2,8 @@
 import { MouseEvent, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "@/store/features/modalToggler/ModalTogglerSlice";
-import { RootState } from "@/store/store";
+import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
+import { RootState } from "@/redux/store";
 // import XMarkBlack from "../icons/XMarkBlack";
 
 type CustomModalProps = {

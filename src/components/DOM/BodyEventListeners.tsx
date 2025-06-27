@@ -1,6 +1,6 @@
 "use client";
-import { SET_EXPAND } from "@/store/features/rootModyfier/Modyfier";
-import { RootState } from "@/store/store";
+import { SET_EXPAND } from "@/redux/features/rootModyfier/Modyfier";
+import { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

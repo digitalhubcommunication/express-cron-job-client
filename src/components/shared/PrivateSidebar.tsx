@@ -1,11 +1,11 @@
 import {
   SET_EXPAND,
   updatePreventScrolling,
-} from "@/store/features/rootModyfier/Modyfier";
-import { RootState } from "@/store/store";
+} from "@/redux/features/rootModyfier/Modyfier";
+import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import SiteLogo from "./SiteLogo";
+import SiteLogo from "./logo/SiteLogo";
 import { XMarkIcon } from "./Icons";
 import { settingsLinks } from "@/data/navLinks";
 import {  NavLink } from "react-router";

@@ -1,6 +1,8 @@
 import Home from "@/pages/home/Home";
 import { createBrowserRouter } from "react-router-dom";
-import AuthUserRoute from "../wrapper/AuthUserRoute";
+// import AuthUserRoute from "../wrapper/AuthUserRoute";
+import UserDashboard from "@/pages/user/dashboard/UserDashboard";
+import SettingsLayout from "../layout/SettingsLayout";
 
 export const router = createBrowserRouter([
   {
@@ -13,11 +15,11 @@ export const router = createBrowserRouter([
   },
   {
     path:"/settings",
-    element: <AuthUserRoute />,
+    element: <SettingsLayout />,
      children: [
       {
         index: true,
-        element: <div>Dashboard Page</div>
+        element: <UserDashboard />
       },
       {
         path: "default-cron-setup",

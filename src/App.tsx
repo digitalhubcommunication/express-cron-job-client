@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import Navbar from "./components/shared/Navbar";
+import Navbar from "./components/shared/navbar/Navbar";
 import PrivateSidebar from "./components/shared/PrivateSidebar";
 
 function App() {

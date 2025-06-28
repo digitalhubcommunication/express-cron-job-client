@@ -11,7 +11,7 @@ export const DefaultUserIcon = ({ className = "" }: { className?: string }) => {
 };
 
 
-export const UserDashboardIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const UserDashboardIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -20,7 +20,7 @@ export const UserDashboardIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { c
 };
 
 
-export const LongArrowRightIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const LongArrowRightIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -28,7 +28,7 @@ export const LongArrowRightIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { 
   );
 };
 
-export const GlobeIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const GlobeIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -43,7 +43,7 @@ export const GlobeIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className
   );
 };
 
-export const NetworkIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const NetworkIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -58,7 +58,7 @@ export const NetworkIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { classNa
   );
 };
 
-export const UserIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const UserIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -73,7 +73,7 @@ export const UserIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?
   );
 };
 
-export const TelegramIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const TelegramIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -88,7 +88,7 @@ export const TelegramIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { classN
   );
 };
 
-export const CartIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const CartIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -103,7 +103,7 @@ export const CartIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?
   );
 };
 
-export const SignOutIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const SignOutIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -118,7 +118,7 @@ export const SignOutIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { classNa
   );
 };
 
-export const CloudFlareIcon = ({ className = "min-w-6 min-h-6 h-6 w-6" }: { className?: string }) => {
+export const CloudFlareIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
      return (
     <svg
       className={className}

@@ -38,8 +38,8 @@ export default function NavlinkSidebar() {
     <aside
       className={`w-full duration-700 border-r border-slate-300  ${
         minimizeSidebar === "MINIMIZE_SIDEBAR"
-          ? "max-w-[72px]"
-          : "lg:max-w-[360px]"
+          ? "lg:max-w-[72px]"
+          : "lg:max-w-[250px] 2xl:max-w-[300px]"
       }`}
     >
       <div className="w-full">
@@ -47,7 +47,7 @@ export default function NavlinkSidebar() {
           <ExpandableLogo className="flex items-center" />
         </div>
 
-        <div className="w-full mt-5 py-2.5 md:py-3 flex flex-col items-start gap-3">
+        <div className="w-full mt-5 py-2.5 md:py-3 flex flex-col items-start gap-1.5 2xl:gap-3">
           {/* ======= authenticated user links ====== */}
           <AuthUserLinks />
 

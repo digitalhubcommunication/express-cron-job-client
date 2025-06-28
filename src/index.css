@@ -579,7 +579,6 @@ p.bouncing-text {
 
 
 
-
 /* loading animation */
 .spinner-square > .square {
   width: 20%;
@@ -600,3 +599,31 @@ p.bouncing-text {
     transform: scaleY(1.1);
   }
 }
+
+/* ======== extra style starts ========= */
+/* @keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 95%;
+  }
+  100% {
+    width: 90%;
+  }
+} */

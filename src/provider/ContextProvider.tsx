@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import { createContext, useState, ReactNode, useContext } from 'react';
 
 interface ContextType {
   page: number; // Replace 'any' with the actual type of your user object

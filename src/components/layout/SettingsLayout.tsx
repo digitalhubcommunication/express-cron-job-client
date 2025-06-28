@@ -1,5 +1,5 @@
-import AuthNavbar from "../shared/authNavbar/AuthNavbar";
-import NavlinkSidebar from "../shared/sidebar/NavlinkSidebar";
+import AuthNavbar from "../authNavbar/AuthNavbar";
+import NavlinkSidebar from "../sidebar/NavlinkSidebar";
 
 export default function SettingsLayout() {
   return (

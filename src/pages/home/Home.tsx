@@ -1,4 +1,4 @@
-import PageLoading from "@/components/shared/PageLoading";
+import PageLoading from "@/components/loading/PageLoading";
 
 export default function Home() {
   return (

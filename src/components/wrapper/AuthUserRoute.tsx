@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import PageLoading from "../shared/PageLoading";
+import PageLoading from "../loading/PageLoading";
 // import { getToken } from "@/utils/token";
 
 export default function AuthUserRoute() {

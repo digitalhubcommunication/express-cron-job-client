@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { HambergerMenuIcon } from "../Icons";
 import { SET_EXPAND, updatePreventScrolling } from "@/redux/features/rootModyfier/Modyfier";
 import SiteLogo from "../logo/SiteLogo";
+import { HambergerMenuIcon } from "../icons/Icons";
 
 export default function Navbar() {
   const dispatch = useDispatch();

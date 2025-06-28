@@ -10,25 +10,49 @@ export const DefaultUserIcon = ({ className = "" }: { className?: string }) => {
   );
 };
 
-
-export const UserDashboardIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const UserDashboardIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
-      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M448 160l-128 0 0-32 128 0 0 32zM48 64C21.5 64 0 85.5 0 112l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 64zM448 352l0 32-256 0 0-32 256 0zM48 288c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 288z" fill="currentcolor"/></svg>
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M448 160l-128 0 0-32 128 0 0 32zM48 64C21.5 64 0 85.5 0 112l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 64zM448 352l0 32-256 0 0-32 256 0zM48 288c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 288z"
+        fill="currentcolor"
+      />
+    </svg>
   );
 };
 
-
-export const LongArrowRightIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const LongArrowRightIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
-      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" fill="currentcolor"/></svg>
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"
+        fill="currentcolor"
+      />
+    </svg>
   );
 };
 
-export const GlobeIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const GlobeIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -43,7 +67,11 @@ export const GlobeIcon = ({ className = "auth-dashboard-icons" }: { className?: 
   );
 };
 
-export const NetworkIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const NetworkIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -58,7 +86,11 @@ export const NetworkIcon = ({ className = "auth-dashboard-icons" }: { className?
   );
 };
 
-export const UserIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const UserIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -73,7 +105,11 @@ export const UserIcon = ({ className = "auth-dashboard-icons" }: { className?: s
   );
 };
 
-export const TelegramIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const TelegramIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -88,7 +124,11 @@ export const TelegramIcon = ({ className = "auth-dashboard-icons" }: { className
   );
 };
 
-export const CartIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const CartIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -103,7 +143,11 @@ export const CartIcon = ({ className = "auth-dashboard-icons" }: { className?: s
   );
 };
 
-export const SignOutIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const SignOutIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -118,8 +162,12 @@ export const SignOutIcon = ({ className = "auth-dashboard-icons" }: { className?
   );
 };
 
-export const CloudFlareIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
-     return (
+export const CloudFlareIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
+  return (
     <svg
       className={className}
       xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +180,6 @@ export const CloudFlareIcon = ({ className = "auth-dashboard-icons" }: { classNa
     </svg>
   );
 };
-
 
 export const HambergerMenuIcon = ({
   className = "",
@@ -153,31 +200,17 @@ export const HambergerMenuIcon = ({
   );
 };
 
-
 export const XMarkIcon = ({ className = "" }: { className?: string }) => {
   return (
     <svg
       className={className}
-      width="37"
-      height="38"
-      viewBox="0 0 37 38"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 384 512"
     >
       <path
-        d="M9.19141 9.80762L27.5762 28.1924"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
-      <path
-        d="M9.19141 28.1924L27.5762 9.80761"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></path>
+        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+        fill="currentcolor"
+      />
     </svg>
   );
 };

@@ -10,7 +10,7 @@ export default function SidebarToggler() {
   return (
     <div
      title={`${active ? "Expand Sidebar" : "Minimize Sidebar"}`}
-      className="relative z-50 flex w-6 cursor-pointer flex-col items-center justify-center"
+      className=" relative z-50 hidden lg:flex w-6 cursor-pointer flex-col items-center justify-center"
       onClick={() =>
         dispatch(EXPAND_SIDEBAR(!active ? "MINIMIZE_SIDEBAR" : null))
       }

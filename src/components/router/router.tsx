@@ -30,19 +30,19 @@ export const router = createBrowserRouter([
         element: <div>Manual cron setup Page</div>
       },
       {
-        path: "profile",
+        path: "profile-and-password",
         element: <div>Profile and password Page</div>
       },
       {
-        path: "telegram",
+        path: "connect-telegram",
         element: <div>Connect Telegram Page</div>
       },
       {
-        path: "domain-setup-instructions",
+        path: "dhru-fusion-setup",
         element: <div>Domain setup instration Page</div>
       },
       {
-        path: "cloudflare-setup-instructions",
+        path: "cloudflare-setup",
         element: <div>Cloudflare setup instructions Page</div>
       }
     ],

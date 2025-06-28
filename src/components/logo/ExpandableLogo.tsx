@@ -1,7 +1,7 @@
 import SiteLogo from "@/assets/logo/fast-crone-logo.png";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 type Props = {
   className?: string;

@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import ExpandableLogo from "../logo/ExpandableLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -23,7 +23,7 @@ const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
   return (
     <Link
       onClick={handleClick}
-      className={`px-4 pl-5 duration-300 flex items-center flex-nowrap w-full gap-4 hover:bg-slate-100 py-2.5 `}
+      className={`px-4 pl-5 md:px-5 md:pl-6 lg:px-6 lg:pl-7 duration-300 flex items-center flex-nowrap w-full gap-4 hover:bg-slate-100 py-2.5 `}
       to={to}
     >
       <Icon />
@@ -51,12 +51,12 @@ export default function NavlinkSidebar() {
     <aside
       className={`w-full h-screen lg:h-auto  fixed top-0 left-0 z-[9999] lg:bg-white lg:relative flex flex-col overflow-hidden duration-500 lg:duration-700 lg:border-r border-slate-300  ${
         minimizeSidebar === "MINIMIZE_SIDEBAR"
-          ? "lg:max-w-[72px]"
+          ? "lg:max-w-[88px]"
           : "lg:max-w-[250px] 2xl:max-w-[300px]"
       } ${
         EXPAND === "OPEN_DASHBOARD_SIDEBAR"
           ? "translate-x-0"
-          : "!translate-x-[-100%] lg:translate-x-0"
+          : "translate-x-[-100%] lg:translate-x-0"
       } `}
     >
       {/* ===== overlay ====== */}
@@ -73,7 +73,7 @@ export default function NavlinkSidebar() {
         className="w-full sm:max-w-[350px] bg-white lg:max-w-full flex flex-col grow"
       >
         <div
-          className={`w-full min-h-[63px] flex items-center justify-between lg:justify-start lg:min-h-[65px] bg-slate-100 dark:bg-slate-700 py-2.5 md:py-3 px-4 border-b border-gray-300 dark:border-gray-700`}
+          className={`w-full min-h-[63px] flex items-center justify-between lg:justify-start lg:min-h-[65px] bg-slate-100 dark:bg-slate-700 py-2.5 md:py-3 px-4 md:px-5 lg:px-6 border-b border-gray-300 dark:border-gray-700`}
         >
           <ExpandableLogo className="flex items-center" />
           <SidebarCloseButton />

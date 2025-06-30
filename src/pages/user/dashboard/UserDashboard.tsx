@@ -11,7 +11,7 @@ export default function UserDashboard() {
   console.log(authUser)
   return (
     <DashboardContainer>
-      <section className="section-pb mt-10">
+      <section className="section-pb mt-5 xl:mt-10">
         <div className="w-full mb-5">
         <h6 className="text-center">Welcome <span className="font-semibold">{authUser.name}</span></h6>
       </div>

@@ -1,5 +1,6 @@
 import { CartIcon, CloudFlareIcon, GlobeIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon } from "@/components/icons/Icons";
-import { TSidebarLink } from "@/types/Link";
+import { TSidebarLink } from "@/types/types";
+
 
 export const authUserLinks:TSidebarLink[] = [
     {

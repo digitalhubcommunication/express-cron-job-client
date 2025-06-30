@@ -604,3 +604,15 @@ p.bouncing-text {
 .auth-dashboard-icons{
   @apply w-5 min-w-5 h-5 min-h-5 2xl:min-w-6 2xl:min-h-6 2xl:h-6 2xl:w-6
 }
+
+.section{
+  @apply py-9 md:py-10 lg:py-12 xl:py-14 2xl:py-16
+}
+.section-pb{
+  @apply pb-9 md:pb-10 lg:pb-12 xl:pb-14 2xl:pb-16
+}
+
+.table-shadow{
+  box-shadow: 0.5px 0.5px 5px -2px black;
+}
+

@@ -7,12 +7,12 @@ export default function SettingsLayout() {
   return (
     <div className="w-full grow flex overflow-hidden ">
       <NavlinkSidebar />
-      <div className="grow overflow-y-auto flex flex-col relative ">
+      <div className="grow overflow-hidden flex flex-col relative ">
         <AuthNavbar />
-        <div className="w-full grow bg-white pt-[80px]">
+        <div className="w-full grow bg-white pt-[80px] overflow-y-auto max-h-screen">
           <Outlet />
+          <DashboardFooter />
         </div>
-        <DashboardFooter />
       </div>
     </div>
   );

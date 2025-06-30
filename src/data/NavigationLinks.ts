@@ -5,7 +5,7 @@ export const authUserLinks:TSidebarLink[] = [
     {
         label: "Dashboard",
         Icon: UserDashboardIcon,
-        to: "/settings"
+        to: "/settings/dashboard"
     },
     {
         label: "Default Cron Setup",

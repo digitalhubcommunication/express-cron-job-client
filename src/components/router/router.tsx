@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 // import AuthUserRoute from "../wrapper/AuthUserRoute";
 import UserDashboard from "@/pages/user/dashboard/UserDashboard";
 import SettingsLayout from "../layout/SettingsLayout";
+import DashboardContainer from "../wrapper/DashboardContainer";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ export const router = createBrowserRouter([
     element: <SettingsLayout />,
      children: [
       {
-        index: true,
+        index:true,
+        element: <DashboardContainer><h5 className="text-center mt-20">Welcome! Good to have you back.</h5></DashboardContainer>
+      },
+      {
+        path:"dashboard",
         element: <UserDashboard />
       },
       {

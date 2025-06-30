@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import ModalToggler from "./features/modalToggler/ModalTogglerSlice";
 import Modyfier from "./features/rootModyfier/Modyfier";
 import SidebarToggler from "./features/sidebar/SidebarToggler";
+import AuthSlice from "./features/auth/AuthSlice";
 
 export const store = configureStore({
   reducer: {
     modyfier: Modyfier,
     modalToggler: ModalToggler,
-    sidebarToggler: SidebarToggler
+    sidebarToggler: SidebarToggler,
+    auth:AuthSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(({

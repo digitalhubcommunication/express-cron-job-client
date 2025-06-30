@@ -1,29 +1,32 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ExpandableLogo from "../logo/ExpandableLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { authUserLinks } from "@/data/NavigationLinks";
-import { TSidebarLink } from "@/types/Link";
 import Logout from "../logout/Logout";
 import { SidebarCloseButton } from "./Button";
 import { SET_EXPAND } from "@/redux/features/rootModyfier/Modyfier";
+import { TSidebarLink } from "@/types/types";
 
 const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { EXPAND } = useSelector((state: RootState) => state.sidebarToggler);
   const hide = EXPAND === "MINIMIZE_SIDEBAR";
 
-
   // handler
-  const handleClick = ()=>{
-    dispatch(SET_EXPAND(null))
+  const handleClick = () => {
+    dispatch(SET_EXPAND(null));
     return true;
-  }
+  };
 
   return (
-    <Link
+    <NavLink
       onClick={handleClick}
-      className={`px-4 pl-5 md:px-5 md:pl-6 lg:px-6 lg:pl-7 duration-300 flex items-center flex-nowrap w-full gap-4 hover:bg-slate-100 py-2.5 `}
+      className={({ isActive }) =>
+        `px-4 pl-5 md:px-5 md:pl-6 lg:px-6 lg:pl-7 duration-300 flex items-center flex-nowrap w-full gap-4  py-2.5 ${
+          isActive ? "bg-slate-800 text-white" : "hover:bg-slate-200 text-black"
+        }`
+      }
       to={to}
     >
       <Icon />
@@ -34,7 +37,7 @@ const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
       >
         {label}
       </span>
-    </Link>
+    </NavLink>
   );
 };
 
@@ -80,7 +83,7 @@ export default function NavlinkSidebar() {
         </div>
 
         <div className="w-full grow max-h-screen py-2.5 md:py-3">
-          <div className="w-full flex flex-col items-start gap-1.5 2xl:gap-3 pb-20">
+          <div className="w-full flex flex-col items-start gap-1.5 2xl:gap-2 pb-20">
             {/* ======= authenticated user links ====== */}
             <AuthUserLinks />
             <Logout />

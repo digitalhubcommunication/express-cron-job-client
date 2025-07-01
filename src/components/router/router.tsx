@@ -4,6 +4,8 @@ import { createBrowserRouter } from "react-router-dom";
 import UserDashboard from "@/pages/user/dashboard/UserDashboard";
 import SettingsLayout from "../layout/SettingsLayout";
 import DashboardContainer from "../wrapper/DashboardContainer";
+import CloudflareSetup from "@/pages/user/cloudflareSetup/CloudflareSetup";
+import DhruFusionSetup from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
 
 export const router = createBrowserRouter([
   {
@@ -27,8 +29,8 @@ export const router = createBrowserRouter([
         element: <UserDashboard />
       },
       {
-        path: "default-cron-setup",
-        element: <div>Default cron setup Page</div>
+        path: "cron-history",
+        element: <div>History setup Page</div>
       },
       {
         path: "manual-cron-setup",
@@ -44,11 +46,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "dhru-fusion-setup",
-        element: <div>Domain setup instration Page</div>
+        element: <DhruFusionSetup />
       },
       {
         path: "cloudflare-setup",
-        element: <div>Cloudflare setup instructions Page</div>
+        element: <CloudflareSetup />
       }
     ],
     index: false

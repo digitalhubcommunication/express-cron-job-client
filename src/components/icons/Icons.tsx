@@ -264,7 +264,7 @@ export const CountDownBoxIcon = ({
   );
 };
 
-export const ClockWorkIcon = ({ className = "" }: { className?: string }) => {
+export const ClockWorkIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
   return (
     <svg
       className={className}

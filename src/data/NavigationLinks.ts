@@ -1,4 +1,4 @@
-import { CartIcon, CloudFlareIcon, GlobeIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon } from "@/components/icons/Icons";
+import { CartIcon, ClockWorkIcon, CloudFlareIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon } from "@/components/icons/Icons";
 import { TSidebarLink } from "@/types/types";
 
 
@@ -9,14 +9,14 @@ export const authUserLinks:TSidebarLink[] = [
         to: "/settings/dashboard"
     },
     {
-        label: "Default Cron Setup",
-        Icon: GlobeIcon,
-        to: "/settings/default-cron-setup"
-    },
-    {
         label: "Manual Cron Setup",
         Icon: NetworkIcon,
         to: "/settings/manual-cron-setup"
+    },
+     {
+        label: "Cron History",
+        Icon: ClockWorkIcon,
+        to: "/settings/cron-history"
     },
     {
         label: "Profile & Password",

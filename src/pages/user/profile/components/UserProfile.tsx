@@ -3,7 +3,6 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import DefaultUser from "@/assets/logo/default-profile.png";
 import { getExpiryText } from "@/utils/utils";
-import { UserIcon } from "@/components/icons/Icons";
 
 export default function UserProfile() {
   const { authUser } = useSelector((state: RootState) => state.auth);

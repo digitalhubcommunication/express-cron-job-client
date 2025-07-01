@@ -12,7 +12,6 @@ export default function UserProfile() {
     authUser.subscription?.type === "trial"
       ? "2-days free trial"
       : authUser.subscription?.type;
-  console.log(authUser);
   return (
     <>
       <div className="w-full max-w-[150px] max-h-[150px] border border-slate-300 h-[150px] rounded-full mx-auto">

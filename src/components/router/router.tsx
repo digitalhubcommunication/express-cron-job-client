@@ -6,6 +6,8 @@ import SettingsLayout from "../layout/SettingsLayout";
 import DashboardContainer from "../wrapper/DashboardContainer";
 import CloudflareSetup from "@/pages/user/cloudflareSetup/CloudflareSetup";
 import DhruFusionSetup from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
+import ConnectTelegram from "@/pages/user/connectTelegram/ConnectTelegram";
+import Profile from "@/pages/user/profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -38,11 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile-and-password",
-        element: <div>Profile and password Page</div>
+        element: <Profile />
       },
       {
         path: "connect-telegram",
-        element: <div>Connect Telegram Page</div>
+        element: <ConnectTelegram />
       },
       {
         path: "dhru-fusion-setup",

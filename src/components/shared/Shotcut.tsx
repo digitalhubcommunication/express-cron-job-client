@@ -1,5 +1,5 @@
 /*
-
+const { authUser } = useSelector((state: RootState) => state.auth);
 
  <LoadingSpinner
     totalVisuals={3}

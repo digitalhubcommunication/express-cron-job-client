@@ -27,7 +27,7 @@ notificationPreferences:{
 },
 packageExpiresAt:new Date(),
 profile:{
-  avatarUrl:"example",
+  avatarUrl:undefined,
   bio:"Short bio of the user"
 },
 subscription:{

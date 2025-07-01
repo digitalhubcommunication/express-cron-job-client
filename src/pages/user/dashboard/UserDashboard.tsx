@@ -8,7 +8,7 @@ import CronStatus from "./components/CronStatus";
 export default function UserDashboard() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   if (!authUser) return <InvalidUser message="Invalid User" />;
-  console.log(authUser)
+  
   return (
     <DashboardContainer>
       <section className="section-pb mt-5 xl:mt-10">

@@ -20,33 +20,33 @@ export default function ProfileForm() {
   } = useForm<FormData>();
 
   //   handlers
-const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit((data) => {
+    console.log("data from form", data);
+    if (!data) return;
 
-     if(!data)return;
+    if (data.newPassword || data.confirmPassword) {
+        if (data.newPassword !== data.confirmPassword) {
+            setError("confirmPassword", {
+                type: "manual",
+                message: "Confirm password didn't match",
+            });
+            return;
+        }
 
-    // if (data.newPassword || data.confirmPassword) {
-    //     if (data.newPassword !== data.confirmPassword) {
-    //         setError("confirmPassword", {
-    //             type: "manual",
-    //             message: "Confirm password didn't match",
-    //         });  
-    //         return;  
-    //     }
-        
-    //     if (!data.oldPassword) {
-    //         setError("oldPassword", {
-    //             type: "manual",
-    //             message: "Please provide Old password if you want to update password.",
-    //         });
-    //         return;
-    //     }
-    // }
+        if (!data.oldPassword) {
+            setError("oldPassword", {
+                type: "manual",
+                message: "Please provide Old password if you want to update password.",
+            });
+            return;
+        }
+    }
     // Proceed with form submission logic here
     console.log("Form submitted:", data);
 
-    toast.warn("API integration in progress")
+    toast.warn("API integration in progress");
     reset();
-});
+  });
 
   return (
     <div className="w-full flex flex-wrap gap-10 lg:gap-0">
@@ -56,34 +56,25 @@ const onSubmit = handleSubmit((data) => {
           placeholder="Enter your name"
           className="w-full"
           type="text"
-          {...register("name")}
+          register={register}
           errors={errors}
+          name="name"
         />
         <PasswordField
           label="Old Password"
           placeholder="Enter old password"
           className="w-full"
-          {...register("oldPassword", {
-            required:true,
-            minLength: {
-              value: 6,
-              message: "Password must be at least 6 characters",
-            },
-          })}
+          register={register}
+          name="oldPassword"
           errors={errors}
         />
 
-        <div className="w-full flex gap-7">
+        <div className="w-full flex flex-col xl:flex-row gap-7">
           <PasswordField
             label="New Password"
             placeholder="Enter new password"
-            {...register("newPassword",{
-                required:true,
-            minLength: {
-              value: 6,
-              message: "Password must be at least 6 characters",
-            },
-          })}
+            register={register}
+            name="newPassword"
             className="w-full"
             errors={errors}
           />
@@ -91,12 +82,8 @@ const onSubmit = handleSubmit((data) => {
             label="Confirm Password"
             placeholder="Confirm new password"
             className="w-full"
-            {...register("confirmPassword",{
-            minLength: {
-              value: 6,
-              message: "Password must be at least 6 characters",
-            },
-          })}
+            register={register}
+            name="confirmPassword"
             errors={errors}
           />
         </div>

@@ -7,7 +7,7 @@ export default function Profile() {
   return (
      <DashboardContainer>
           <section className="section-pb mt-5 xl:mt-10">
-            <div className="w-full flex gap-10 mt-10">
+            <div className="w-full flex gap-20 flex-col md:flex-row md:gap-5 lg:gap-10 mt-10">
               <Card className="w-full max-w-[450px]">
                 <UserProfile />
               </Card>

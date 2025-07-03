@@ -1,4 +1,4 @@
-import { FieldErrors } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { FormData } from "./ProfileForm";
 
 type InputFieldProps = {
@@ -8,6 +8,7 @@ type InputFieldProps = {
     type?: string;
     errors:FieldErrors<FormData>
     name:keyof FormData;
+    register:UseFormRegister<FormData>
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -16,8 +17,8 @@ const InputField: React.FC<InputFieldProps> = ({
     className,
     type = "text",
     errors,
-    name,
-    ...inputProps
+    register,
+    name
 }) => (
     <div className={className}>
         <label className="block mb-2 font-medium" htmlFor={name}>
@@ -28,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
             placeholder={placeholder}
             type={type}
             className="border duration-200 outline-none border-slate-300 hover:border-slate-400 py-1.5 lg:text-[18px] md:py-2 px-4 rounded-[5px] lg:rounded-[7px] w-full"
-            {...inputProps}
+            {...register(name)}
         />
         {
             errors[name] && errors[name].message ? <p className="text-red-500 mt-1">{errors[name]?.message}</p>:<></>

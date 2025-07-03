@@ -200,7 +200,7 @@ export const HambergerMenuIcon = ({
   );
 };
 
-export const XMarkIcon = ({ className = "" }: { className?: string }) => {
+export const XMarkIcon = ({ className = "w-5 h-5" }: { className?: string }) => {
   return (
     <svg
       className={className}
@@ -264,7 +264,11 @@ export const CountDownBoxIcon = ({
   );
 };
 
-export const ClockWorkIcon = ({ className = "auth-dashboard-icons" }: { className?: string }) => {
+export const ClockWorkIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -288,6 +292,51 @@ export const BillIcon = ({ className = "" }: { className?: string }) => {
     >
       <path
         d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm64 320l-64 0 0-64c35.3 0 64 28.7 64 64zM64 192l0-64 64 0c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64l0 64-64 0zm64-192c-35.3 0-64-28.7-64-64l64 0 0 64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"
+        fill="currentcolor"
+      />
+    </svg>
+  );
+};
+
+export const SearchIcon = ({ className = "" }: { className?: string }) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+        fill="currentcolor"
+      />
+    </svg>
+  );
+};
+
+export const FilterIcon = ({ className = "" }: { className?: string }) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M3.9 54.9C10.5 40.9 24.5 32 40 32l432 0c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9 320 448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6l0-79.1L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"
+        fill="currentcolor"
+      />
+    </svg>
+  );
+};
+
+export const CheckIcon = ({ className = "w-5 h-5" }: { className?: string }) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 448 512"
+    >
+      <path
+        d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentcolor"
       />
     </svg>

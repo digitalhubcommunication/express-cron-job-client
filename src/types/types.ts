@@ -3,7 +3,7 @@ import { FC } from "react";
 export type TSidebarLink = {
     label: string;
     Icon: FC;
-    to:string;
+    to: string;
 }
 
 export type UserRole = 'admin' | 'user';
@@ -12,13 +12,13 @@ export type SubscriptionType = 'silver' | 'gold' | 'diamond' | 'trial';
 export type TDomain = {
     status: 'enabled' | 'disabled';
     url: string;
-    _id:string;
+    _id: string;
 };
 
 export type TManualDomain = {
     status: 'enabled' | 'disabled';
     url: string;
-    _id:string;
+    _id: string;
 };
 
 interface NotificationPreferences {
@@ -60,8 +60,20 @@ export interface IUser {
 
 // --- Table Row Data Structure ---
 export interface CronJobRowData {
-  _id: string;
-  url: string;
-  cronType: 'Default' | 'Manual';
-  status: 'enabled' | 'disabled';
+    _id: string;
+    url: string;
+    cronType: 'Default' | 'Manual';
+    status: 'enabled' | 'disabled';
+}
+
+
+
+export type TCronHistory = {
+    _id:string;
+    domain: string;
+    status: number;
+    type:'manual'|"default";
+    success: boolean;
+    responseTime: number;
+    message: string;
 }

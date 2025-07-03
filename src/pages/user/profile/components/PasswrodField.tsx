@@ -1,4 +1,4 @@
-import { FieldErrors } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { FormData } from "./ProfileForm";
 import { useState } from "react";
 import { EyeCloseIcon, EyeOpenIcon } from "./Icons";
@@ -9,6 +9,7 @@ type InputFieldProps = {
   className?: string;
   errors: FieldErrors<FormData>;
   name: keyof FormData;
+      register:UseFormRegister<FormData>
 };
 
 const PasswordField: React.FC<InputFieldProps> = ({
@@ -17,7 +18,7 @@ const PasswordField: React.FC<InputFieldProps> = ({
   className,
   errors,
   name,
-  ...inputProps
+  register
 }) => {
   const [show, setShow] = useState(false);
 
@@ -32,7 +33,14 @@ const PasswordField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         type={show ? "text" : "password"}
         className="border duration-200 outline-none border-slate-300 hover:border-slate-400 py-1.5 lg:text-[18px] md:py-2 px-4 rounded-[5px] lg:rounded-[7px] w-full"
-        {...inputProps}
+     {...register(name,
+      {
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+          }
+     )}
       />
 
       {/* toggler icon */}

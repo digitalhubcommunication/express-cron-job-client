@@ -8,6 +8,7 @@ import CloudflareSetup from "@/pages/user/cloudflareSetup/CloudflareSetup";
 import DhruFusionSetup from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
 import ConnectTelegram from "@/pages/user/connectTelegram/ConnectTelegram";
 import Profile from "@/pages/user/profile/Profile";
+import CronHistory from "@/pages/user/cronHistory/components/CronHistory";
 
 export const router = createBrowserRouter([
   {
@@ -15,63 +16,68 @@ export const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path:"/blog",
-    element: <div>Blog Page</div>
+    path: "/blog",
+    element: <div>Blog Page</div>,
   },
   {
-    path:"/settings",
+    path: "/settings",
     element: <SettingsLayout />,
-     children: [
+    children: [
       {
-        index:true,
-        element: <DashboardContainer><h5 className="text-center mt-20">Welcome! Good to have you back.</h5></DashboardContainer>
+        index: true,
+        element: (
+          <DashboardContainer>
+            <h5 className="text-center mt-20">
+              Welcome! Good to have you back.
+            </h5>
+          </DashboardContainer>
+        ),
       },
       {
-        path:"dashboard",
-        element: <UserDashboard />
-      },
-      {
-        path: "cron-history",
-        element: <div>History setup Page</div>
+        path: "dashboard",
+        element: <UserDashboard />,
       },
       {
         path: "manual-cron-setup",
-        element: <div>Manual cron setup Page</div>
+        element: <div>Manual cron setup Page</div>,
+      },
+      {
+        path: "cron-history",
+        element: <CronHistory />,
       },
       {
         path: "profile-and-password",
-        element: <Profile />
+        element: <Profile />,
       },
       {
         path: "connect-telegram",
-        element: <ConnectTelegram />
+        element: <ConnectTelegram />,
       },
       {
         path: "dhru-fusion-setup",
-        element: <DhruFusionSetup />
+        element: <DhruFusionSetup />,
       },
       {
         path: "cloudflare-setup",
-        element: <CloudflareSetup />
-      }
+        element: <CloudflareSetup />,
+      },
     ],
-    index: false
+    index: false,
   },
   {
     path: "/contact",
-    element: <div>Contact page</div>
+    element: <div>Contact page</div>,
   },
   {
     path: "/login",
-    element: <div>Login page</div>
+    element: <div>Login page</div>,
   },
   {
     path: "/register",
-    element: <div>Register page</div>
+    element: <div>Register page</div>,
   },
   {
     path: "/forgot-password",
-    element: <div>Forgot password page</div>
+    element: <div>Forgot password page</div>,
   },
-])
-
+]);

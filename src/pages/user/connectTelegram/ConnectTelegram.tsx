@@ -22,7 +22,7 @@ export default function ConnectTelegram() {
         <h6 className="text-center mb-5">
           Connect Your Telegram Bot for(2FA) & Alerts
         </h6>
-        <div className="w-full flex flex-col gap-10 mt-10 max-w-[900px]">
+        <div className="w-full flex flex-col xl:flex-row gap-10 mt-10">
           <Card className="w-full">
             <p className="mb-3 font-semibold ecj_fs-lg">Connect Telegram</p>
             <p>
@@ -35,7 +35,7 @@ export default function ConnectTelegram() {
           </Card>
           <Card className="w-full">
             <p className="mb-3 font-semibold ecj_fs-lg">Stay Notified</p>
-            <div className="w-full flex flex-wrap gap-10 lg:gap-0">
+            <div className="w-full flex flex-wrap md:flex-nowrap gap-10 lg:gap-5">
               <div className="w-full lg:w-3/6">
                 <p>Price Update Instant Notifications: Disabled</p>
                 <button

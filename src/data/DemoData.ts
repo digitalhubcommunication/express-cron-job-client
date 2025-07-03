@@ -1,45 +1,74 @@
 import { IUser, TCronHistory } from "@/types/types";
 
-export const user:IUser = {
-    name: "John Doe",
-    role:"user",
-    status:'enabled',
-    domain: "example.com",
-    defaultDomains: [
-      {
-        _id:"34234",
-        status: "enabled",
-        url: "example.com",
-      },
-      {
-        _id:"3444334",
-        status: "enabled",
-        url: "example.com",
-      },
-    ],
-allowedToAddManualDomains:true,
-email:"example.gmail.com",
-manualCronCount:5,
-mobile:4342410433,
-notificationPreferences:{
-  telegram:true,
-  email:true
-},
-packageExpiresAt:new Date(),
-profile:{
-  avatarUrl:undefined,
-  bio:"Short bio of the user"
-},
-subscription:{
-  type:"trial",
-  manualCronLimit:0
-},
-telegramConnected:false,
-twoFactorEnabled:false,
-username:'example.user',
-manualDomains:undefined,
-telegramId:undefined,
-  };
+export const user: IUser = {
+  name: "John Doe",
+  role: "user",
+  status: 'enabled',
+  domain: "example.com",
+  defaultDomains: [
+    {
+      _id: "34234",
+      status: "enabled",
+      url: "example.com",
+    },
+    {
+      _id: "3444334",
+      status: "enabled",
+      url: "example.com",
+    },
+  ],
+  allowedToAddManualDomains: true,
+  email: "example.gmail.com",
+  manualCronCount: 5,
+  mobile: 4342410433,
+  notificationPreferences: {
+    telegram: true,
+    email: true
+  },
+  packageExpiresAt: new Date(),
+  profile: {
+    avatarUrl: undefined,
+    bio: "Short bio of the user"
+  },
+  subscription: {
+    type: "trial",
+    manualCronLimit: 0
+  },
+  telegramConnected: false,
+  twoFactorEnabled: false,
+  username: 'example.user',
+  manualDomains: [
+    {
+      _id: "md1",
+      status: "enabled",
+      url: "manual1.com",
+      title: "Manual Domain 1",
+      executionTime: 120
+    },
+    {
+      _id: "md2",
+      status: "disabled",
+      url: "longmanualdomain12.com",
+      title: "Manual Domain 2",
+      executionTime: 300
+    },
+    {
+      _id: "md3",
+      status: "enabled",
+      url: "anotherlongdomain34.net",
+      title: "Manual Domain 3",
+      executionTime: 45
+    },
+    {
+      _id: "md4",
+      status: "enabled",
+      url: "manual4.dev",
+      title: "Manual Domain 4",
+      executionTime: 200
+    }
+  ],
+  telegramId: undefined,
+};
 
 
 

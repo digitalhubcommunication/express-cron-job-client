@@ -18,6 +18,8 @@ export type TDomain = {
 export type TManualDomain = {
     status: 'enabled' | 'disabled';
     url: string;
+    title: string;
+    executionTime: number;
     _id: string;
 };
 
@@ -69,10 +71,10 @@ export interface CronJobRowData {
 
 
 export type TCronHistory = {
-    _id:string;
+    _id: string;
     domain: string;
     status: number;
-    type:'manual'|"default";
+    type: 'manual' | "default";
     success: boolean;
     responseTime: number;
     message: string;

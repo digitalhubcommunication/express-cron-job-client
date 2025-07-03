@@ -9,18 +9,15 @@ export default function SearchBar() {
   //   handlers
   const handleKeyChange = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      alert("");
-      console.log("Enter key pressed");
+      handleFilter()
     }
-
-    toast.warn("API integration and filter in progress");
-    console.log(e);
   };
 
   const handleFilter = () => {
     if (!inputRef?.current) return;
 
     console.log(inputRef.current?.value);
+    toast.warn("API integration in progress")
   };
   return (
     <div className="w-full h-20 flex items-center justify-end gap-5">

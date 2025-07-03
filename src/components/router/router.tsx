@@ -8,7 +8,8 @@ import CloudflareSetup from "@/pages/user/cloudflareSetup/CloudflareSetup";
 import DhruFusionSetup from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
 import ConnectTelegram from "@/pages/user/connectTelegram/ConnectTelegram";
 import Profile from "@/pages/user/profile/Profile";
-import CronHistory from "@/pages/user/cronHistory/components/CronHistory";
+import CronHistory from "@/pages/user/cronHistory/CronHistory";
+import ManualCrons from "@/pages/user/manualCron/ManualCrons";
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "manual-cron-setup",
-        element: <div>Manual cron setup Page</div>,
+        element: <ManualCrons />,
       },
       {
         path: "cron-history",

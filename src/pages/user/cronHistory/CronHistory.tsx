@@ -2,7 +2,7 @@ import InvalidUser from "@/components/shared/InvalidUser";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import SearchBar from "../SearchBar";
+import SearchBar from "./components/SearchBar";
 import { cronHistories } from "@/data/DemoData";
 import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
 

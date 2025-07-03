@@ -641,3 +641,10 @@ button.btn-success{
   @apply duration-300 bg-blue-500 text-white hover:bg-blue-600
 }
 
+button.btn-danger{
+  @apply duration-300 bg-red-500 text-white hover:bg-red-600
+}
+button.btn-warning{
+  @apply duration-300 bg-yellow-500 text-white hover:bg-yellow-600
+}
+

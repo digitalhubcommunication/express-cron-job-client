@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import DefaultUser from "@/assets/logo/default-profile.png";
 import { getExpiryText } from "@/utils/utils";
 
-export default function UserProfile() {
+export default function UserProfileInfo() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   if (!authUser) return <InvalidUser message="Invalid User" />;
 

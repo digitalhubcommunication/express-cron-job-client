@@ -208,32 +208,32 @@
 
 /*======= font sizes ======== */
 h1 {
-  font-size: var(--fs-big);
-  line-height: 120%;
-}
-
-h2 {
-  font-size: var(--fs-7xl);
-  line-height: 120%;
-}
-
-h3 {
-  font-size: var(--fs-5xl);
-  line-height: 120%;
-}
-
-h4 {
   font-size: var(--fs-4xl);
   line-height: 120%;
 }
 
-h5 {
+h2 {
+  font-size: var(--fs-3xl);
+  line-height: 120%;
+}
+
+h3 {
   font-size: var(--fs-2xl);
   line-height: 120%;
 }
 
+h4 {
+  font-size: var(--fs-lg);
+  line-height: 120%;
+}
+
+h5 {
+  font-size: var(--fs-md);
+  line-height: 120%;
+}
+
 h6 {
-  font-size: var(--fs-xl);
+  font-size: var(--fs-base);
   line-height: 120%;
 }
 
@@ -259,8 +259,14 @@ section {
   background-color: var(--clr-bg-body);
 }
 
-.section-inner-speacing {
+.section-top-speacing {
   @apply pt-10 xl:pt-12 2xl:pt-14;
+}
+.section-bottom-speacing {
+  @apply pb-10 xl:pb-12 2xl:pb-14;
+}
+.section-inner-speacing {
+  @apply py-10 xl:py-12 2xl:py-14;
 }
 
 .dark section {
@@ -576,10 +582,6 @@ p.bouncing-text {
   }
 }
 
-
-
-
-
 /* loading animation */
 .spinner-square > .square {
   width: 20%;
@@ -602,49 +604,47 @@ p.bouncing-text {
 }
 
 /* ======== extra style starts ========= */
-.auth-dashboard-icons{
-  @apply w-5 min-w-5 h-5 min-h-5 2xl:min-w-6 2xl:min-h-6 2xl:h-6 2xl:w-6
+.auth-dashboard-icons {
+  @apply w-5 min-w-5 h-5 min-h-5 2xl:min-w-6 2xl:min-h-6 2xl:h-6 2xl:w-6;
 }
 
-.section{
-  @apply py-9 md:py-10 lg:py-12 xl:py-14 2xl:py-16
+.section {
+  @apply py-9 md:py-10 lg:py-12 xl:py-14 2xl:py-16;
 }
-.section-pb{
-  @apply pb-9 md:pb-10 lg:pb-12 xl:pb-14 2xl:pb-16
+.section-pb {
+  @apply pb-9 md:pb-10 lg:pb-12 xl:pb-14 2xl:pb-16;
 }
 
-.table-shadow{
+.table-shadow {
   box-shadow: 0.5px 0.5px 5px -2px black;
 }
 
-.table-shadow::-webkit-scrollbar{
-   width: 5px;
+.table-shadow::-webkit-scrollbar {
+  width: 5px;
   height: 12px;
 }
 
-.table-shadow::-webkit-scrollbar-track{
+.table-shadow::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-.table-shadow::-webkit-scrollbar-thumb{
+.table-shadow::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
 }
 
-button.btn{
-  @apply py-1.5 lg:text-[18px] md:py-2 px-4 md:px-5 rounded-[5px] lg:rounded-[7px] bg-slate-200
+button.btn {
+  @apply py-1.5 lg:text-[18px] md:py-2 px-4 md:px-5 rounded-[5px] lg:rounded-[7px] bg-slate-200;
 }
 
-button.btn-success{
-  @apply duration-300 bg-blue-500 text-white hover:bg-blue-600
+button.btn-success {
+  @apply duration-300 bg-blue-500 text-white hover:bg-blue-600;
 }
 
-button.btn-danger{
-  @apply duration-300 bg-red-500 text-white hover:bg-red-600
+button.btn-danger {
+  @apply duration-300 bg-red-500 text-white hover:bg-red-600;
 }
-button.btn-warning{
-  @apply duration-300 bg-yellow-500 text-white hover:bg-yellow-600
+button.btn-warning {
+  @apply duration-300 bg-yellow-500 text-white hover:bg-yellow-600;
 }
-
-

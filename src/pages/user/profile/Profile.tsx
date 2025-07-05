@@ -1,6 +1,6 @@
 import Card from "@/components/shared/Card";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./components/UserProfileInfo";
 import ProfileForm from "./components/ProfileForm";
 
 export default function Profile() {

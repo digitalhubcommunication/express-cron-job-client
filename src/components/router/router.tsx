@@ -1,15 +1,16 @@
 import Home from "@/pages/home/Home";
 import { createBrowserRouter } from "react-router-dom";
 // import AuthUserRoute from "../wrapper/AuthUserRoute";
-import UserDashboard from "@/pages/user/dashboard/UserDashboard";
+import UserDashboardPage from "@/pages/user/dashboard/UserDashboard";
 import SettingsLayout from "../layout/SettingsLayout";
 import DashboardContainer from "../wrapper/DashboardContainer";
-import CloudflareSetup from "@/pages/user/cloudflareSetup/CloudflareSetup";
-import DhruFusionSetup from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
-import ConnectTelegram from "@/pages/user/connectTelegram/ConnectTelegram";
-import Profile from "@/pages/user/profile/Profile";
-import CronHistory from "@/pages/user/cronHistory/CronHistory";
-import ManualCrons from "@/pages/user/manualCron/ManualCrons";
+import CloudflareSetupPage from "@/pages/user/cloudflareSetup/CloudflareSetup";
+import DhruFusionSetupPage from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
+import ConnectTelegramPage from "@/pages/user/connectTelegram/ConnectTelegram";
+import ProfilePage from "@/pages/user/profile/Profile";
+import CronHistoryPage from "@/pages/user/cronHistory/CronHistory";
+import ManualCronsPage from "@/pages/user/manualCron/ManualCrons";
+import PackagesPage from "@/pages/package/Packages";
 import RootLayout from "../layout/RootLayout";
 
 export const router = createBrowserRouter([
@@ -18,12 +19,16 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Home />,
       },
       {
-        path: "blog",
-        element: <div>Blog Page</div>,
+        path: "packages",
+        element: <PackagesPage />,
+      },
+      {
+        path: "about",
+        element: <div>About Page</div>,
       },
       {
         path: "contact",
@@ -61,33 +66,32 @@ export const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <UserDashboard />,
+        element: <UserDashboardPage />,
       },
       {
         path: "manual-cron-setup",
-        element: <ManualCrons />,
+        element: <ManualCronsPage />,
       },
       {
         path: "cron-history",
-        element: <CronHistory />,
+        element: <CronHistoryPage />,
       },
       {
         path: "profile-and-password",
-        element: <Profile />,
+        element: <ProfilePage />,
       },
       {
         path: "connect-telegram",
-        element: <ConnectTelegram />,
+        element: <ConnectTelegramPage />,
       },
       {
         path: "dhru-fusion-setup",
-        element: <DhruFusionSetup />,
+        element: <DhruFusionSetupPage />,
       },
       {
         path: "cloudflare-setup",
-        element: <CloudflareSetup />,
+        element: <CloudflareSetupPage />,
       },
     ],
-    index: false,
   },
 ]);

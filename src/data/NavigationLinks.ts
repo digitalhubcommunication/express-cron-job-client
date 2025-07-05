@@ -2,7 +2,7 @@ import { CartIcon, ClockWorkIcon, CloudFlareIcon, NetworkIcon, TelegramIcon, Use
 import { TLink, TSidebarLink } from "@/types/types";
 
 
-export const authUserLinks:TSidebarLink[] = [
+export const authUserLinks: TSidebarLink[] = [
     {
         label: "Dashboard",
         Icon: UserDashboardIcon,
@@ -13,7 +13,7 @@ export const authUserLinks:TSidebarLink[] = [
         Icon: NetworkIcon,
         to: "/settings/manual-cron-setup"
     },
-     {
+    {
         label: "Cron History",
         Icon: ClockWorkIcon,
         to: "/settings/cron-history"
@@ -40,22 +40,18 @@ export const authUserLinks:TSidebarLink[] = [
     },
 ]
 
-export const navLinks:TLink[] = [
+export const navLinks: TLink[] = [
     {
         label: "Home",
         to: "/"
     },
     {
-        label: "About",
-        to: "/about"
-    },
-     {
-        label: "Features",
-        to: "/features"
-    },
-    {
         label: "Packages",
         to: "/packages"
+    },
+    {
+        label: "About",
+        to: "/about"
     },
     {
         label: "Contact",

@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 import { TLink } from "@/types/types";
 import { RootState } from "@/redux/store";
 import { SidebarCloseButton } from "../sidebar/Button";
+import UserProfile from "../profile/UserProfile";
 
 const Link = ({ link: { label, to } }: { link: TLink }) => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ export default function Navbar() {
   // hooks
   const dispatch = useDispatch();
   const { EXPAND } = useSelector((state: RootState) => state.modyfier);
+  const { authUser } = useSelector((state: RootState) => state.auth);
 
   // handlers
   const handleClick = () => {
@@ -79,32 +81,50 @@ export default function Navbar() {
               <SiteLogo />
               <SidebarCloseButton />
             </div>
-            {navLinks.map((link) => (
-              <Link link={link} key={link.to} />
-            ))}
+            {navLinks.map((link, _i) => {
+              return _i === 0 && !!authUser ? (
+                <>
+                  <Link link={link} key={link.to} />
+                  <NavLink
+                    onClick={handleClick}
+                    className={({ isActive }) =>
+                      `font-semibold md:font-normal duration-300 md:w-full text-[18px] ${
+                        isActive ? "text-blue-700" : "hover:text-blue-600"
+                      }`
+                    }
+                    to="/settings/dashboard"
+                  >
+                    Dashboard
+                  </NavLink>
+                </>
+              ) : (
+                <Link link={link} key={link.to} />
+              );
+            })}
 
-            {
-              <>
-                <NavLink
-                  onClick={handleClick}
-                  className={({ isActive }) =>
-                    `font-semibold md:font-normal duration-300 md:w-full text-[18px] ${
-                      isActive ? "text-blue-700" : "hover:text-blue-600"
-                    }`
-                  }
-                  to="/login"
-                >
-                  Login
-                </NavLink>
-                <button className="font-semibold md:font-normal duration-300 md:w-full text-[18px]">Logout</button>
-              </>
-            }
+            {!authUser ? (
+              <NavLink
+                onClick={handleClick}
+                className={({ isActive }) =>
+                  `font-semibold md:font-normal duration-300 md:w-full text-[18px] ${
+                    isActive ? "text-blue-700" : "hover:text-blue-600"
+                  }`
+                }
+                to="/login"
+              >
+                Login
+              </NavLink>
+            ) : (
+              <UserProfile/>
+            )}
           </div>
         </div>
 
         <button
-        data-prevent-body-trigger
-        className="md:hidden" onClick={handleClick}>
+          data-prevent-body-trigger
+          className="md:hidden"
+          onClick={handleClick}
+        >
           <HambergerMenuIcon className="w-10 h-6" />
         </button>
       </Container>

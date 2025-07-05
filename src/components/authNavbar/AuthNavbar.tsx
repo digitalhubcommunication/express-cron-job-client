@@ -1,4 +1,4 @@
-import Profile from "../profile/Profile";
+import Profile from "../profile/UserProfile";
 import SidebarToggler from "../sidebar/SidebarToggler";
 import TextLogo from "../logo/TextLogo";
 import MobileSidebarToggler from "./MobileSidebarToggler";

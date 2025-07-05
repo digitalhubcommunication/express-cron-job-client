@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type InitialState = {
+export type InitialState = {
   EXPAND: null | string;
   preventScrolling: boolean;
 };

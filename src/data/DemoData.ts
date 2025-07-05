@@ -25,7 +25,7 @@ export const user: IUser = {
     telegram: true,
     email: true
   },
-  packageExpiresAt: new Date(),
+  packageExpiresAt: new Date().toISOString(),
   profile: {
     avatarUrl: undefined,
     bio: "Short bio of the user"

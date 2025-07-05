@@ -55,7 +55,7 @@ export interface IUser {
     manualDomains?: TManualDomain[];
     telegramId?: string;
     telegramConnected: boolean;
-    packageExpiresAt: Date;
+    packageExpiresAt: string;
     subscription: SubscriptionInfo;
     manualCronCount: number;
     allowedToAddManualDomains: boolean;

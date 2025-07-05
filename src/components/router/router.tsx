@@ -10,16 +10,41 @@ import ConnectTelegram from "@/pages/user/connectTelegram/ConnectTelegram";
 import Profile from "@/pages/user/profile/Profile";
 import CronHistory from "@/pages/user/cronHistory/CronHistory";
 import ManualCrons from "@/pages/user/manualCron/ManualCrons";
+import RootLayout from "../layout/RootLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <RootLayout />,
+    children: [
+      {
+        index:true,
+        element: <Home />,
+      },
+      {
+        path: "blog",
+        element: <div>Blog Page</div>,
+      },
+      {
+        path: "contact",
+        element: <div>Contact page</div>,
+      },
+      {
+        path: "login",
+        element: <div>Login page</div>,
+      },
+      {
+        path: "register",
+        element: <div>Register page</div>,
+      },
+      {
+        path: "forgot-password",
+        element: <div>Forgot password page</div>,
+      },
+    ],
   },
-  {
-    path: "/blog",
-    element: <div>Blog Page</div>,
-  },
+
+  /* dashboard */
   {
     path: "/settings",
     element: <SettingsLayout />,
@@ -64,21 +89,5 @@ export const router = createBrowserRouter([
       },
     ],
     index: false,
-  },
-  {
-    path: "/contact",
-    element: <div>Contact page</div>,
-  },
-  {
-    path: "/login",
-    element: <div>Login page</div>,
-  },
-  {
-    path: "/register",
-    element: <div>Register page</div>,
-  },
-  {
-    path: "/forgot-password",
-    element: <div>Forgot password page</div>,
   },
 ]);

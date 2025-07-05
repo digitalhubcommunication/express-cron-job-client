@@ -632,7 +632,6 @@ p.bouncing-text {
   border-radius: 10px;
 }
 
-
 button.btn{
   @apply py-1.5 lg:text-[18px] md:py-2 px-4 md:px-5 rounded-[5px] lg:rounded-[7px] bg-slate-200
 }
@@ -647,4 +646,5 @@ button.btn-danger{
 button.btn-warning{
   @apply duration-300 bg-yellow-500 text-white hover:bg-yellow-600
 }
+
 

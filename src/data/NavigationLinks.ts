@@ -1,5 +1,5 @@
 import { CartIcon, ClockWorkIcon, CloudFlareIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon } from "@/components/icons/Icons";
-import { TSidebarLink } from "@/types/types";
+import { TLink, TSidebarLink } from "@/types/types";
 
 
 export const authUserLinks:TSidebarLink[] = [
@@ -38,4 +38,27 @@ export const authUserLinks:TSidebarLink[] = [
         Icon: CloudFlareIcon,
         to: "/settings/cloudflare-setup"
     },
+]
+
+export const navLinks:TLink[] = [
+    {
+        label: "Home",
+        to: "/"
+    },
+    {
+        label: "About",
+        to: "/about"
+    },
+     {
+        label: "Features",
+        to: "/features"
+    },
+    {
+        label: "Packages",
+        to: "/packages"
+    },
+    {
+        label: "Contact",
+        to: "/contact"
+    }
 ]

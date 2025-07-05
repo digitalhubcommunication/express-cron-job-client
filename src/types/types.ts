@@ -6,6 +6,11 @@ export type TSidebarLink = {
     to: string;
 }
 
+export type TLink = {
+    label: string;
+    to: string;
+}
+
 export type UserRole = 'admin' | 'user';
 export type SubscriptionType = 'silver' | 'gold' | 'diamond' | 'trial';
 
@@ -18,7 +23,7 @@ export type TDomain = {
 export type TManualDomain = {
     status: 'enabled' | 'disabled';
     url: string;
-    title: string;
+    title: string; 
     executionTime: number;
     _id: string;
 };

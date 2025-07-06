@@ -27,12 +27,12 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       onClick={handleClick}
       disabled={disabled}
-      className={`wt_btn_cta
+      className={`ecj_btn_cta
         ${className}
         ${disabled ? "cursor-not-allowed" : ""}`}
     >
-      <span className="wt_btn_cta-ripple"></span>
-      <span className="wt_fs-base wt_btn_cta-title">
+      <span className="ecj_btn_cta-ripple"></span>
+      <span className="wt_fs-base ecj_btn_cta-title">
         <span className={labelStyle} data-text={label}>
           {label}
         </span>

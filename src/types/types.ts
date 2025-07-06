@@ -84,3 +84,15 @@ export type TCronHistory = {
     responseTime: number;
     message: string;
 }
+
+
+// package type
+export type TPackage = {
+    _id:string;
+    name:string;
+    validity:number;
+    intervalInMS:number;
+    price:number;
+    manualCronLimit:number;
+    status:'available'|"unavailable";
+}

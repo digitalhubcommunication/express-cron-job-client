@@ -1,4 +1,4 @@
-import { IUser, TCronHistory } from "@/types/types";
+import { IUser, TCronHistory, TPackage } from "@/types/types";
 
 export const user: IUser = {
   name: "John Doe",
@@ -250,3 +250,36 @@ export const user: IUser = {
       message: "Profile loaded.",
     },
   ];
+
+
+
+  // ====== packages 
+  export const cronPackages:TPackage[] = [
+  {
+    "_id": "65f0e9b2a7c3d4e5f6a7b8c9",
+    "name": "Silver",
+    "validity": 30,
+    "intervalInMS": 7000,
+    "price": 19.99,
+    "manualCronLimit": 3,
+    "status": "available"
+  },
+  {
+    "_id": "65f0e9b2a7c3d4e5f6a7b8da",
+    "name": "Diamond",
+    "validity": 30,
+    "intervalInMS": 7000,
+    "price": 29.99,
+    "manualCronLimit": 5,
+    "status": "available"
+  },
+  {
+    "_id": "65f0e9b2a7c3d4e5f6a7b8eb",
+    "name": "Platinium",
+    "validity": 30,
+    "intervalInMS": 3000,
+    "price": 39.99,
+    "manualCronLimit": 7,
+    "status": "available"
+  }
+]

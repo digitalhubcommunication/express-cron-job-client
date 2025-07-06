@@ -51,7 +51,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="w-full bg-slate-100/20 fixed top-0 left-0 z-[99] dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
+    <div className="w-full bg-slate-100 fixed top-0 left-0 z-[99] dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
       <Container className="flex justify-between items-center min-h-[63px] lg:min-h-[65px]  w-full py-2.5 md:py-3 ">
         <SiteLogo />
 

@@ -1,4 +1,4 @@
-import { IUser, TCronHistory, TPackage } from "@/types/types";
+import { IUser, TCronHistory, TDistributor, TPackage } from "@/types/types";
 
 export const user: IUser = {
   name: "John Doe",
@@ -281,5 +281,64 @@ export const user: IUser = {
     "price": 39.99,
     "manualCronLimit": 7,
     "status": "available"
+  }
+]
+
+
+// distributors
+export const distributors:TDistributor[] = [
+  {
+    "_id": "dstr001abc",
+    "name": "Global Tech Solutions",
+    "phone": "+11234567890",
+    "whatsApp": "+11234567890",
+    "faceebook": "https://facebook.com/globaltech",
+    "telegram": "https://t.me/globaltechsupport",
+    "siteUrl": "https://globaltech.com"
+  },
+  {
+    "_id": "dstr002def",
+    "name": "Innovate Digital",
+    "phone": "+442012345678",
+    "whatsApp": "+442012345678",
+    "faceebook": "https://facebook.com/innovatedigital",
+    "telegram": "https://t.me/innovatedigital",
+    "siteUrl": "https://innovatedigital.co.uk"
+  },
+  {
+    "_id": "dstr003ghi",
+    "name": "East Asia Connect",
+    "phone": "+8613901234567",
+    "whatsApp": "+8613901234567",
+    "faceebook": "https://facebook.com/eastasiaconnect",
+    "telegram": "https://t.me/eastasiaconnect",
+    "siteUrl": "https://eastasiaconnect.cn"
+  },
+  {
+    "_id": "dstr004jkl",
+    "name": "African Innovations",
+    "phone": "+27712345678",
+    "whatsApp": "+27712345678",
+    "faceebook": "https://facebook.com/africaninnovations",
+    "telegram": "https://t.me/africaninnovations",
+    "siteUrl": "https://africaninnovations.africa"
+  },
+  {
+    "_id": "dstr005mno",
+    "name": "Oceanic Networks",
+    "phone": "+61412345678",
+    "whatsApp": "+61412345678",
+    "faceebook": "https://facebook.com/oceanicnetworks",
+    "telegram": "https://t.me/oceanicnetworks",
+    "siteUrl": "https://oceanicnet.au"
+  },
+  {
+    "_id": "dstr006pqr",
+    "name": "American Solutions",
+    "phone": "+5511987654321",
+    "whatsApp": "+5511987654321",
+    "faceebook": "https://facebook.com/samsolutions",
+    "telegram": "https://t.me/samsolutions",
+    "siteUrl": "https://samsolutions.br"
   }
 ]

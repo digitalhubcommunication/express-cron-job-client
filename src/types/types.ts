@@ -96,3 +96,14 @@ export type TPackage = {
     manualCronLimit:number;
     status:'available'|"unavailable";
 }
+
+export type TDistributor = {
+    _id:string;
+    name:string;
+    phone:string;
+    whatsApp:string;
+    faceebook:string;
+    telegram:string;
+    siteUrl:string;
+}
+

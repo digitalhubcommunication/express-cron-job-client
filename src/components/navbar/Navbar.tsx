@@ -53,7 +53,7 @@ export default function Navbar() {
   return (
     <div className="w-full bg-slate-100 fixed top-0 left-0 z-[99] dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
       <Container className="flex justify-between items-center min-h-[63px] lg:min-h-[65px]  w-full py-2.5 md:py-3 ">
-        <SiteLogo />
+        <SiteLogo className="inline-flex !w-auto" />
 
         {/* ====== navlink wrapper ====== */}
         <div
@@ -75,7 +75,7 @@ export default function Navbar() {
           {/* ===== overlay ====== */}
 
           <div
-            className={`max-w-[450px] md:max-w-screen bg-white md:p-0 h-full md:h-auto md:grow flex flex-col md:flex-row items-center gap-4 md:gap-5 lg:gap-6`}
+            className={`max-w-[450px] md:max-w-screen bg-white md:bg-transparent md:p-0 h-full md:h-auto md:grow flex flex-col md:flex-row items-center gap-4 md:gap-5 lg:gap-6`}
           >
             <div className="w-full flex mb-5 md:mb-0 border-b border-gray-300 dark:border-gray-700 px-4 py-2.5 md:py-0 md:hidden">
               <SiteLogo />

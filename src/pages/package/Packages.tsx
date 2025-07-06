@@ -1,6 +1,7 @@
 import Container from "@/components/wrapper/Container";
-import { cronPackages } from "@/data/DemoData";
+import { cronPackages, distributors } from "@/data/DemoData";
 import PackageCard from "./components/PackageCard";
+import DistributorCard from "./components/DistributorCard";
 
 export default function Packages() {
   return (
@@ -9,16 +10,26 @@ export default function Packages() {
         <section className="section-inner-speacing">
           <h1 className="text-center">Our Available Packages</h1>
 
-        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-7 lg:mt-10 gap-10">
-          {cronPackages.map((item, index) => (
-            <PackageCard index={index} key={item._id} cronPackage={item} />
-          ))}
-        </div>
-        </section>
-        <section>
-
+          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-7 lg:mt-10 gap-10">
+            {cronPackages.map((item, index) => (
+              <PackageCard index={index} key={item._id} cronPackage={item} />
+            ))}
+          </div>
         </section>
       </Container>
+
+      <Container>
+        <section className="section-inner-speacing">
+          <h1 className="text-center">Our Distributors and Resellers</h1>
+
+          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] mt-7 lg:mt-10  gap-6 md:gap-8 lg:gap-10">
+            {distributors.map((item) => (
+              <DistributorCard key={item._id} distributor={item} />
+            ))}
+          </div>
+        </section>
+      </Container>
+      <div className="section-top-speacing"></div>
     </div>
   );
 }

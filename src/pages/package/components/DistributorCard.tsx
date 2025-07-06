@@ -16,7 +16,7 @@ export default function DistributorCard({ distributor }: Props) {
       <a
         target="_blank"
         href={distributor.siteUrl}
-        className="uppercase ecj_fs-lg font-semibold text-blue-400"
+        className="uppercase ecj_fs-md font-semibold text-blue-400"
       >
         {distributor.name}
       </a>
@@ -27,16 +27,16 @@ export default function DistributorCard({ distributor }: Props) {
         </p>
         <div className="w-full flex items-center gap-5 mt-3">
           <a target="_blank" href={distributor.whatsApp}>
-            <WhatsAppIcon className="w-7 md:w-8 h-7 md:h-8" />
+            <WhatsAppIcon className="w-7 h-7" />
           </a>
           <a target="_blank" href={distributor.telegram}>
-            <TelegramIcon className="md:w-7 w-6 h-6 md:h-7" />
+            <TelegramIcon className="w-6 h-6" />
           </a>
           <a target="_blank" href={distributor.faceebook}>
-            <FacebookIcon className="md:w-7 w-6 h-6 md:h-7" />
+            <FacebookIcon className="w-6 h-6" />
           </a>
           <a target="_blank" href={distributor.siteUrl}>
-            <GlobeIcon className="md:w-7 w-6 h-6 md:h-7" />
+            <GlobeIcon className="w-6 h-6" />
           </a>
         </div>
       </div>

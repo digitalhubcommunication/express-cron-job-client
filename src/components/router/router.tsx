@@ -11,6 +11,7 @@ import ProfilePage from "@/pages/user/profile/Profile";
 import CronHistoryPage from "@/pages/user/cronHistory/CronHistory";
 import ManualCronsPage from "@/pages/user/manualCron/ManualCrons";
 import PackagesPage from "@/pages/package/Packages";
+import AboutPage from "@/pages/about/About";
 import RootLayout from "../layout/RootLayout";
 
 export const router = createBrowserRouter([
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "about",
-        element: <div>About Page</div>,
+        element:<AboutPage />,
       },
       {
         path: "contact",

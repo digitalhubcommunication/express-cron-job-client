@@ -13,6 +13,9 @@ import ManualCronsPage from "@/pages/user/manualCron/ManualCrons";
 import PackagesPage from "@/pages/package/Packages";
 import AboutPage from "@/pages/about/About";
 import RootLayout from "../layout/RootLayout";
+import ContactPage from "@/pages/contact/Contact";
+import PrivacyPolicy from "@/pages/privacyPolicy/PrivacyPolicy";
+import Terms from "@/pages/terms/Terms";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "contact",
-        element: <div>Contact page</div>,
+        element: <ContactPage />,
       },
       {
         path: "login",
@@ -46,6 +49,14 @@ export const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: <div>Forgot password page</div>,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "terms-and-condition",
+        element: <Terms />,
       },
     ],
   },

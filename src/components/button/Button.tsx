@@ -6,6 +6,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   labelStyle?: string;
+  type?:"button"|"submit";
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   cb,
   disabled = false,
   labelStyle = "",
+  type='button',
 }) => {
   
   // handlers
@@ -27,6 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       onClick={handleClick}
       disabled={disabled}
+      type={type}
       className={`ecj_btn_cta
         ${className}
         ${disabled ? "cursor-not-allowed" : ""}`}

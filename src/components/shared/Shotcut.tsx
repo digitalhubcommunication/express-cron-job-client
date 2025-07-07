@@ -22,6 +22,9 @@ const { authUser } = useSelector((state: RootState) => state.auth);
 };
 
 
+ <img src={setup_guide_1} width={1000} height={700} alt="Cloudflare setup 1" className="w-full max-w-[950px] h-auto" />
+
+
 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))]
 
 

@@ -54,7 +54,7 @@ export default function Home() {
           </p>
           <div className="w-full text-center flex items-center justify-center">
             <Link className="block mt-5" to="/packages">
-              <Button className="ecj_fs-base" label="Start Now" />
+              <Button className="ecj_fs-base" label="Get Now" />
             </Link>
           </div>
         </Container>

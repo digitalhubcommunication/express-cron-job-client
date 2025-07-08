@@ -30,7 +30,7 @@ export default function PageBanner({
       </div>
 
       {/* ========== background image =========== */}
-      <div className={`w-full z-10 absolute top-0 left-0 h-full ${bgStyle}`}>
+      <div className={`bg-black w-full z-10 absolute top-0 left-0 h-full ${bgStyle}`}>
         <img
           className="w-full h-full object-cover"
           width={1200}

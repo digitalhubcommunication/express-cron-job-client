@@ -1,8 +1,7 @@
 import PageBanner from "@/components/shared/PageBanner";
 import Container from "@/components/wrapper/Container";
 import bannerImg from "@/assets/banner/about-banner.png";
-import { distributors } from "@/data/DemoData";
-import DistributorCard from "./components/DistributorCard";
+import Distributor from "./components/Distributor";
 
 export default function About() {
   return (
@@ -14,23 +13,11 @@ export default function About() {
         img={bannerImg}
         description="Discover Our Story. Learn about who we are, what we do, and how we're committed to supporting you on your cronjob automation journey."
       />
-      <Container>
-              <section className="section-inner-speacing">
-                <h3 className="text-center">Our Distributors and Resellers</h3>
-      
-                <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] mt-7 lg:mt-10  gap-6 md:gap-8 lg:gap-10">
-                  {distributors.map((item) => (
-                    <DistributorCard key={item._id} distributor={item} />
-                  ))}
-                </div>
-              </section>
-            </Container>
+     <Distributor />
       <Container>
         <section className="section-inner-speacing">
           {/* <h3 className="text-center">Our Available Packages</h3> */}
-          <div className="w-full flex items-center">
-            
-          </div>
+          <div className="w-full flex items-center"></div>
         </section>
       </Container>
     </div>

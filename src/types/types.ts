@@ -107,3 +107,8 @@ export type TDistributor = {
     siteUrl:string;
 }
 
+export type TFeature = {
+    title: string;
+    Icon: FC;
+    des: string;
+}

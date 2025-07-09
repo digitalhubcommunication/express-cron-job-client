@@ -14,8 +14,14 @@ import PackagesPage from "@/pages/package/Packages";
 import AboutPage from "@/pages/about/About";
 import RootLayout from "../layout/RootLayout";
 import ContactPage from "@/pages/contact/Contact";
-import PrivacyPolicy from "@/pages/privacyPolicy/PrivacyPolicy";
-import Terms from "@/pages/terms/Terms";
+import PrivacyPolicyPage from "@/pages/privacyPolicy/PrivacyPolicy";
+import TermsPage from "@/pages/terms/Terms";
+import AdminLayout from "../layout/AdminLayout";
+import NotFoundPage from "@/pages/shared/NotFound";
+import AdminDashboardPage from "@/pages/admin/dashboard/AdminDashboard";
+import RegisteredUsersPage from "@/pages/admin/users/RegisteredUsers";
+import UserCronHistoryPage from "@/pages/admin/cronHistory/UserCronHistory";
+import AllPackagesPage from "@/pages/admin/allPackages/AllPackages";
 
 export const router = createBrowserRouter([
   {
@@ -52,11 +58,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "privacy-policy",
-        element: <PrivacyPolicy />,
+        element: <PrivacyPolicyPage />,
       },
       {
         path: "terms-and-condition",
-        element: <Terms />,
+        element: <TermsPage />,
       },
     ],
   },
@@ -106,4 +112,59 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  /* Admin */
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <DashboardContainer>
+            <h5 className="text-center mt-20">
+              Welcome! Good to have you back.
+            </h5>
+          </DashboardContainer>
+        ),
+      },
+      {
+        path: "dashboard",
+        element: <AdminDashboardPage />,
+      },
+      {
+        path: "users",
+        element: <RegisteredUsersPage />,
+      },
+      {
+        path: "user-cron-history",
+        element: <UserCronHistoryPage />,
+      },
+      {
+        path: "all-packages",
+        element: <AllPackagesPage />,
+      },
+      {
+        path: "profile-and-password",
+        element: <ProfilePage />,
+      },
+      {
+        path: "connect-telegram",
+        element: <ConnectTelegramPage />,
+      },
+      {
+        path: "dhru-fusion-setup",
+        element: <DhruFusionSetupPage />,
+      },
+      {
+        path: "cloudflare-setup",
+        element: <CloudflareSetupPage />,
+      },
+    ],
+  },
+
+  {
+    path:"*",
+    element:<NotFoundPage />
+  }
 ]);

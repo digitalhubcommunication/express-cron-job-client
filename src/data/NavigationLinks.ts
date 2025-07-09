@@ -1,4 +1,4 @@
-import { CartIcon, ClockWorkIcon, CloudFlareIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon } from "@/components/icons/Icons";
+import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
 import { TLink, TSidebarLink } from "@/types/types";
 
 
@@ -37,6 +37,44 @@ export const authUserLinks: TSidebarLink[] = [
         label: "Cloudflare Setup",
         Icon: CloudFlareIcon,
         to: "/settings/cloudflare-setup"
+    },
+]
+
+export const adminLinks: TSidebarLink[] = [
+    {
+        label: "Dashboard",
+        Icon: UserDashboardIcon,
+        to: "/admin/dashboard"
+    },
+    {
+        label: "Users",
+        Icon: UsersIcon,
+        to: "/admin/users"
+    },
+    {
+        label: "History",
+        Icon: ClockWorkIcon,
+        to: "/admin/user-cron-history"
+    },
+    {
+        label: "Packages",
+        Icon: CreditCartIcon,
+        to: "/admin/all-packages"
+    },
+    {
+        label: "Connect Telegram",
+        Icon: TelegramIcon,
+        to: "/admin/connect-telegram"
+    },
+    {
+        label: "Dhru Fusion Setup",
+        Icon: CartIcon,
+        to: "/admin/dhru-fusion-setup"
+    },
+    {
+        label: "Cloudflare Setup",
+        Icon: CloudFlareIcon,
+        to: "/admin/cloudflare-setup"
     },
 ]
 

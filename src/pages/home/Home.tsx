@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="w-full">
       <section className={`w-full h-auto relative`}>
-        <Container className="flex flex-col md:flex-row items-center md:gap-10 lg:gap-20">
+        <Container className="flex flex-col md:flex-row items-center md:gap-10 lg:gap-20 2xl:min-h-[668px]">
           <div className="w-full max-w-[400px] mx-auto md:max-w-full md:w-3/6">
             <Lottie animationData={lottieJson} loop={true} />
           </div>

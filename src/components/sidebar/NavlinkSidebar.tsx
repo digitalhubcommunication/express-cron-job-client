@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ExpandableLogo from "../logo/ExpandableLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { authUserLinks } from "@/data/NavigationLinks";
+import { adminLinks, authUserLinks } from "@/data/NavigationLinks";
 import Logout from "../logout/Logout";
 import { SidebarCloseButton } from "./Button";
 import { SET_EXPAND } from "@/redux/features/rootModyfier/Modyfier";
@@ -45,6 +45,10 @@ const AuthUserLinks = () => {
   return authUserLinks.map((link) => <SidebarLink link={link} key={link.to} />);
 };
 
+const AdminLinks = () => {
+  return adminLinks.map((link) => <SidebarLink link={link} key={link.to} />);
+};
+
 export default function NavlinkSidebar() {
   const minimizeSidebar = useSelector(
     (state: RootState) => state.sidebarToggler.EXPAND
@@ -85,7 +89,8 @@ export default function NavlinkSidebar() {
         <div className="w-full grow max-h-screen py-2.5 md:py-3">
           <div className="w-full flex flex-col items-start gap-1.5 2xl:gap-2 pb-20">
             {/* ======= authenticated user links ====== */}
-            <AuthUserLinks />
+            {/* <AuthUserLinks /> */}
+            <AdminLinks />
             <Logout />
           </div>
         </div>

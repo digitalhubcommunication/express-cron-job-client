@@ -8,32 +8,11 @@ import {
   TelegramIcon,
   UserIcon,
 } from "@/components/icons/Icons";
+import { DashboardInfoCard } from "@/components/shared/Card";
 import InvalidUser from "@/components/shared/InvalidUser";
 import { RootState } from "@/redux/store";
 import { format } from "date-fns";
-import { ReactNode } from "react";
 import { useSelector } from "react-redux";
-
-type CardProps = {
-  children: ReactNode;
-  label: string;
-  value: string;
-  valueStyle?: string;
-};
-
-const Card = ({ children, label, value, valueStyle = "" }: CardProps) => {
-  return (
-    <div className="w-full border  border-slate-300 shadow flex justify-start items-center gap-5 rounded-[10px] p-2 md:p-3">
-      {children}
-      <div className="grow flex flex-col justify-center">
-        <h6 className=" ecj_fs-md font-semibold mb-0.5">{label}</h6>
-        <p className={`ecj_fs-md text-black dark:text-white ${valueStyle}`}>
-          {value}
-        </p>
-      </div>
-    </div>
-  );
-};
 
 export default function BasicInfo() {
   const { authUser } = useSelector((state: RootState) => state.auth);
@@ -53,12 +32,16 @@ export default function BasicInfo() {
   }
   return (
     <div className="w-full flex flex-col sm:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 md:gap-7">
-      <Card label="User Name" value={authUser.username} key="USER_NAME_CARD">
+      <DashboardInfoCard
+        label="User Name"
+        value={authUser.username}
+        key="USER_NAME_CARD"
+      >
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <UserIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="Domain"
         value={authUser.domain}
         key="USER_CRONJOBS_DOMAIN_CARD"
@@ -66,9 +49,9 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
+      </DashboardInfoCard>
 
-      <Card
+      <DashboardInfoCard
         label="Package"
         value={packageType}
         key="USER_CRONJOBS_PACKAGE_CARD"
@@ -76,8 +59,8 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500">
           <CreditCartIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="Expired Time"
         value={packageExpired}
         key="USER_CRONJOBS_PACKAGE_EXPIRY_CARD"
@@ -85,8 +68,8 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500">
           <CountDownBoxIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="Cron Jobs"
         value={toalCrons.toString()}
         key="USER_TOTAL_CRONJOBS_CARD"
@@ -94,8 +77,8 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <RobotIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="CronJob Work"
         value={
           authUser.defaultDomains[0].status === "enabled" ? "ONLINE" : "OFFLINE"
@@ -110,8 +93,8 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <ClockWorkIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="Price Update"
         value={
           authUser.defaultDomains[1]?.status === "enabled"
@@ -128,8 +111,8 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <BillIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
-      <Card
+      </DashboardInfoCard>
+      <DashboardInfoCard
         label="Telegram"
         value={authUser.telegramConnected ? "Connected" : "Not Connected"}
         key="USER_TELEGRAM_CONNECTION_STATUS_CARD"
@@ -137,7 +120,7 @@ export default function BasicInfo() {
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
           <TelegramIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
-      </Card>
+      </DashboardInfoCard>
     </div>
   );
 }

@@ -113,7 +113,8 @@ export type TFeature = {
     des: string;
 }
 
-
+// user lists
+export type TUserFilter = "name"|"email"|"status"|"domain"|"subscription"
 
 
 

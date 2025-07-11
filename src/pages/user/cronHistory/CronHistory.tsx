@@ -12,7 +12,7 @@ export default function CronHistory() {
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
-        <h6 className="text-center">History for all Cron Job</h6>
+        <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
           <SearchBar />
           <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh]">

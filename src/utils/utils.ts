@@ -33,3 +33,13 @@ export function getUserFilterInputPlaceholderText(filterType:TUserFilter):string
             return "Enter name"
     }
 }
+
+
+export function generateMongoId(): string {
+  const chars = 'abcdef0123456789';
+  let str = '';
+  for (let i = 0; i < 24; i++) {
+    str += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return str;
+}

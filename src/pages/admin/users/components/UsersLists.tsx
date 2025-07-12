@@ -1,10 +1,14 @@
 import {
   CheckIcon,
   FilterIcon,
+  GlobeIcon,
+  ListIcon,
+  MailIcon,
   SearchIcon,
+  UserIcon,
   XMarkIcon,
 } from "@/components/icons/Icons";
-import { cronHistories } from "@/data/DemoData";
+import { cronHistories, demoUsers } from "@/data/DemoData";
 import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { TUserFilter } from "@/types/types";
 import { getUserFilterInputPlaceholderText } from "@/utils/utils";
@@ -12,9 +16,8 @@ import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UsersLists() {
-
   // hooks
-  const [filterType, setFilterType] = useState<TUserFilter>("name")
+  const [filterType, setFilterType] = useState<TUserFilter>("name");
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,18 +35,22 @@ export default function UsersLists() {
     toast.warn("API integration in progress");
   };
 
-  const handleFilterChange = (e:ChangeEvent<HTMLSelectElement>)=>{
-    const selectedType = e.target.value as TUserFilter
-    setFilterType(selectedType)
-  }
+  const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedType = e.target.value as TUserFilter;
+    setFilterType(selectedType);
+  };
   return (
     <>
-      <div className="w-full bg-white border sticky top-[63px] md:top-[65px] right-0">
+      <div className="w-full bg-white sticky top-[63px] md:top-[65px] right-0">
         {/* ===== filter and search ====== */}
         <div className="w-full flex pt-5 items-center flex-wrap md:justify-end gap-5 mb-5">
           <div className="flex items-center gap-3 md:gap-5 ">
             <FilterIcon className="w-6 h-6" />
-            <select title="Filter By" onChange={handleFilterChange} className="border outline-none border-slate-300 py-1.5 px-2 rounded-[5px] lg:rounded-[7px]">
+            <select
+              title="Filter By"
+              onChange={handleFilterChange}
+              className="border outline-none border-slate-300 py-1.5 px-2 rounded-[5px] lg:rounded-[7px]"
+            >
               <option value="name">Name</option>
               <option value="email">Email</option>
               <option value="status">Status</option>
@@ -76,32 +83,32 @@ export default function UsersLists() {
         </div>
 
         {/* ====== table heading ======= */}
-        <div className="w-full flex mt-5 h-20 bg-red-200 ">
-                <span>#</span>
-                <span>Name</span>
-                <span>Email</span>
-                <span>Domain</span>
-                <span>Manual Domain</span>
-                <span>Status</span>
-                <span>Package</span>
-                <span>Validity</span>
-                <span>Action</span>
+        <div className="w-full flex border border-slate-300 py-1 items-center justify-between px-3">
+          <span className="w-20">
+            <ListIcon className="w-5" />
+          </span>
+          <span className="max-w-[200px] grow">Name</span>
+          <span className="grow max-w-[300px]">Email</span>
+          <span className="grow bg-red-200">Domain</span>
+          <span className="grow max-w-[200px]">Status</span>
+          <span className="grow max-w-[200px]">Action</span>
         </div>
       </div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
-      <div className="w-full h-20 bg-slate-100 border my-5"></div>
+      {demoUsers.map((user, i) => (
+        <div
+          key={user._id}
+          className="w-full flex items-center justify-between border border-slate-300 border-t-0 py-1.5 px-3"
+        >
+          <span className="w-20">{i + 1}</span>
+          <span className="max-w-[200px] bg-blue-200 grow">{user.name}</span>
+          <span className="grow max-w-[300px]">{user.email}</span>
+          <span className="grow bg-red-200">{user.domain}</span>
+          <span className="grow max-w-[200px] ">{user.status}</span>
+          <span className="grow max-w-[200px] ">
+            <button>{user.status === "enabled" ? "Disable" : "Enable"}</button>
+          </span>
+        </div>
+      ))}
     </>
   );
 }

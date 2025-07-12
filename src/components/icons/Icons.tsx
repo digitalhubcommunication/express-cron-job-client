@@ -234,7 +234,11 @@ export const RobotIcon = ({ className = "" }: { className?: string }) => {
   );
 };
 
-export const CreditCartIcon = ({  className = "auth-dashboard-icons" }: { className?: string }) => {
+export const CreditCartIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       className={className}
@@ -500,7 +504,7 @@ export const CallIcon = ({
 };
 
 export const UsersIcon = ({
-   className = "auth-dashboard-icons",
+  className = "auth-dashboard-icons",
 }: {
   className?: string;
 }) => {
@@ -518,4 +522,40 @@ export const UsersIcon = ({
   );
 };
 
+export const MailIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+        fill="currentcolor"
+      />
+    </svg>
+  );
+};
 
+export const ListIcon = ({
+  className = "auth-dashboard-icons",
+}: {
+  className?: string;
+}) => {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M24 56c0-13.3 10.7-24 24-24l32 0c13.3 0 24 10.7 24 24l0 120 16 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l16 0 0-96-8 0C34.7 80 24 69.3 24 56zM86.7 341.2c-6.5-7.4-18.3-6.9-24 1.2L51.5 357.9c-7.7 10.8-22.7 13.3-33.5 5.6s-13.3-22.7-5.6-33.5l11.1-15.6c23.7-33.2 72.3-35.6 99.2-4.9c21.3 24.4 20.8 60.9-1.1 84.7L86.8 432l33.2 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-88 0c-9.5 0-18.2-5.6-22-14.4s-2.1-18.9 4.3-25.9l72-78c5.3-5.8 5.4-14.6 .3-20.5zM224 64l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"
+        fill="currentcolor"
+      />
+    </svg>
+  );
+};

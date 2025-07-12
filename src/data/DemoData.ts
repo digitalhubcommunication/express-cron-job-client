@@ -1,6 +1,8 @@
 import { IUser, TCronHistory, TDistributor, TPackage } from "@/types/types";
+import { generateMongoId } from "@/utils/utils";
 
 export const user: IUser = {
+  "_id": generateMongoId(),
   name: "John Doe",
   role: "admin",
   status: 'enabled',
@@ -73,188 +75,188 @@ export const user: IUser = {
 
 
 
-  function randomId(): string {
-    return Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
-  }
+function randomId(): string {
+  return Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+}
 
-  export const cronHistories: TCronHistory[] = [
-    {
-      _id: randomId(),
-      domain: "example.com",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 185,
-      message: "Operation successful.",
-    },
-    {
-      _id: randomId(),
-      domain: "test-site.org",
-      status: 404,
-      type: "manual",
-      success: false,
-      responseTime: 92,
-      message: "Resource not found.",
-    },
-    {
-      _id: randomId(),
-      domain: "my-app.net",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 340,
-      message: "Data retrieved successfully.",
-    },
-    {
-      _id: randomId(),
-      domain: "dev.io",
-      status: 500,
-      type: "manual",
-      success: false,
-      responseTime: 1200,
-      message: "Internal server error.",
-    },
-    {
-      _id: randomId(),
-      domain: "production.xyz",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 75,
-      message: "Request processed.",
-    },
-    {
-      _id: randomId(),
-      domain: "staging.info",
-      status: 401,
-      type: "default",
-      success: false,
-      responseTime: 60,
-      message: "Authentication failed.",
-    },
-    {
-      _id: randomId(),
-      domain: "blog.co",
-      status: 200,
-      type: "manual",
-      success: true,
-      responseTime: 210,
-      message: "Post updated.",
-    },
-    {
-       _id: randomId(),
-      domain: "dashboard.ai",
-      status: 403,
-      type: "manual",
-      success: false,
-      responseTime: 88,
-      message: "Permission denied.",
-    },
-    {
-       _id: randomId(),
-      domain: "ecom.shop",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 99,
-      message: "Order placed successfully.",
-    },
-    {
-       _id: randomId(),
-      domain: "news.site",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 130,
-      message: "Content loaded.",
-    },
-    {
-       _id: randomId(),
-      domain: "portal.cloud",
-      status: 503,
-      type: "manual",
-      success: false,
-      responseTime: 1500,
-      message: "Service unavailable.",
-    },
-    {
-       _id: randomId(),
-      domain: "docs.dev",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 250,
-      message: "Document fetched.",
-    },
-    {
-       _id: randomId(),
-      domain: "metrics.data",
-      status: 200,
-      type: "manual",
-      success: true,
-      responseTime: 600,
-      message: "Metrics retrieved.",
-    },
-    {
-       _id: randomId(),
-      domain: "backup.storage",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 780,
-      message: "Backup completed.",
-    },
-    {
-       _id: randomId(),
-      domain: "admin.panel",
-      status: 400,
-      type: "manual",
-      success: false,
-      responseTime: 55,
-      message: "Bad request parameters.",
-    },
-    {
-       _id: randomId(),
-      domain: "marketing.tools",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 310,
-      message: "Campaign updated.",
-    },
-    {
-       _id: randomId(),
-      domain: "support.help",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 115,
-      message: "Ticket created.",
-    },
-    {
-       _id: randomId(),
-      domain: "analytics.app",
-      status: 504,
-      type: "manual",
-      success: false,
-      responseTime: 2000,
-      message: "Gateway timeout.",
-    },
-    {
-       _id: randomId(),
-      domain: "profile.me",
-      status: 200,
-      type: "default",
-      success: true,
-      responseTime: 90,
-      message: "Profile loaded.",
-    },
-  ];
+export const cronHistories: TCronHistory[] = [
+  {
+    _id: randomId(),
+    domain: "example.com",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 185,
+    message: "Operation successful.",
+  },
+  {
+    _id: randomId(),
+    domain: "test-site.org",
+    status: 404,
+    type: "manual",
+    success: false,
+    responseTime: 92,
+    message: "Resource not found.",
+  },
+  {
+    _id: randomId(),
+    domain: "my-app.net",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 340,
+    message: "Data retrieved successfully.",
+  },
+  {
+    _id: randomId(),
+    domain: "dev.io",
+    status: 500,
+    type: "manual",
+    success: false,
+    responseTime: 1200,
+    message: "Internal server error.",
+  },
+  {
+    _id: randomId(),
+    domain: "production.xyz",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 75,
+    message: "Request processed.",
+  },
+  {
+    _id: randomId(),
+    domain: "staging.info",
+    status: 401,
+    type: "default",
+    success: false,
+    responseTime: 60,
+    message: "Authentication failed.",
+  },
+  {
+    _id: randomId(),
+    domain: "blog.co",
+    status: 200,
+    type: "manual",
+    success: true,
+    responseTime: 210,
+    message: "Post updated.",
+  },
+  {
+    _id: randomId(),
+    domain: "dashboard.ai",
+    status: 403,
+    type: "manual",
+    success: false,
+    responseTime: 88,
+    message: "Permission denied.",
+  },
+  {
+    _id: randomId(),
+    domain: "ecom.shop",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 99,
+    message: "Order placed successfully.",
+  },
+  {
+    _id: randomId(),
+    domain: "news.site",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 130,
+    message: "Content loaded.",
+  },
+  {
+    _id: randomId(),
+    domain: "portal.cloud",
+    status: 503,
+    type: "manual",
+    success: false,
+    responseTime: 1500,
+    message: "Service unavailable.",
+  },
+  {
+    _id: randomId(),
+    domain: "docs.dev",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 250,
+    message: "Document fetched.",
+  },
+  {
+    _id: randomId(),
+    domain: "metrics.data",
+    status: 200,
+    type: "manual",
+    success: true,
+    responseTime: 600,
+    message: "Metrics retrieved.",
+  },
+  {
+    _id: randomId(),
+    domain: "backup.storage",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 780,
+    message: "Backup completed.",
+  },
+  {
+    _id: randomId(),
+    domain: "admin.panel",
+    status: 400,
+    type: "manual",
+    success: false,
+    responseTime: 55,
+    message: "Bad request parameters.",
+  },
+  {
+    _id: randomId(),
+    domain: "marketing.tools",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 310,
+    message: "Campaign updated.",
+  },
+  {
+    _id: randomId(),
+    domain: "support.help",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 115,
+    message: "Ticket created.",
+  },
+  {
+    _id: randomId(),
+    domain: "analytics.app",
+    status: 504,
+    type: "manual",
+    success: false,
+    responseTime: 2000,
+    message: "Gateway timeout.",
+  },
+  {
+    _id: randomId(),
+    domain: "profile.me",
+    status: 200,
+    type: "default",
+    success: true,
+    responseTime: 90,
+    message: "Profile loaded.",
+  },
+];
 
 
 
-  // ====== packages 
-  export const cronPackages:TPackage[] = [
+// ====== packages 
+export const cronPackages: TPackage[] = [
   {
     "_id": "65f0e9b2a7c3d4e5f6a7b8c9",
     "name": "Silver",
@@ -286,7 +288,7 @@ export const user: IUser = {
 
 
 // distributors
-export const distributors:TDistributor[] = [
+export const distributors: TDistributor[] = [
   {
     "_id": "dstr001abc",
     "name": "Global Tech Solutions",
@@ -349,8 +351,10 @@ export const distributors:TDistributor[] = [
 
 // TODO: 
 // ========= demo uses data ========
-export const demoUsers:IUser[] = [
+
+export const demoUsers: IUser[] = [
   {
+    "_id": generateMongoId(),
     "name": "Alice Smith",
     "email": "alice.smith@example.com",
     "username": "alicesmith",
@@ -399,6 +403,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Bob Johnson",
     "email": "bob.johnson@example.com",
     "username": "bobjohnson",
@@ -429,6 +434,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Charlie Brown",
     "email": "charlie.brown@example.com",
     "username": "charlieb",
@@ -477,6 +483,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Diana Prince",
     "email": "diana.prince@example.com",
     "username": "wonderwoman",
@@ -509,6 +516,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Eve Adams",
     "email": "eve.adams@example.com",
     "username": "evea",
@@ -539,6 +547,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Frank White",
     "email": "frank.white@example.com",
     "username": "frankw",
@@ -580,6 +589,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Grace Green",
     "email": "grace.green@example.com",
     "username": "graceg",
@@ -604,6 +614,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Harry Black",
     "email": "harry.black@example.com",
     "username": "harryb",
@@ -637,6 +648,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Ivy Blue",
     "email": "ivy.blue@example.com",
     "username": "ivyb",
@@ -667,6 +679,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Jack Red",
     "email": "jack.red@example.com",
     "username": "jackr",
@@ -697,6 +710,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Karen Yellow",
     "email": "karen.yellow@example.com",
     "username": "kareny",
@@ -746,6 +760,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Liam Orange",
     "email": "liam.orange@example.com",
     "username": "liamo",
@@ -776,6 +791,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Mia Purple",
     "email": "mia.purple@example.com",
     "username": "miap",
@@ -809,6 +825,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Noah Pink",
     "email": "noah.pink@example.com",
     "username": "noahp",
@@ -839,6 +856,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Olivia Teal",
     "email": "olivia.teal@example.com",
     "username": "oliviat",
@@ -881,6 +899,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Peter Cyan",
     "email": "peter.cyan@example.com",
     "username": "peterc",
@@ -911,6 +930,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Quinn Magenta",
     "email": "quinn.magenta@example.com",
     "username": "quinnm",
@@ -952,6 +972,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Rachel Brown",
     "email": "rachel.brown@example.com",
     "username": "rachelb",
@@ -982,6 +1003,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Sam Grey",
     "email": "sam.grey@example.com",
     "username": "samg",
@@ -1024,6 +1046,7 @@ export const demoUsers:IUser[] = [
     }
   },
   {
+    "_id": generateMongoId(),
     "name": "Tina Gold",
     "email": "tina.gold@example.com",
     "username": "tinag",
@@ -1054,6 +1077,7 @@ export const demoUsers:IUser[] = [
     "profile": {}
   },
   {
+    "_id": generateMongoId(),
     "name": "Uma Violet",
     "email": "uma.violet@example.com",
     "username": "umav",

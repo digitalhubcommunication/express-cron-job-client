@@ -9,17 +9,25 @@ import {
   XMarkIcon,
 } from "@/components/icons/Icons";
 import { cronHistories, demoUsers } from "@/data/DemoData";
+import Pagination from "@/pages/shared/Pagination";
 import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { TUserFilter } from "@/types/types";
 import { getUserFilterInputPlaceholderText } from "@/utils/utils";
-import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UsersLists() {
   // hooks
   const [filterType, setFilterType] = useState<TUserFilter>("name");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(30);
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+   
+  }, [])
+  
 
   //   handlers
   const handleKeyChange = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -41,9 +49,9 @@ export default function UsersLists() {
   };
   return (
     <>
-      <div className="w-full bg-white sticky top-[63px] md:top-[65px] right-0">
+      <div className="w-full bg-white z-20 sticky top-[63px] md:top-[65px] right-0">
         {/* ===== filter and search ====== */}
-        <div className="w-full flex pt-5 items-center flex-wrap md:justify-end gap-5 mb-5">
+        <div className="w-full flex md:pt-5 items-center flex-wrap md:justify-end gap-2 md:gap-5 mb-5">
           <div className="flex items-center gap-3 md:gap-5 ">
             <FilterIcon className="w-6 h-6" />
             <select
@@ -81,34 +89,93 @@ export default function UsersLists() {
             </button>
           </div>
         </div>
+      </div>
+      {/* ====== table heading ======= */}
+      <div className="overflow-x-auto border-t border-b max-h-[500px] h-[50vh] xl:h-[60vh] lg:border border-slate-300 rounded-md">
+        {/* Desktop Table */}
+        <table className="w-full min-w-[750px] lg:min-w-[800px] text-left border-collapse hidden sm:table">
+          <thead className="bg-slate-800 text-white sticky top-0 z-10">
+            <tr className="text-sm xl:text-base text-white">
+              <th className="w-20 px-3 py-2">
+                <ListIcon className="w-5" />
+              </th>
+              <th className="max-w-[200px] px-3 py-2">Name</th>
+              <th className="max-w-[300px] px-3 py-2">Email</th>
+              <th className="px-3 py-2">Domain</th>
+              <th className="max-w-[200px] px-3 py-2">Status</th>
+              <th className="max-w-[200px] px-3 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {demoUsers.map((user, i) => (
+              <tr
+                key={user._id}
+                className={`border-t ${
+                  i % 2 === 0 ? "" : "bg-slate-100"
+                } hover:bg-slate-600 hover:text-white border-slate-300 text-sm xl:text-base`}
+              >
+                <td className="w-20 px-3 py-2">{i + 1}</td>
+                <td className="max-w-[200px] px-3 py-2">{user.name}</td>
+                <td className="max-w-[300px] px-3 py-2">{user.email}</td>
+                <td className="px-3 py-2">{user.domain}</td>
+                <td className="max-w-[200px] px-3 py-2">{user.status}</td>
+                <td className="max-w-[200px] px-3 py-2">
+                  <button className=" underline text-blue-600">
+                    {user.status === "enabled" ? "Disable" : "Enable"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-        {/* ====== table heading ======= */}
-        <div className="w-full flex border border-slate-300 py-1 items-center justify-between px-3">
-          <span className="w-20">
-            <ListIcon className="w-5" />
-          </span>
-          <span className="max-w-[200px] grow">Name</span>
-          <span className="grow max-w-[300px]">Email</span>
-          <span className="grow bg-red-200">Domain</span>
-          <span className="grow max-w-[200px]">Status</span>
-          <span className="grow max-w-[200px]">Action</span>
+        {/* ======== Mobile Stack Layout ===== */}
+        <div className="sm:hidden space-y-4 p-2">
+          {demoUsers.map((user, i) => (
+            <div
+              key={user._id}
+              className="border border-slate-300 rounded-md p-3 bg-white shadow-sm"
+            >
+              <div className="flex max-w-[200px] gap-2 ">
+                <span className="font-semibold">#</span>
+                <span>{i + 1}</span>
+              </div>
+              <div className="flex">
+                <span className="font-semibold min-w-[75px]">Name :</span>
+                <span>{user.name}</span>
+              </div>
+              <div className="flex">
+                <span className="font-semibold min-w-[75px]">Email :</span>
+                <span>{user.email}</span>
+              </div>
+              <div className="flex">
+                <span className="font-semibold min-w-[75px]">Domain :</span>
+                <span>{user.domain}</span>
+              </div>
+              <div className="flex">
+                <span className="font-semibold min-w-[75px]">Status :</span>
+                <span>{user.status}</span>
+              </div>
+              <div className="flex mt-1">
+                <span className="font-semibold min-w-[75px]">Actions :</span>
+                <button className={`rounded-[10px] mr-10 duration-200 text-white px-3 ${user.status === "enabled" ?'bg-red-500 hover:bg-red-600':'bg-green-500 hover:bg-green-600'}`}>
+                  {user.status === "enabled" ? "Disable" : "Enable"}
+                </button>
+                <button className="duration-200 rounded-[10px] bg-blue-500 hover:bg-blue-600 text-white px-3">
+                  Details
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      {demoUsers.map((user, i) => (
-        <div
-          key={user._id}
-          className="w-full flex items-center justify-between border border-slate-300 border-t-0 py-1.5 px-3"
-        >
-          <span className="w-20">{i + 1}</span>
-          <span className="max-w-[200px] bg-blue-200 grow">{user.name}</span>
-          <span className="grow max-w-[300px]">{user.email}</span>
-          <span className="grow bg-red-200">{user.domain}</span>
-          <span className="grow max-w-[200px] ">{user.status}</span>
-          <span className="grow max-w-[200px] ">
-            <button>{user.status === "enabled" ? "Disable" : "Enable"}</button>
-          </span>
-        </div>
-      ))}
+
+      <Pagination 
+      currentPage={currentPage}
+       setCurrentPage={setCurrentPage}
+       totalPages={totalPages}
+    
+        />
     </>
   );
 }

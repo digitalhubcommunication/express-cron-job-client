@@ -7,14 +7,14 @@ export function useResponsivePageWindow() {
         const updateSize = () => {
             const width = window.innerWidth;
             if (width < 540) {
-                setWindowSize(4); // xs
+                setWindowSize(2); // xs
             } else if (width < 700) {
-                setWindowSize(6); // sm
+                setWindowSize(4); // sm
             } else if (width < 1024) {
-                setWindowSize(8); // md
+                setWindowSize(6); // md
             }
             else {
-                setWindowSize(9); // lg+
+                setWindowSize(7); // lg+
             }
         };
         updateSize();

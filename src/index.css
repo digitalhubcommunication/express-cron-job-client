@@ -651,3 +651,13 @@ button.btn-danger {
 button.btn-warning {
   @apply duration-300 bg-yellow-500 text-white hover:bg-yellow-600;
 }
+
+
+/* ===== input style ==== */
+.input{
+  @apply border w-full max-w-40 2xl:max-w-48 border-slate-300 hover:border-slate-400 duration-300 px-2 rounded-[5px]
+}
+
+.input-expand{
+  @apply border w-full border-slate-300 hover:border-slate-400 duration-300 px-2 rounded-[5px] py-1
+}

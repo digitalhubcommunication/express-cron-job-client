@@ -258,6 +258,15 @@ export const cronHistories: TCronHistory[] = [
 // ====== packages 
 export const cronPackages: TPackage[] = [
   {
+    "_id": "65f0e9b2a7c3d4e5f6a7b854",
+    "name": "Trial",
+    "validity": 2,
+    "intervalInMS": 7000,
+    "price": 0,
+    "manualCronLimit": 0,
+    "status": "unavailable"
+  },
+  {
     "_id": "65f0e9b2a7c3d4e5f6a7b8c9",
     "name": "Silver",
     "validity": 30,
@@ -270,7 +279,7 @@ export const cronPackages: TPackage[] = [
     "_id": "65f0e9b2a7c3d4e5f6a7b8da",
     "name": "Diamond",
     "validity": 30,
-    "intervalInMS": 7000,
+    "intervalInMS": 5000,
     "price": 29.99,
     "manualCronLimit": 5,
     "status": "available"

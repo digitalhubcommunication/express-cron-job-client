@@ -3,13 +3,15 @@ import ModalToggler from "./features/modalToggler/ModalTogglerSlice";
 import Modyfier from "./features/rootModyfier/Modyfier";
 import SidebarToggler from "./features/sidebar/SidebarToggler";
 import AuthSlice from "./features/auth/AuthSlice";
+import packagesSlice from "./features/packages/packages";
 
 export const store = configureStore({
   reducer: {
     modyfier: Modyfier,
     modalToggler: ModalToggler,
     sidebarToggler: SidebarToggler,
-    auth:AuthSlice
+    auth: AuthSlice,
+    packages: packagesSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(({

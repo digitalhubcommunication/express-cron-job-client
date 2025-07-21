@@ -174,7 +174,7 @@ export default function UsersLists() {
       currentPage={currentPage}
        setCurrentPage={setCurrentPage}
        totalPages={totalPages}
-    
+          containerStyle="flex items-center justify-center gap-5"
         />
     </>
   );

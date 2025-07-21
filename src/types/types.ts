@@ -116,8 +116,3 @@ export type TFeature = {
 
 // user lists
 export type TUserFilter = "name"|"email"|"status"|"domain"|"subscription"
-
-
-
-
-

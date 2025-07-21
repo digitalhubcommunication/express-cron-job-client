@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
 import { RootState } from "@/redux/store";
+import { XMarkIcon } from "../icons/Icons";
 // import XMarkBlack from "../icons/XMarkBlack";
 
 type CustomModalProps = {
@@ -62,7 +63,7 @@ export const CustomModal = (props: CustomModalProps) => {
       className={`w-full h-full fixed top-0 px-4 left-0 flex justify-center items-center overflow-hidden z-[99998] ${wrapperContainerStyle}`}
     >
       <div
-        className={`w-full duration-300 h-auto flex flex-col relative 2xl:rounded-[40px] xl:rounded-[34px] lg:rounded-[28px] md:rounded-[22px] rounded-[16px]  z-[99999] ${containerStyle}`}
+        className={`w-full duration-300 h-auto flex flex-col relative rounded-[8px] lg:rounded-[10px]  z-[99999] ${containerStyle}`}
       >
         {children}
       </div>
@@ -100,12 +101,11 @@ export const CustomModalHeader = (props: HeaderProps) => {
   };
   return (
     <div
-      className={`w-full flex items-center justify-between gap-5 flex-wrap bg-[#005aff08] py-2.5 px-[18px] rounded-[12px] ${containerStyle}`}
+      className={`w-full flex items-center justify-between gap-5 flex-wrap bg-[#005aff08] py-2.5 px-[18px] rounded-[8px] ${containerStyle}`}
     >
-      <h2 className={`fs-xl-lh-lg text-[#30353E] ${titleStyle}`}>{title}</h2>
+      <h2 className={`ecj_fs-2xl text-[#30353E] ${titleStyle}`}>{title}</h2>
       <button className={`${buttonStyle}`} type="button" onClick={handleClose}>
-        {/* <XMarkBlack /> */}
-        icon
+        <XMarkIcon className="w-7 h-7" />
       </button>
     </div>
   );

@@ -63,8 +63,8 @@ export default function Pagination({
   const pageRange = getMiddlePageRange();
 
   return (
-    <div className={` ${containerStyle}`}>
-      <div className="flex justify-center text-xs md:text-sm lg:text-base mt-5 gap-1 md:gap-2 mt-4 flex-wrap">
+    <div className={`mt-5 xl:mt-10 ${containerStyle}`}>
+      <div className="flex justify-center text-xs md:text-sm lg:text-base gap-1 md:gap-2 flex-wrap">
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
@@ -101,10 +101,14 @@ export default function Pagination({
       </div>
       <div className="flex items-center gap-3">
         <p>Jump to </p>
-         <input className="border w-10 px-1 leading-0  rounded-[5px]" min={1} max={totalPages} placeholder="1" />
-         <button className="bg-blue-600 text-white py-0.5 px-2 rounded-[5px]">
+        <input
+          className="border p-1 px-2 w-10 leading-0  rounded-[5px]"
+          min={1}
+          max={totalPages}
+        />
+        <button className="bg-blue-600 text-white py-0.5 px-2 rounded-[5px]">
           GO
-         </button>
+        </button>
       </div>
     </div>
   );

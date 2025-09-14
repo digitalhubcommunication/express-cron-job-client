@@ -1,16 +1,17 @@
 import {
-  CheckIcon,
+  // CheckIcon,
   FilterIcon,
-  GlobeIcon,
+  // GlobeIcon,
   ListIcon,
-  MailIcon,
+  // MailIcon,
   SearchIcon,
-  UserIcon,
-  XMarkIcon,
+  // UserIcon,
+  // XMarkIcon,
 } from "@/components/icons/Icons";
-import { cronHistories, demoUsers } from "@/data/DemoData";
+// import { cronHistories, demoUsers } from "@/data/DemoData";
+import {  demoUsers } from "@/data/DemoData";
 import Pagination from "@/pages/shared/Pagination";
-import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
+// import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { TUserFilter } from "@/types/types";
 import { getUserFilterInputPlaceholderText } from "@/utils/utils";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
@@ -20,7 +21,8 @@ export default function UsersLists() {
   // hooks
   const [filterType, setFilterType] = useState<TUserFilter>("name");
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(30);
+  // const [totalPages, setTotalPages] = useState(30);
+  const totalPages = 30;
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 

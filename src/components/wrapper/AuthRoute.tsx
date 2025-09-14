@@ -3,11 +3,12 @@ import { Navigate, Outlet } from "react-router-dom";
 import PageLoading from "../loading/PageLoading";
 // import { getToken } from "@/utils/token";
 
-type Props = {
-  allowedRoles:'admin'|'user'[],
-}
+// type Props = {
+//   allowedRoles:'admin'|'user'[],
+// }
 
-export default function AuthUserRoute({ allowedRoles = [] }) {
+// export default function AuthUserRoute({ allowedRoles = [] }) {
+export default function AuthUserRoute() {
   // hooks
   const [loading, setLoading] = useState(true);
   const [authorized, setAuthorized] = useState(false);

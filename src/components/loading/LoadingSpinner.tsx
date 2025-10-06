@@ -3,16 +3,18 @@ import React from "react";
 interface SpinnerSquareProps {
   containerClass?: string;
   squareClasses?: string[];
-  totalVisuals?:number;
+  totalVisuals?: number;
+  className?: string;
 }
 
 const LoadingSpinner: React.FC<SpinnerSquareProps> = ({
   containerClass = "",
   squareClasses = [],
-  totalVisuals=3,
+  className = '',
+  totalVisuals = 3,
 }) => {
   return (
-    <div className={`flex justify-center items-center `}>
+    <div className={`flex justify-center items-center ${className}`}>
       <div className={`spinner-square flex ${containerClass}`}>
         {[...Array(totalVisuals)].map((_, index) => (
           <div

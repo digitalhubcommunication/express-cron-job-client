@@ -1,5 +1,7 @@
 import { Button } from "@/components/button/Button";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Container from "@/components/wrapper/Container";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type RegisterFormData = {
@@ -17,9 +19,24 @@ export default function RegisterPage() {
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterFormData>();
+    const [loading, setLoading] = useState(false);
 
-    const onSubmit = (data: RegisterFormData) => {
-        console.log("Register data:", data);
+    const onSubmit = async (data: RegisterFormData) => {
+        try {
+            setLoading(true);
+
+            console.log("Login data:", data);
+
+            // Simulate async login (e.g., API call)
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            // After success
+            alert("Register successfully!");
+        } catch (error) {
+            console.error("Register error:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -184,7 +201,23 @@ export default function RegisterPage() {
                     </div>
 
                     <div className="w-full flex justify-center">
-                        <Button type="submit" className="ecj_fs-base" label="Register" />
+                        {
+                            loading ?
+                                <LoadingSpinner
+                                    className="min-h-[39.81px]"
+                                    containerClass="w-6 md:w-8 h-6 2xl:h-8"
+                                    squareClasses={["bg-black", "bg-black", "bg-black "]}
+                                />
+                                :
+                                <Button
+                                    type="submit"
+                                    className={`ecj_fs-base flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : ""
+                                        }`}
+                                    disabled={loading}
+                                    label="Register"
+                                />
+                        }
+
                     </div>
 
                     <p className="mt-4 text-center text-sm text-[var(--clr-text-body)]">

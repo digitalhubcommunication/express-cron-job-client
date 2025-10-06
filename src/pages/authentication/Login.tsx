@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/button/Button";
 import Container from "@/components/wrapper/Container";
 import { useForm } from "react-hook-form";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 type LoginFormData = {
     email: string;
@@ -14,13 +16,26 @@ export default function LoginPage() {
         formState: { errors },
     } = useForm<LoginFormData>();
 
+    const [loading, setLoading] = useState(false);
 
-    //   handlers
-    const onSubmit = (data: LoginFormData) => {
-        
-        console.log("Login data:", data);
+    // Handlers
+    const onSubmit = async (data: LoginFormData) => {
+        try {
+            setLoading(true);
+
+            console.log("Login data:", data);
+
+            // Simulate async login (e.g., API call)
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            // After success
+            alert("Logged in successfully!");
+        } catch (error) {
+            console.error("Login error:", error);
+        } finally {
+            setLoading(false);
+        }
     };
-
 
     return (
         <div className="w-full">
@@ -50,6 +65,7 @@ export default function LoginPage() {
                             className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.email ? "border-[var(--clr-danger)]" : "border-gray-300"
                                 }`}
                             placeholder="Enter your email"
+                            disabled={loading}
                         />
                         {errors.email && (
                             <p className="text-[var(--clr-danger)] text-sm mt-1">
@@ -75,6 +91,7 @@ export default function LoginPage() {
                             className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.password ? "border-[var(--clr-danger)]" : "border-gray-300"
                                 }`}
                             placeholder="Enter your password"
+                            disabled={loading}
                         />
                         {errors.password && (
                             <p className="text-[var(--clr-danger)] text-sm mt-1">
@@ -83,21 +100,36 @@ export default function LoginPage() {
                         )}
                     </div>
 
-
+                    {/* Submit Button */}
                     <div className="w-full flex justify-center">
-                        <Button type="submit" className="ecj_fs-base" label="Sign In" />
+                        {
+                            loading ?
+                                <LoadingSpinner
+                                   className="min-h-[39.81px]"
+                                    containerClass="w-6 md:w-8 h-6 2xl:h-8"
+                                    squareClasses={["bg-black", "bg-black", "bg-black "]}
+                                />
+                                :
+                                <Button
+                                    type="submit"
+                                    className={`ecj_fs-base flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : ""
+                                        }`}
+                                    disabled={loading}
+                                    label={"Sign In"}
+                                />
+                        }
+
                     </div>
+
+                    {/* Footer */}
                     <p className="mt-4 text-center text-sm text-[var(--clr-text-body)]">
                         Don’t have an account?{" "}
-                        <a
-                            href="/register"
-                            className="link-text"
-                        >
-                            Sign up
+                        <a href="/register" className="link-text">
+                            Register
                         </a>
                     </p>
                 </form>
             </Container>
         </div>
-    )
+    );
 }

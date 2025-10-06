@@ -661,3 +661,7 @@ button.btn-warning {
 .input-expand{
   @apply border w-full border-slate-300 hover:border-slate-400 duration-300 px-2 rounded-[5px] py-1
 }
+
+.link-text{
+  @apply text-blue-500 duration-200 hover:text-blue-600;
+}

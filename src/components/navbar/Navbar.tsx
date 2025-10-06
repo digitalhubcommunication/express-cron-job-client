@@ -102,7 +102,7 @@ export default function Navbar() {
               );
             })}
 
-            {!authUser ? (
+            {authUser ? (
               <NavLink
                 onClick={handleClick}
                 className={({ isActive }) =>

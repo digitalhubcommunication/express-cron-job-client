@@ -22,6 +22,8 @@ import AdminDashboardPage from "@/pages/admin/dashboard/AdminDashboard";
 import RegisteredUsersPage from "@/pages/admin/users/RegisteredUsers";
 import UserCronHistoryPage from "@/pages/admin/cronHistory/UserCronHistory";
 import AllPackagesPage from "@/pages/admin/allPackages/AllPackages";
+import LoginPage from "@/pages/authentication/Login";
+import RegisterPage from "@/pages/authentication/Register";
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +40,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "about",
-        element:<AboutPage />,
+        element: <AboutPage />,
       },
       {
         path: "contact",
@@ -46,11 +48,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <div>Login page</div>,
+        element: <LoginPage />,
       },
       {
         path: "register",
-        element: <div>Register page</div>,
+        element: <RegisterPage />,
       },
       {
         path: "forgot-password",
@@ -164,7 +166,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path:"*",
-    element:<NotFoundPage />
+    path: "*",
+    element: <NotFoundPage />
   }
 ]);

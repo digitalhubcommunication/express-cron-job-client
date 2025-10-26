@@ -25,6 +25,15 @@ jobs:
           # Pull latest code
           git pull origin main
 
+          # Remove old .env if exists
+          if [ -f .env ]; then
+            rm .env
+          fi
+
+          # Create new .env from GitHub Secrets
+          touch .env
+          echo "API_URL=https://expresscronjob.com/api" >> .env
+
           # Remove previous build folder (if exists)
           if [ -d "dist" ]; then
             rm -rf dist

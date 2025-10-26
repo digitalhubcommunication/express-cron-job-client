@@ -1,16 +1,12 @@
 import {
-  CheckIcon,
+
   FilterIcon,
-  GlobeIcon,
   ListIcon,
-  MailIcon,
   SearchIcon,
-  UserIcon,
-  XMarkIcon,
 } from "@/components/icons/Icons";
-import { cronHistories, demoUsers } from "@/data/DemoData";
+import {  demoUsers } from "@/data/DemoData";
 import Pagination from "@/pages/shared/Pagination";
-import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
+// import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { TUserFilter } from "@/types/types";
 import { getUserFilterInputPlaceholderText } from "@/utils/utils";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
@@ -25,7 +21,7 @@ export default function UsersLists() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-   
+    setTotalPages(30)
   }, [])
   
 

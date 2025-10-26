@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ExpandableLogo from "../logo/ExpandableLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { adminLinks, authUserLinks } from "@/data/NavigationLinks";
+import { adminLinks } from "@/data/NavigationLinks";
 import Logout from "../logout/Logout";
 import { SidebarCloseButton } from "./Button";
 import { SET_EXPAND } from "@/redux/features/rootModyfier/Modyfier";
@@ -41,9 +41,9 @@ const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
   );
 };
 
-const AuthUserLinks = () => {
-  return authUserLinks.map((link) => <SidebarLink link={link} key={link.to} />);
-};
+// const AuthUserLinks = () => {
+//   return authUserLinks.map((link) => <SidebarLink link={link} key={link.to} />);
+// };
 
 const AdminLinks = () => {
   return adminLinks.map((link) => <SidebarLink link={link} key={link.to} />);

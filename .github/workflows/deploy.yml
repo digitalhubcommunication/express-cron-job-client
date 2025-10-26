@@ -46,3 +46,6 @@ jobs:
           # Install dependencies and build
           npm install
           npm run build
+
+          # Reload the web server (assuming NGINX)
+          sudo systemctl reload nginx

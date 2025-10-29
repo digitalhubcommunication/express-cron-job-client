@@ -9,7 +9,6 @@ interface ButtonProps {
   type?:"button"|"submit";
 }
 
-// global button component
 export const Button: React.FC<ButtonProps> = ({
   label,
   className = "",

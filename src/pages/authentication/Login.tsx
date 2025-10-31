@@ -45,7 +45,7 @@ export default function LoginPage() {
 
     const handleForgotPasssword = async()=>{
        try {
-         const redirectBaseUrl = "http://localhost:5173/reset-password";
+        const redirectBaseUrl = "https://expresscronjob.com/reset-password";
         const email = watch("email");
 
         if(!email){
@@ -53,11 +53,12 @@ export default function LoginPage() {
             return ;
         }
 
-         clearErrors("email");
+        clearErrors("email");
         const data = {
             redirectBaseUrl,
             email
         }
+        
         const res = await forgotPassword(data).unwrap()
         if(res.success){
             toast.success("A password reset link has been sent to your email");

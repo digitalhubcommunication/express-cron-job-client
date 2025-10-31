@@ -22,14 +22,8 @@ export default function BasicInfo() {
   const toalCrons =
     authUser.defaultDomains?.length ||
     0 + (authUser.manualDomains ? authUser.manualDomains.length : 0);
-  const packageType =
-    authUser.subscription?.type === "trial"
-      ? "2-days free trial"
-      : authUser.subscription?.type;
-  const packageExpired = format(authUser.packageExpiresAt, "dd MMM yyyy");
-  {
-    /* ======= domain and package info ======= */
-  }
+
+  console.log(authUser, ' auth user')
   return (
     <div className="w-full flex flex-col sm:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 md:gap-7">
       <DashboardInfoCard
@@ -53,7 +47,7 @@ export default function BasicInfo() {
 
       <DashboardInfoCard
         label="Package"
-        value={packageType}
+        value={authUser?.subscription?.name}
         key="USER_CRONJOBS_PACKAGE_CARD"
       >
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500">
@@ -62,7 +56,7 @@ export default function BasicInfo() {
       </DashboardInfoCard>
       <DashboardInfoCard
         label="Expired Time"
-        value={packageExpired}
+        value={format(authUser?.packageExpiresAt, "dd MMM yyyy")}
         key="USER_CRONJOBS_PACKAGE_EXPIRY_CARD"
       >
         <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500">

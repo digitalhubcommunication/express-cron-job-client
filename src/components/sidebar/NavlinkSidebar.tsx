@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ExpandableLogo from "../logo/ExpandableLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { adminLinks } from "@/data/NavigationLinks";
+import { adminLinks, authUserLinks } from "@/data/NavigationLinks";
 import Logout from "../logout/Logout";
 import { SidebarCloseButton } from "./Button";
 import { SET_EXPAND } from "@/redux/features/rootModyfier/Modyfier";
@@ -41,9 +41,9 @@ const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
   );
 };
 
-// const AuthUserLinks = () => {
-//   return authUserLinks.map((link) => <SidebarLink link={link} key={link.to} />);
-// };
+const AuthUserLinks = () => {
+  return authUserLinks.map((link) => <SidebarLink link={link} key={link.to} />);
+};
 
 const AdminLinks = () => {
   return adminLinks.map((link) => <SidebarLink link={link} key={link.to} />);
@@ -53,7 +53,14 @@ export default function NavlinkSidebar() {
   const minimizeSidebar = useSelector(
     (state: RootState) => state.sidebarToggler.EXPAND
   );
+  const { authUser, isUserLoading } = useSelector(
+    (state: RootState) => state.auth
+  );
   const { EXPAND } = useSelector((state: RootState) => state.modyfier);
+
+  if (isUserLoading) return <></>;
+  if (!authUser) return <></>;
+
   return (
     <aside
       className={`w-full h-screen lg:h-auto  fixed top-0 left-0 z-[9999] lg:bg-white lg:relative flex flex-col overflow-hidden duration-500 lg:duration-700 lg:border-r border-slate-300  ${
@@ -88,9 +95,7 @@ export default function NavlinkSidebar() {
 
         <div className="w-full grow max-h-screen py-2.5 md:py-3">
           <div className="w-full flex flex-col items-start gap-1.5 2xl:gap-2 pb-20">
-            {/* ======= authenticated user links ====== */}
-            {/* <AuthUserLinks /> */}
-            <AdminLinks />
+            {authUser?.role === "user" ? <AuthUserLinks /> : <AdminLinks />}
             <Logout />
           </div>
         </div>

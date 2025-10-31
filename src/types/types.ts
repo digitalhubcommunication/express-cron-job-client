@@ -52,6 +52,8 @@ export interface IUser {
     status: 'pending' | 'enabled' | 'disabled' | "deleted" | "blocked";
     role: UserRole;
     domain: string;
+    accessToken:string;
+    refreshToken:string;
     defaultDomains: TDomain[];
     manualDomains?: TManualDomain[];
     telegramId?: string;
@@ -116,3 +118,14 @@ export type TFeature = {
 
 // user lists
 export type TUserFilter = "name"|"email"|"status"|"domain"|"subscription"
+
+
+export type TUserRole = "admin"|"user"
+
+export type TDecodedToken = {
+    role:TUserRole;
+    id:string;
+    email:string;
+    exp:number;
+    iat:number;
+}

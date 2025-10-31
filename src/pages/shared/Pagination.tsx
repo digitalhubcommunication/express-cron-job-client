@@ -1,4 +1,4 @@
-import { AngleLeftIcon, AngleRightIcon } from "@/components/icons/Icons";
+import { AngleRightIcon } from "@/components/icons/Icons";
 import { useResponsivePageWindow } from "@/hooks/useResponsivePageRange";
 import { Dispatch, SetStateAction } from "react";
 type Props = {
@@ -70,7 +70,8 @@ export default function Pagination({
           onClick={() => setCurrentPage(currentPage - 1)}
           className={`p-1 mr-1 md:mr-2 bg-slate-200 rounded disabled:opacity-50 ${buttonStyle}`}
         >
-          <AngleLeftIcon />
+          {/* <AngleLeftIcon /> */}
+          angle left
         </button>
 
         {pageRange.map((page, idx) =>

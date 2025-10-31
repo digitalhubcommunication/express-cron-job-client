@@ -1,3 +1,5 @@
+import { IUser } from "@/types/types";
+
 const TOKEN_KEY = 'accessToken';
 
 /**
@@ -23,7 +25,7 @@ export function getToken(): string | null {
   if (!isLocalStorageAvailable()) return null;
 
   try {
-    return window.localStorage.getItem(TOKEN_KEY);
+    return window.localStorage.getItem('');
   } catch (error) {
     console.error('Error getting token from localStorage:', error);
     return null;
@@ -75,3 +77,39 @@ export function updateToken(newToken: string): void {
     console.error('Error updating token in localStorage:', error);
   }
 }
+
+
+export function getUserInfo():IUser | null{
+  try {
+    if (!isLocalStorageAvailable()) return null;
+   const raw = localStorage.getItem("user");
+    if (!raw) return null;
+    return JSON.parse(raw) as IUser;
+  } catch (error) {
+    console.error('Error updating token in localStorage:', error);
+    return null;
+  }
+}
+
+export function setUserInfo(user: IUser): boolean {
+  try {
+     if (!isLocalStorageAvailable()) return false;
+    localStorage.setItem("user", JSON.stringify(user));
+    return true;
+  } catch (error) {
+    console.error("Failed to save user to localStorage:", error);
+    return false;
+  }
+}
+
+export function deleteUserInfo(){
+    try {
+     if (!isLocalStorageAvailable()) return false;
+    localStorage.removeItem("user");
+    return true;
+  } catch (error) {
+    console.error("Failed to delete user from localStorage:", error);
+    return false;
+  }
+}
+

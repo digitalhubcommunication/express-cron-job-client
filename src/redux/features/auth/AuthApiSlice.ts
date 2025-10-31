@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: `https://expresscronjob.com/api`,
     credentials: "include"
   }),
   endpoints: (builder) => ({
@@ -16,7 +16,7 @@ export const authApi = createApi({
     }),
     register: builder.mutation({
       query: (userData) => ({
-        url: '/auth/signup',
+        url: '/auth/register',
         method: 'POST',
         body: userData,
       }),
@@ -35,21 +35,34 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
-    verfifyEmail: builder.mutation({
+    verfifyRegistrationOTP: builder.mutation({
+      query: (credentials) => ({
+        url: '/auth/verify-registration-otp',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
+      verfifyLoginOTP: builder.mutation({
       query: (credentials) => ({
         url: '/auth/verify-otp',
         method: 'POST',
         body: credentials,
       }),
     }),
-    regenerateOtp: builder.mutation({
+    regenerateRegisterOtp: builder.mutation({
       query: (credentials) => ({
-        url: '/auth/regenerate-otp',
+        url: '/auth/resend-otp',
         method: 'POST',
         body: credentials,
+      }),
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: '/auth/logout',
+        method: 'POST',
       }),
     }),
   }),
 });
 
-export const { useLoginMutation, useVerfifyEmailMutation, useRegisterMutation, useForgotPasswordMutation, useResetPasswordMutation,useRegenerateOtpMutation } = authApi;
+export const {useLogoutMutation, useVerfifyLoginOTPMutation, useLoginMutation, useVerfifyRegistrationOTPMutation, useRegisterMutation, useForgotPasswordMutation, useResetPasswordMutation,useRegenerateRegisterOtpMutation } = authApi;

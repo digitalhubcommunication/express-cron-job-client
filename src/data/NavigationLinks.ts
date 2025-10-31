@@ -79,10 +79,10 @@ export const adminLinks: TSidebarLink[] = [
 ]
 
 export const navLinks: TLink[] = [
-    {
-        label: "Home",
-        to: "/"
-    },
+    // {
+    //     label: "Home",
+    //     to: "/"
+    // },
     {
         label: "Packages",
         to: "/packages"

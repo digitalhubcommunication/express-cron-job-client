@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "🧹 Cleaning old build folder..."
+            echo "Cleaning old dist folder..."
             rm -rf ${{ secrets.APP_DIRECTORY }}/dist
 
       # 6 Deploy built files (dist/) to your server via SCP

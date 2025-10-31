@@ -42,7 +42,7 @@ export default function Navbar() {
   // hooks
   const dispatch = useDispatch();
   const { EXPAND } = useSelector((state: RootState) => state.modyfier);
-  const { authUser } = useSelector((state: RootState) => state.auth);
+  const { authUser, isUserLoading } = useSelector((state: RootState) => state.auth);
 
   // handlers
   const handleClick = () => {
@@ -81,11 +81,9 @@ export default function Navbar() {
               <SiteLogo />
               <SidebarCloseButton />
             </div>
-            {navLinks.map((link, _i) => {
-              return _i === 0 && !!authUser ? (
-                <>
-                  <Link link={link} key={link.to} />
-                  <NavLink
+            <Link link={{label:"Home",to:"/"}} key="home_link" />
+            {isUserLoading ?<></> :
+            !!authUser && <NavLink
                     onClick={handleClick}
                     className={({ isActive }) =>
                       `font-semibold md:font-normal duration-300 md:w-full text-[18px] ${
@@ -96,13 +94,12 @@ export default function Navbar() {
                   >
                     Dashboard
                   </NavLink>
-                </>
-              ) : (
-                <Link link={link} key={link.to} />
-              );
-            })}
-
-            {authUser ? (
+          }
+            
+            {navLinks.map((link) =>  <Link link={link} key={link.to} />)}
+            
+            {isUserLoading ?<></> :
+            !authUser ? (
               <NavLink
                 onClick={handleClick}
                 className={({ isActive }) =>

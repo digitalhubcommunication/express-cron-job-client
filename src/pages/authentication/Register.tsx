@@ -1,8 +1,12 @@
 import { Button } from "@/components/button/Button";
+import { EyeOpen, EyeSlash } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Container from "@/components/wrapper/Container";
+import { useRegisterMutation } from "@/redux/features/auth/AuthApiSlice";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 type RegisterFormData = {
     name: string;
@@ -14,29 +18,29 @@ type RegisterFormData = {
 };
 
 export default function RegisterPage() {
+     const navigate = useNavigate() 
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<RegisterFormData>();
-    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
+    const [registerUser, {isLoading}] = useRegisterMutation()
+    
 
     const onSubmit = async (data: RegisterFormData) => {
-        try {
-            setLoading(true);
-
-            console.log("Login data:", data);
-
-            // Simulate async login (e.g., API call)
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-
-            // After success
-            alert("Register successfully!");
-        } catch (error) {
-            console.error("Register error:", error);
-        } finally {
-            setLoading(false);
-        }
+       try {
+                   const result = await registerUser(data).unwrap()
+                   console.log(result, ' result')
+                   if(result?.success){
+                        toast.success(result?.message);
+                    navigate(`/verify-register-otp?email=${data.email}`)
+                }else{
+                       throw new Error(result?.message);
+                   }
+               } catch (error:any) {
+                   toast.error(error?.data?.message);
+               } 
     };
 
     return (
@@ -119,34 +123,37 @@ export default function RegisterPage() {
                         )}
                     </div>
 
-                    {/* Password Field */}
-                    <div className="mb-4">
-                        <label
-                            htmlFor="password"
-                            className="block mb-2 font-medium text-[var(--clr-text-body)]"
-                        >
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            {...register("password", {
-                                required: "Password is required",
-                                minLength: {
-                                    value: 6,
-                                    message: "Password must be at least 6 characters",
-                                },
-                            })}
-                            className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.password ? "border-[var(--clr-danger)]" : "border-gray-300"
-                                }`}
-                            placeholder="Enter your password"
-                        />
-                        {errors.password && (
-                            <p className="text-[var(--clr-danger)] text-sm mt-1">
-                                {errors.password.message}
-                            </p>
-                        )}
-                    </div>
+                     <div className="mb-6">
+                                           <label
+                                               htmlFor="password"
+                                               className="block mb-2 font-medium text-[var(--clr-text-body)]"
+                                           >
+                                               Password
+                                           </label>
+                                           <div className="w-full relative">
+                                               <input
+                                               id="password"
+                                               type={showPassword ? "text":"password"}
+                                               {...register("password", {
+                                                   required: "Password is required",
+                                               })}
+                                               className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.password ? "border-[var(--clr-danger)]" : "border-gray-300"
+                                                   }`}
+                                               placeholder="Enter your password"
+                                               disabled={isLoading}
+                                           />
+                   
+                                           <button type="button" onClick={()=>setShowPassword(prev=>!prev)} className="absolute top-[50%] translate-y-[-50%] right-3">
+                                               {!showPassword ? <EyeSlash />:<EyeOpen /> }
+                                               
+                                           </button>
+                                           </div>
+                                           {errors.password && (
+                                               <p className="text-[var(--clr-danger)] text-sm mt-1">
+                                                   {errors.password.message}
+                                               </p>
+                                           )}
+                                       </div>
 
                     {/* Domain Field */}
                     <div className="mb-4">
@@ -202,7 +209,7 @@ export default function RegisterPage() {
 
                     <div className="w-full flex justify-center">
                         {
-                            loading ?
+                            isLoading ?
                                 <LoadingSpinner
                                     className="min-h-[39.81px]"
                                     containerClass="w-6 md:w-8 h-6 2xl:h-8"
@@ -211,9 +218,9 @@ export default function RegisterPage() {
                                 :
                                 <Button
                                     type="submit"
-                                    className={`ecj_fs-base flex items-center justify-center gap-2 ${loading ? "opacity-70 cursor-not-allowed" : ""
+                                    className={`ecj_fs-base flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed" : ""
                                         }`}
-                                    disabled={loading}
+                                    disabled={isLoading}
                                     label="Register"
                                 />
                         }

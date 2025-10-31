@@ -8,6 +8,7 @@ import { ThemeProvider } from "./provider/ThemeProvider";
 import BodyEventListeners from "./components/DOM/BodyEventListeners";
 import ModalPortal from "./components/DOM/ModalPortal";
 import ReactToastifyMessage from "./components/DOM/ReactToastifyMessage";
+import InitialProfileLoader from "./components/loader/InitialProfileLoader";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
         <BodyEventListeners />
         <ModalPortal />
         <ReactToastifyMessage />
+        <InitialProfileLoader />
       </ReduxProvider>
     </ThemeProvider>
   </StrictMode>

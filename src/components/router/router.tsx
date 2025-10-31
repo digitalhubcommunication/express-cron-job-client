@@ -24,6 +24,9 @@ import UserCronHistoryPage from "@/pages/admin/cronHistory/UserCronHistory";
 import AllPackagesPage from "@/pages/admin/allPackages/AllPackages";
 import LoginPage from "@/pages/authentication/Login";
 import RegisterPage from "@/pages/authentication/Register";
+import VerifyRegisterOTP from "@/pages/authentication/VerifyRegisterOTP";
+import VerifyLoginOTP from "@/pages/authentication/VerifyLoginOTP";
+import ResetPassword from "@/pages/authentication/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -50,9 +53,21 @@ export const router = createBrowserRouter([
         path: "login",
         element: <LoginPage />,
       },
+        {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "verify-login-otp",
+        element: <VerifyLoginOTP />,
+      },
       {
         path: "register",
         element: <RegisterPage />,
+      },
+      {
+        path: "verify-register-otp",
+        element: <VerifyRegisterOTP />,
       },
       {
         path: "forgot-password",

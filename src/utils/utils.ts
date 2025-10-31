@@ -1,4 +1,4 @@
-import { TUserFilter } from '@/types/types';
+import { TDecodedToken, TUserFilter, TUserRole } from '@/types/types';
 import { format } from 'date-fns';
 
 export function getExpiryText(date: Date | string): { label: string, date: string } {
@@ -42,4 +42,43 @@ export function generateMongoId(): string {
     str += chars[Math.floor(Math.random() * chars.length)];
   }
   return str;
+}
+
+
+// get the user role from token
+import {jwtDecode} from "jwt-decode";
+import { deleteToken, getToken } from './token';
+
+export function decodeToken(jwttoken:string | null = null):TDecodedToken | null {
+  try {
+    const token = jwttoken || getToken();
+
+    if(!token) return null;
+
+    const decoded = jwtDecode(token) as TDecodedToken;
+    return decoded;
+  } catch (err) {
+    return null;
+  }
+}
+
+
+export function getRole(token:string):TUserRole | null {
+    const decoded = decodeToken(token);
+    if(!decoded) return null;
+    return decoded.role;
+}
+
+export function isTokenExpired(token?:string):boolean{
+     const decoded = decodeToken(token);
+
+    // no expiry? treat as expired
+     if(!decoded || !decoded.exp) return true;
+
+     if(decoded.exp < (Date.now() / 1000)){
+        deleteToken()
+        return true;
+     }
+     
+    return false;
 }

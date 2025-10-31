@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/button/Button";
 import Container from "@/components/wrapper/Container";
 import { useForm } from "react-hook-form";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { toast } from "react-toastify";
-import {
-  useRegenerateRegisterOtpMutation,
-  useResetPasswordMutation,
-  useVerfifyLoginOTPMutation,
-} from "@/redux/features/auth/AuthApiSlice";
+import { useResetPasswordMutation } from "@/redux/features/auth/AuthApiSlice";
 
 import { useNavigate, useSearchParams } from "react-router";
-import { setUserInfo } from "@/utils/token";
-import { useDispatch } from "react-redux";
-import { setAuthUser } from "@/redux/features/auth/AuthSlice";
 import { EyeOpen, EyeSlash } from "@/components/icons/Icons";
 
 type OTPFormData = {
@@ -27,26 +20,26 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm<OTPFormData>();
 
-  const [showPassword, setShowPassword] = useState(false)
-  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
 
-  const [resetPassword, { isLoading}] = useResetPasswordMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const onSubmit = async (data: OTPFormData) => {
     try {
       const result = await resetPassword({
         newPassword: data.password,
         email,
-        token
+        token,
       }).unwrap();
 
       // If success
       if (result?.status === 200 || result?.success) {
         toast.success(result.message);
-        navigate('/login', {replace:true})
+        navigate("/login", { replace: true });
       }
 
       // If backend returned error
@@ -57,7 +50,7 @@ export default function ResetPassword() {
       toast.error(error?.data?.message || "Something went wrong");
     }
   };
-  
+
   return (
     <div className="w-full">
       <Container className="flex items-center justify-center min-h-[90vh] py-20">
@@ -70,58 +63,62 @@ export default function ResetPassword() {
           </h2>
 
           <div className="mb-6">
-                                                    <label
-                                                        htmlFor="password"
-                                                        className="block mb-2 font-medium text-[var(--clr-text-body)]"
-                                                    >
-                                                        Password
-                                                    </label>
-                                                    <div className="w-full relative">
-                                                        <input
-                                                        id="password"
-                                                        type={showPassword ? "text":"password"}
-                                                        {...register("password", {
-                                                            required: "Password is required",
-                                                        })}
-                                                        className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.password ? "border-[var(--clr-danger)]" : "border-gray-300"
-                                                            }`}
-                                                        placeholder="Enter your password"
-                                                        disabled={isLoading}
-                                                    />
-                            
-                                                    <button type="button" onClick={()=>setShowPassword(prev=>!prev)} className="absolute top-[50%] translate-y-[-50%] right-3">
-                                                        {!showPassword ? <EyeSlash />:<EyeOpen /> }
-                                                        
-                                                    </button>
-                                                    </div>
-                                                    {errors.password && (
-                                                        <p className="text-[var(--clr-danger)] text-sm mt-1">
-                                                            {errors.password.message}
-                                                        </p>
-                                                    )}
-                                                </div>
-<div className="w-full flex justify-center">
-                        {
-                            isLoading ?
-                                <LoadingSpinner
-                                    className="min-h-[39.81px]"
-                                    containerClass="w-6 md:w-8 h-6 2xl:h-8"
-                                    squareClasses={["bg-black", "bg-black", "bg-black "]}
-                                />
-                                :
-                                <Button
-                                    type="submit"
-                                    className={`ecj_fs-base flex items-center justify-center gap-2 ${isLoading ? "opacity-70 cursor-not-allowed" : ""
-                                        }`}
-                                    disabled={isLoading}
-                                    label="Submit"
-                                />
-                        }
+            <label
+              htmlFor="password"
+              className="block mb-2 font-medium text-[var(--clr-text-body)]"
+            >
+              Password
+            </label>
+            <div className="w-full relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                  errors.password
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                }`}
+                placeholder="Enter your password"
+                disabled={isLoading}
+              />
 
-                    </div>
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute top-[50%] translate-y-[-50%] right-3"
+              >
+                {!showPassword ? <EyeSlash /> : <EyeOpen />}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="text-[var(--clr-danger)] text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+          <div className="w-full flex justify-center">
+            {isLoading ? (
+              <LoadingSpinner
+                className="min-h-[39.81px]"
+                containerClass="w-6 md:w-8 h-6 2xl:h-8"
+                squareClasses={["bg-black", "bg-black", "bg-black "]}
+              />
+            ) : (
+              <Button
+                type="submit"
+                className={`ecj_fs-base flex items-center justify-center gap-2 ${
+                  isLoading ? "opacity-70 cursor-not-allowed" : ""
+                }`}
+                disabled={isLoading}
+                label="Submit"
+              />
+            )}
+          </div>
         </form>
       </Container>
     </div>
   );
 }
-

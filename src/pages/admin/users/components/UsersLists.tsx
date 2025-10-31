@@ -4,7 +4,6 @@ import {
   ListIcon,
   SearchIcon,
 } from "@/components/icons/Icons";
-import {  demoUsers } from "@/data/DemoData";
 import Pagination from "@/pages/shared/Pagination";
 // import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { TUserFilter } from "@/types/types";
@@ -103,7 +102,7 @@ export default function UsersLists() {
             </tr>
           </thead>
           <tbody>
-            {demoUsers.map((user, i) => (
+            {/* {demoUsers.map((user, i) => (
               <tr
                 key={user._id}
                 className={`border-t ${
@@ -121,12 +120,12 @@ export default function UsersLists() {
                   </button>
                 </td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
 
         {/* ======== Mobile Stack Layout ===== */}
-        <div className="sm:hidden space-y-4 p-2">
+        {/* <div className="sm:hidden space-y-4 p-2">
           {demoUsers.map((user, i) => (
             <div
               key={user._id}
@@ -163,7 +162,7 @@ export default function UsersLists() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
 
       <Pagination 

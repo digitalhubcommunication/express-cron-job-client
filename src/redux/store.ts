@@ -5,6 +5,7 @@ import SidebarToggler from "./features/sidebar/SidebarToggler";
 import AuthSlice from "./features/auth/AuthSlice";
 import packagesSlice from "./features/packages/packages";
 import { authApi } from "./features/auth/AuthApiSlice";
+import {userActionApi } from "./features/userAction/userActionApi";
 
 export const store = configureStore({
   reducer: {
@@ -14,10 +15,11 @@ export const store = configureStore({
     auth: AuthSlice,
     packages: packagesSlice,
 
-    [authApi.reducerPath]:authApi.reducer
+    [authApi.reducerPath]:authApi.reducer,
+    [userActionApi.reducerPath]:userActionApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware)
+    getDefaultMiddleware().concat(authApi.middleware).concat(userActionApi.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

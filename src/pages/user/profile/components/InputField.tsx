@@ -5,6 +5,7 @@ type InputFieldProps = {
     label: string;
     placeholder: string;
     className?: string;
+    defaultValue?:string | number;
     type?: string;
     errors:FieldErrors<FormData>
     name:keyof FormData;
@@ -17,6 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({
     className,
     type = "text",
     errors,
+    defaultValue,
     register,
     name
 }) => (
@@ -28,6 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({
             id={name}
             placeholder={placeholder}
             type={type}
+            defaultValue={defaultValue}
             className="border duration-200 outline-none border-slate-300 hover:border-slate-400 py-1.5 lg:text-[18px] md:py-2 px-4 rounded-[5px] lg:rounded-[7px] w-full"
             {...register(name)}
         />

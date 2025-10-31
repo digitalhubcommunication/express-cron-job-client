@@ -55,7 +55,7 @@ export interface IUser {
   name: string;
   email: string;
   username: string;
-  mobile: number;
+  mobile: string;
   status: "pending" | "enabled" | "disabled" | "deleted" | "blocked";
   role: UserRole;
   domain: string;

@@ -115,6 +115,6 @@ export default function BasicInfo() {
           <TelegramIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
         </div>
       </DashboardInfoCard>
-    </div>
+    </div>  
   );
 }

@@ -7,11 +7,6 @@ import { getExpiryText } from "@/utils/utils";
 export default function UserProfileInfo() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   if (!authUser) return <InvalidUser message="Invalid User" />;
-
-  const packageType =
-    authUser.subscription?.type === "trial"
-      ? "2-days free trial"
-      : authUser.subscription?.type;
   return (
     <>
       <div className="w-full max-w-[150px] max-h-[150px] border border-slate-300 h-[150px] rounded-full mx-auto">
@@ -31,11 +26,11 @@ export default function UserProfileInfo() {
           {authUser.name || "No name"}
         </h6>
       <div className="w-full flex flex-col gap-1.5">
-        <p className=""><span className="font-semibold">Status :</span> {authUser.status ==="enabled" ? <span className="text-green-600">Active</span>:authUser.status}</p>
+        <p className=""><span className="font-semibold">Status :</span> {authUser.status ==="enabled" ? <span className="text-green-600">{authUser.status}</span>:authUser.status}</p>
         <p className=""><span className="font-semibold">User Name :</span> {authUser.username}</p>
         <p className=""><span className="font-semibold">Email :</span> {authUser.email}</p>
         <p className=""><span className="font-semibold">Phone :</span> {authUser.mobile}</p>
-        <p className=""><span className="font-semibold">Current Package :</span> {packageType}</p>
+        <p className=""><span className="font-semibold">Current Package :</span> {authUser.subscription.name}</p>
         <p><span className="font-semibold">{getExpiryText(authUser.packageExpiresAt).label} : </span>{getExpiryText(authUser.packageExpiresAt).date}</p>
       </div>
     </>

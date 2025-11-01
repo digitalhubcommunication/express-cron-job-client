@@ -1,8 +1,14 @@
 import { FilterIcon, SearchIcon } from "@/components/icons/Icons";
-import { KeyboardEvent, useRef, useState } from "react";
+import { Dispatch, KeyboardEvent, SetStateAction, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { TFilterBy } from "../CronHistory";
 
-export default function SearchBar() {
+type Props = {
+    filterBy:TFilterBy;
+    setFilterBy:Dispatch<SetStateAction<TFilterBy>>;
+}
+
+export default function SearchBar({filterBy, setFilterBy}:Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -19,9 +25,21 @@ export default function SearchBar() {
     console.log(inputRef.current?.value);
     toast.warn("API integration in progress")
   };
+
+
+ const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterBy(e.target.value as TFilterBy);
+  };
+
+
+
   return (
     <div className="w-full h-20 flex items-center justify-end gap-5">
       <FilterIcon className="w-5 md:w-6 h-5 md:h-6" />
+       <select value={filterBy} onChange={handleChange}>
+      <option value="URL">URL</option>
+      <option value="STATUS">Status</option>
+    </select>
       <div
         className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
           focused ? "border-slate-400" : "border-slate-300"

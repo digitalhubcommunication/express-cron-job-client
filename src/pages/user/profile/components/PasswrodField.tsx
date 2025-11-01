@@ -44,7 +44,7 @@ const PasswordField: React.FC<InputFieldProps> = ({
       />
 
       {/* toggler icon */}
-      <button onClick={()=>setShow(prev=>!prev)} className="w-5 h-5 absolute top-[50%] right-4 -translate-y-[50%]">{show ? <EyeOpenIcon />:<EyeCloseIcon />}</button>
+      <button type="button" onClick={()=>setShow(prev=>!prev)} className="w-5 h-5 absolute top-[50%] right-4 -translate-y-[50%]">{show ? <EyeOpenIcon />:<EyeCloseIcon />}</button>
     </div>
       {errors[name] && errors[name].message ? (
         <p className="text-red-500 mt-1">{errors[name]?.message}</p>

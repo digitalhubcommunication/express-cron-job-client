@@ -1,11 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from '../baseQuery';
 
 export const userActionApi = createApi({
   reducerPath: 'userActionApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `https://expresscronjob.com/api`,
-    credentials: "include"
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     addManualCron: builder.mutation({
       query: (data) => ({
@@ -19,7 +17,7 @@ export const userActionApi = createApi({
     updateProfile:builder.mutation({
       query: (data) => ({
         url: '/users/profile',
-        method: 'POST',
+        method: 'PUT',
         body: data,
       }),
     }),

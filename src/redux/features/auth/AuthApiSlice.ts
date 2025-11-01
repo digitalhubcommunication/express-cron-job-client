@@ -1,11 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from '../baseQuery';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `https://expresscronjob.com/api`,
-    credentials: "include"
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({

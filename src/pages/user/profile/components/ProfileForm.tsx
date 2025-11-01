@@ -2,10 +2,12 @@ import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import PasswordField from "./PasswrodField";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useUpdateProfileMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import { setAuthUser } from "@/redux/features/auth/AuthSlice";
+import { setUserInfo } from "@/utils/token";
 
 export type FormData = {
   name: string;
@@ -15,6 +17,7 @@ export type FormData = {
 };
 
 export default function ProfileForm() {
+  const dispatch = useDispatch()
   const { authUser } = useSelector((state: RootState) => state.auth);
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
@@ -22,7 +25,6 @@ export default function ProfileForm() {
     register,
     setError,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -54,15 +56,19 @@ export default function ProfileForm() {
 
     try {
       const result = await updateProfile(dataToUpdate).unwrap();
-      console.log(result, " result");
+      if(result.success && result.user){
+        const updatedUser = {...result.user, accessToken:authUser?.accessToken}
+        setUserInfo(updatedUser)
+        dispatch(setAuthUser(updatedUser));
+        toast.success("Prfile updated");
+      }
     } catch (error:any) {
       console.log(error, "  eror ");
       toast.error(error.data?.message ||"Error updating profile");
     }
-
-    console.log("Form submitted:", data);
-    // reset();
   });
+
+  console.log(authUser,' uath user from profile form')
   return (
     <div className="w-full flex flex-wrap gap-10 lg:gap-0">
       <form

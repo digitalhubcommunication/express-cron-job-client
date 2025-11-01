@@ -5,16 +5,28 @@ import { useSelector } from "react-redux";
 import SearchBar from "./components/SearchBar";
 import { cronHistories } from "@/data/DemoData";
 import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
+import { useState } from "react";
+import CronTypeSwitcher from "./components/CronTypeSwitcher";
+
+export type TCronType = "ALL"| "DEFAULT"|"MANUAL";
+export type TFilterBy = "URL" | "STATUS";
 
 export default function CronHistory() {
   const { defaultDomains } = useSelector((state: RootState) => state.auth);
   if (!defaultDomains) return <InvalidUser message="Invalid User" />;
+  const [cronType, setCronType] = useState<TCronType>("ALL")
+  const [filterBy, setFilterBy] = useState<TFilterBy>("URL")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [logPerPage, setLogPerPage] = useState(20);
+
+
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
         <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
-          <SearchBar />
+          <CronTypeSwitcher cronType={cronType} setCronType={setCronType} />
+          <SearchBar filterBy={filterBy} setFilterBy={setFilterBy} />
           <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh]">
             <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">

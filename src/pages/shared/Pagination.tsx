@@ -1,4 +1,4 @@
-import { AngleRightIcon } from "@/components/icons/Icons";
+import { AngleLeftIcon, AngleRightIcon } from "@/components/icons/Icons";
 import { useResponsivePageWindow } from "@/hooks/useResponsivePageRange";
 import { Dispatch, SetStateAction } from "react";
 type Props = {
@@ -63,15 +63,14 @@ export default function Pagination({
   const pageRange = getMiddlePageRange();
 
   return (
-    <div className={`mt-5 xl:mt-10 ${containerStyle}`}>
+    <div className={`my-5 xl:my-10 ${containerStyle}`}>
       <div className="flex justify-center text-xs md:text-sm lg:text-base gap-1 md:gap-2 flex-wrap">
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
-          className={`p-1 mr-1 md:mr-2 bg-slate-200 rounded disabled:opacity-50 ${buttonStyle}`}
+          className={`mr-1 px-1 flex items-center justify-center md:mr-2 bg-slate-200 rounded disabled:opacity-50 ${buttonStyle}`}
         >
-          {/* <AngleLeftIcon /> */}
-          angle left
+          <AngleLeftIcon />
         </button>
 
         {pageRange.map((page, idx) =>
@@ -95,12 +94,12 @@ export default function Pagination({
         <button
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage(currentPage + 1)}
-          className={`p-1 ml-1 md:ml-2 bg-slate-200 rounded disabled:opacity-50 ${buttonStyle}`}
+          className={`flex pl-2 pt-0.5 items-center justify-center bg-slate-200 rounded disabled:opacity-50 ${buttonStyle}`}
         >
-          <AngleRightIcon />
+          <AngleRightIcon  />
         </button>
       </div>
-      <div className="flex items-center gap-3">
+      {/* <div className="flex items-center gap-3">
         <p>Jump to </p>
         <input
           className="border p-1 px-2 w-10 leading-0  rounded-[5px]"
@@ -110,7 +109,7 @@ export default function Pagination({
         <button className="bg-blue-600 text-white py-0.5 px-2 rounded-[5px]">
           GO
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

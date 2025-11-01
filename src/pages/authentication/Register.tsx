@@ -31,7 +31,6 @@ export default function RegisterPage() {
     const onSubmit = async (data: RegisterFormData) => {
        try {
                    const result = await registerUser(data).unwrap()
-                   console.log(result, ' result')
                    if(result?.success){
                         toast.success(result?.message);
                     navigate(`/verify-register-otp?email=${data.email}`)

@@ -5,20 +5,46 @@ import { useSelector } from "react-redux";
 import SearchBar from "./components/SearchBar";
 import { cronHistories } from "@/data/DemoData";
 import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CronTypeSwitcher from "./components/CronTypeSwitcher";
+import Pagination from "@/pages/shared/Pagination";
+import { useGetCronLogMutation } from "@/redux/features/userAction/userActionApi";
 
 export type TCronType = "ALL"| "DEFAULT"|"MANUAL";
 export type TFilterBy = "URL" | "STATUS";
 
 export default function CronHistory() {
   const { defaultDomains } = useSelector((state: RootState) => state.auth);
+ const [getCronLog, {isLoading}] = useGetCronLogMutation()
+
   if (!defaultDomains) return <InvalidUser message="Invalid User" />;
   const [cronType, setCronType] = useState<TCronType>("ALL")
   const [filterBy, setFilterBy] = useState<TFilterBy>("URL")
   const [currentPage, setCurrentPage] = useState(1);
-  const [logPerPage, setLogPerPage] = useState(20);
+  const [totalPages, setTotalPages] = useState(3);
+  const [statusCode, setStatusCode] = useState('200');
+  const [domainUrl, setDomainUrl] = useState('');
 
+  // requried fields
+  useEffect(() => {
+    const loadLog = async()=>{
+      const params = new URLSearchParams({
+          domainType: cronType ==="ALL" ? '': cronType==="DEFAULT"? "default":"manual",
+          domainUrl, 
+          filterBy:filterBy==="STATUS" ? "status":"url",  
+          status:statusCode,
+          page: currentPage.toString()
+        });
+
+        // Build query string like: ?domainType=xyz&cronType=ALL&filterBy=URL&page=1
+        const query = params.toString();
+        
+        console.log(query,' query')
+    }
+
+    loadLog();
+  }, [filterBy,currentPage, cronType, statusCode, domainUrl])
+  
 
   return (
     <DashboardContainer>
@@ -26,7 +52,8 @@ export default function CronHistory() {
         <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
           <CronTypeSwitcher cronType={cronType} setCronType={setCronType} />
-          <SearchBar filterBy={filterBy} setFilterBy={setFilterBy} />
+          
+          <SearchBar  domainUrl={domainUrl} setDomainUrl={setDomainUrl} statusCode={statusCode} setStatusCode={setStatusCode} filterBy={filterBy} setFilterBy={setFilterBy} />
           <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh]">
             <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -126,6 +153,9 @@ export default function CronHistory() {
               </tbody>
             </table>
           </div>
+          {
+            totalPages > 1 && <Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage}  />
+          }
         </div>
       </section>
     </DashboardContainer>

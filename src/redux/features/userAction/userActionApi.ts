@@ -29,7 +29,18 @@ export const userActionApi = createApi({
       }),
     }),
 
+    // cron log
+    getCronLog:builder.mutation({
+      query: (query) => ({
+        url: `/users/cron-log?${query}`,
+        method: 'GET'
+      }),
+    }),
+
+
+    // ====== user action ends =======
+
   }),
 });
 
-export const {useUpdateProfileMutation , useAddManualCronMutation} = userActionApi;
+export const {useGetCronLogMutation,useUpdateProfileMutation , useAddManualCronMutation} = userActionApi;

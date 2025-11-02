@@ -60,10 +60,10 @@ export const CustomModal = (props: CustomModalProps) => {
     <div
       ref={containerRef}
       onClick={hideModal}
-      className={`w-full h-full fixed top-0 px-4 left-0 flex justify-center items-center overflow-hidden z-[99998] ${wrapperContainerStyle}`}
+      className={`w-full h-full fixed top-0 px-4 left-0 flex justify-center items-center overflow-hidden z-[99997] ${wrapperContainerStyle}`}
     >
       <div
-        className={`w-full duration-300 h-auto flex flex-col relative rounded-[8px] lg:rounded-[10px]  z-[99999] ${containerStyle}`}
+        className={`w-full duration-300 h-auto flex flex-col relative rounded-[8px] lg:rounded-[10px]  z-[99998] ${containerStyle}`}
       >
         {children}
       </div>

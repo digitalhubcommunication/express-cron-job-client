@@ -136,3 +136,18 @@ export type TDecodedToken = {
   exp: number;
   iat: number;
 };
+
+
+export interface ICronLog {
+  _id: string;
+  userId: string;
+  domain: string;
+  domainType: "default" | "manual" | ""; // empty string for “all” case
+  message: string;
+  status: number;
+  responseTime: number;
+  timestamp: string; // ISO string
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

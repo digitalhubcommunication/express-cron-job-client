@@ -37,10 +37,25 @@ export const userActionApi = createApi({
       }),
     }),
 
+    clearCronLog:builder.mutation({
+      query: (query) => ({
+        url: `/users/cron-log?${query}`,
+        method: 'DELETE'
+      }),
+    }),
+
+    // manual domain crud
+      addManualDomain:builder.mutation({
+      query: (data) => ({
+        url: "/users/domain",
+        method: 'POST',
+        body:data
+      }),
+    }),
 
     // ====== user action ends =======
 
   }),
 });
 
-export const {useGetCronLogMutation,useUpdateProfileMutation , useAddManualCronMutation} = userActionApi;
+export const {useAddManualDomainMutation,useClearCronLogMutation, useGetCronLogMutation,useUpdateProfileMutation , useAddManualCronMutation} = userActionApi;

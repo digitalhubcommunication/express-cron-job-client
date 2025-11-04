@@ -29,3 +29,14 @@ grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))]
 
 
 */ 
+
+
+/*
+useEffect(() => {
+    const loadData = async()=>{
+
+    }
+
+    loadData()
+}, [])
+*/ 

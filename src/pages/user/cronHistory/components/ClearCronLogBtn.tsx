@@ -21,9 +21,9 @@ export default function ClearCronLogBtn({setCurrentPage, setLogs}:Props) {
         }else{
         toast.error("Error deleting logs")
         }
-    } catch (error) {
-        console.log(error)
-        toast.error("Error deleting logs")
+    } catch (error:any) {
+        console.log(error?.data?.message)
+        toast.error(error?.data?.message || "Error deleting logs")
     }
   };
 

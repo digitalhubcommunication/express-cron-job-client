@@ -9,7 +9,9 @@ import { useAddManualDomainMutation } from "@/redux/features/userAction/userActi
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 type FormData = {
-  urls: { url: string }[];
+  url:string;
+  title:string;
+  executeInMs:string;
 };
 
 const AddNewCron = () => {
@@ -22,32 +24,20 @@ const AddNewCron = () => {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<FormData>({
-    defaultValues: {
-      urls: [{ url: "" }],
-    },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "urls",
-  });
+  } = useForm<FormData>();
 
   // Handle URL submission
   const onSubmit = async (data: FormData) => {
-    try {
-      const urls = data.urls.map((u) => u.url.trim()).filter(Boolean);
-      if (urls.length === 0) {
-        toast.error("Please add at least one URL");
-        return;
-      }
+    if(!data || !data.title || !data.url || !data.executeInMs) return;
 
+    try {
       const res = await addManualDomain(data).unwrap();
       console.log(res, " res from adding manual domain");
 
-      // toast.success(`${urls.length} URLs added successfully!`);
+      // toast.success();
       // dispatch(toggleModal(ACTIVE_KEY));
     } catch (error: any) {
+      console.log(error, ' error')
       toast.error(error?.data?.message || "Something went wrong");
     }
   };
@@ -81,45 +71,58 @@ const AddNewCron = () => {
               <p>Allowed to add : {remainingLimit}</p>
             </div>
             <div className="flex flex-col gap-4">
-              {fields.map((field, index) => (
-                <div key={field.id} className="flex items-center gap-2">
-                  <input
+              <div>
+                <label className="mb-1" htmlFor="title">Title</label>
+                <input
                     type="text"
-                    {...register(`urls.${index}.url`, {
-                      required: "URL is required",
+                    {...register("title", {
+                      required: "Title is required",
                     })}
                     className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                      errors.urls?.[index]?.url
+                      errors.title
+                        ? "border-[var(--clr-danger)]"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter title"
+                  />
+              </div>
+               <div>
+                <label className="mb-1" htmlFor="url">Execute in</label>
+                <select
+                    {...register("executeInMs", {
+                      required: "Execution time is required",
+                    })}
+                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                      errors.executeInMs
+                        ? "border-[var(--clr-danger)]"
+                        : "border-gray-300"
+                    }`}
+                  >
+                    <option value="1800000">30 Minutes</option>
+                    <option value="3600000">1 Hour</option>
+                    <option value="10800000">3 Hours</option>
+                  </select>
+              </div>
+               <div>
+                <label className="mb-1" htmlFor="url">URL</label>
+                <input
+                    type="text"
+                    {...register("url", {
+                      required: "Url is required",
+                    })}
+                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                      errors.url
                         ? "border-[var(--clr-danger)]"
                         : "border-gray-300"
                     }`}
                     placeholder="Enter cron URL"
                   />
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="btn btn-danger px-3 py-2 text-xs"
-                    disabled={fields.length === 1}
-                  >
-                    <TrashIcon className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
+              </div>
+             
             </div>
 
             {/* Submit Button */}
             <div className="w-full flex flex-wrap gap-5 justify-between items-center mt-6">
-              <button
-                type="button"
-                onClick={() => append({ url: "" })}
-                className={`btn btn-secondary flex items-center gap-2 mt-2 ${
-                  remainingLimit === fields.length &&
-                  "pointer-events-none opacity-0"
-                }`}
-              >
-                <PlusIcon className="w-4 h-4" /> Add Another URL
-              </button>
-
               {isLoading ? (
                 <LoadingSpinner
                   className="min-h-6 ml-10 mr-3"

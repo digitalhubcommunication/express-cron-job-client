@@ -6,6 +6,7 @@ import AuthSlice from "./features/auth/AuthSlice";
 import packagesSlice from "./features/packages/packages";
 import { authApi } from "./features/auth/AuthApiSlice";
 import {userActionApi } from "./features/userAction/userActionApi";
+import {adminActionApi } from "./features/adminActions/adminActions";
 
 export const store = configureStore({
   reducer: {
@@ -16,10 +17,11 @@ export const store = configureStore({
     packages: packagesSlice,
 
     [authApi.reducerPath]:authApi.reducer,
-    [userActionApi.reducerPath]:userActionApi.reducer
+    [userActionApi.reducerPath]:userActionApi.reducer,
+    [adminActionApi.reducerPath]:adminActionApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware).concat(userActionApi.middleware)
+    getDefaultMiddleware().concat(authApi.middleware).concat(userActionApi.middleware).concat(adminActionApi.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

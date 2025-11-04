@@ -4,7 +4,7 @@ import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
 import { useEffect, useState } from "react";
 import CronTypeSwitcher from "./components/CronTypeSwitcher";
 import Pagination from "@/pages/shared/Pagination";
-import { useGetCronLogMutation } from "@/redux/features/userAction/userActionApi";
+import { useLazyGetCronLogQuery } from "@/redux/features/userAction/userActionApi";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ICronLog } from "@/types/types";
@@ -13,7 +13,7 @@ export type TCronType = "ALL" | "DEFAULT" | "MANUAL";
 export type TFilterBy = "URL" | "STATUS";
 
 export default function CronHistory() {
-  const [getCronLog, { isLoading }] = useGetCronLogMutation();
+  const [getCronLog, { isLoading }] = useLazyGetCronLogQuery();
   const [logs, setLogs] = useState<ICronLog[]>([]);
   const [cronType, setCronType] = useState<TCronType>("ALL");
   const [filterBy, setFilterBy] = useState<TFilterBy>("URL");
@@ -49,6 +49,7 @@ export default function CronHistory() {
             setTotalPages(res.pages);
         }else{
           setLogs([]);
+          setTotalPages(1)
         }
       } catch (error) {
         toast.error("Internal server error");
@@ -60,14 +61,12 @@ export default function CronHistory() {
   }, [filterBy, currentPage, cronType, statusCode, domainUrl]);
 
   const startingIndex = (currentPage - 1) * limit;
-
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
         <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
           <CronTypeSwitcher cronType={cronType} setCronType={setCronType} />
-
           <SearchBar
             setLogs={setLogs}
             domainUrl={domainUrl}

@@ -90,7 +90,7 @@ export default function Navbar() {
                         isActive ? "text-blue-700" : "hover:text-blue-600"
                       }`
                     }
-                    to="/settings/dashboard"
+                    to={`/${authUser.role ==="admin" ? "admin":"settings"}/dashboard`}
                   >
                     Dashboard
                   </NavLink>

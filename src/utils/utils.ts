@@ -82,3 +82,18 @@ export function isTokenExpired(token?:string):boolean{
      
     return false;
 }
+
+
+
+  export const buildUserFilterQuery = (key: TUserFilter, value: string, currentPage:number) => {
+    const limit = 20;
+    const params = new URLSearchParams({
+      [key]: value,
+      page: currentPage.toString(),
+      limit: `${limit}`,
+    });
+
+    // Build query for name,email,status,domain,subscription,page,
+    const query = params.toString();
+    return query;
+  };

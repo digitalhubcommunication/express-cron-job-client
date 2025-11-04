@@ -151,3 +151,16 @@ export interface ICronLog {
   updatedAt: string;
   __v: number;
 }
+
+
+export interface IPackage {
+  _id: string;              // optional if coming from MongoDB
+  name: string;              // "Free"
+  price: number;             // 0
+  status: "enabled" | "disabled"; // enum for clarity
+  intervalInMs: number;      // 7000
+  manualCronLimit: number;   // 3
+  validity: number;          // 2 (in days)
+  createdAt: string;         // ISO date string
+  updatedAt: string;         // ISO date string
+}

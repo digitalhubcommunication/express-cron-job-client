@@ -1,6 +1,9 @@
 import { Button } from "@/components/button/Button";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { CustomModal, CustomModalHeader } from "@/components/modal/CustomModal";
+import { useAddPackageMutation } from "@/redux/features/adminActions/adminActions";
 import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
+import { setPackage } from "@/redux/features/packages/packages";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -11,30 +14,47 @@ const packageSchema = z.object({
   name: z.string().min(1, "Name is required"),
   validity: z.number().min(1, "Minimum 1 day"),
   price: z.number().min(0),
-  intervalInMS: z.number().min(3000, "Minimum 3000ms"),
+  intervalInMs: z.number().min(3000, "Minimum 3000ms"),
+  manualCronLimit: z
+    .number("Minimum 1 manual cron required")
+    .min(1, "Minimum 1 manual cron required"),
 });
 
 type PackageFormData = z.infer<typeof packageSchema>;
 
 export default function PackageModal() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [addPackage, { isLoading }] = useAddPackageMutation();
   // variables
   const ACTIVE_KEY = "OPEN_NEW_PACKAGE_ADD_MODAL";
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<PackageFormData>({
     resolver: zodResolver(packageSchema),
   });
 
   // handlers
-  const onSubmit = (data: PackageFormData) => {
-    dispatch(toggleModal(null));
-    toast.warn("API integration in progress");
-   
-    console.log("Only changed fields to send in PUT request:", data);
+  const onSubmit = async (data: PackageFormData) => {
+    try {
+      const res = await addPackage({ status: "enabled", ...data }).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        dispatch(setPackage(res.data));
+        reset();
+      } else {
+        throw new Error(res.message);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
+    finally{
+      dispatch(toggleModal(null));
+    }
   };
 
   return (
@@ -42,7 +62,9 @@ export default function PackageModal() {
       activeKey={ACTIVE_KEY}
       key={ACTIVE_KEY}
       containerStyle="bg-white max-w-[600px] md:p-1 lg:p-2"
-      wrapperContainerStyle="bg-slate-500/70"
+      wrapperContainerStyle={`bg-slate-500/70 ${
+        isLoading && "pointer-events-none"
+      }`}
     >
       <CustomModalHeader title="Add new package" />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 z-0 ">
@@ -89,17 +111,44 @@ export default function PackageModal() {
           <label className="block mb-1 whitespace-nowrap">Interval (ms)</label>
           <input
             type="number"
-            {...register("intervalInMS", { valueAsNumber: true })}
+            {...register("intervalInMs", { valueAsNumber: true })}
             className="input-expand"
             min={3000}
+            step={1000}
             placeholder="Interval in ms"
           />
-          {errors.intervalInMS && (
-            <p className="text-red-500">{errors.intervalInMS.message}</p>
+          {errors.intervalInMs && (
+            <p className="text-red-500">{errors.intervalInMs.message}</p>
           )}
         </div>
 
-        <Button label="Add" type="submit" />
+        <div className="w-full">
+          <label className="block mb-1 whitespace-nowrap">
+            Manual cron limit
+          </label>
+          <input
+            type="number"
+            {...register("manualCronLimit", { valueAsNumber: true })}
+            className="input-expand"
+            min={1}
+            step={1}
+            placeholder="Enter manual cron limit"
+          />
+          {errors.manualCronLimit && (
+            <p className="text-red-500">{errors.manualCronLimit.message}</p>
+          )}
+        </div>
+
+        {isLoading ? (
+         <div className="w-full min-h-[40px] flex items-center justify-start ml-10">
+           <LoadingSpinner
+            totalVisuals={3}
+            containerClass="w-4 md:w-5 h-4 2xl:h-5"
+          />
+         </div>
+        ) : (
+          <Button label="Add" type="submit" />
+        )}
       </form>
     </CustomModal>
   );

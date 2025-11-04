@@ -68,7 +68,6 @@ export default function ProfileForm() {
     }
   });
 
-  console.log(authUser,' uath user from profile form')
   return (
     <div className="w-full flex flex-wrap gap-10 lg:gap-0">
       <form

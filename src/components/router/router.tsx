@@ -27,6 +27,8 @@ import RegisterPage from "@/pages/authentication/Register";
 import VerifyRegisterOTP from "@/pages/authentication/VerifyRegisterOTP";
 import VerifyLoginOTP from "@/pages/authentication/VerifyLoginOTP";
 import ResetPassword from "@/pages/authentication/ResetPassword";
+import AddedDomains from "@/pages/admin/domain/AddedDomains";
+import UserDetails from "@/pages/admin/users/UserDetails";
 
 export const router = createBrowserRouter([
   {
@@ -150,8 +152,17 @@ export const router = createBrowserRouter([
         element: <AdminDashboardPage />,
       },
       {
+        path:"domains",
+        element: <AddedDomains />
+      }
+      ,
+      {
         path: "users",
         element: <RegisteredUsersPage />,
+      },
+        {
+        path: "users/:id",
+        element: <UserDetails />,
       },
       {
         path: "user-cron-history",
@@ -165,18 +176,18 @@ export const router = createBrowserRouter([
         path: "profile-and-password",
         element: <ProfilePage />,
       },
-      {
-        path: "connect-telegram",
-        element: <ConnectTelegramPage />,
-      },
-      {
-        path: "dhru-fusion-setup",
-        element: <DhruFusionSetupPage />,
-      },
-      {
-        path: "cloudflare-setup",
-        element: <CloudflareSetupPage />,
-      },
+      // {
+      //   path: "connect-telegram",
+      //   element: <ConnectTelegramPage />,
+      // },
+      // {
+      //   path: "dhru-fusion-setup",
+      //   element: <DhruFusionSetupPage />,
+      // },
+      // {
+      //   path: "cloudflare-setup",
+      //   element: <CloudflareSetupPage />,
+      // },
     ],
   },
 

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
 
 export default function AllPackages() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
   return (
     <DashboardContainer className="pt-[110px]">
       <section className="section-pb">

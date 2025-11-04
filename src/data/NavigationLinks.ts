@@ -1,4 +1,4 @@
-import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
+import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, GlobeIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
 import { TLink, TSidebarLink } from "@/types/types";
 
 
@@ -51,6 +51,12 @@ export const adminLinks: TSidebarLink[] = [
         Icon: UsersIcon,
         to: "/admin/users"
     },
+     {
+        label: "Domains",
+        Icon: GlobeIcon,
+        to: "/admin/domains"
+    },
+    ,
     {
         label: "History",
         Icon: ClockWorkIcon,
@@ -61,21 +67,21 @@ export const adminLinks: TSidebarLink[] = [
         Icon: CreditCartIcon,
         to: "/admin/all-packages"
     },
-    {
-        label: "Connect Telegram",
-        Icon: TelegramIcon,
-        to: "/admin/connect-telegram"
-    },
-    {
-        label: "Dhru Fusion Setup",
-        Icon: CartIcon,
-        to: "/admin/dhru-fusion-setup"
-    },
-    {
-        label: "Cloudflare Setup",
-        Icon: CloudFlareIcon,
-        to: "/admin/cloudflare-setup"
-    },
+    // {
+    //     label: "Connect Telegram",
+    //     Icon: TelegramIcon,
+    //     to: "/admin/connect-telegram"
+    // },
+    // {
+    //     label: "Dhru Fusion Setup",
+    //     Icon: CartIcon,
+    //     to: "/admin/dhru-fusion-setup"
+    // },
+    // {
+    //     label: "Cloudflare Setup",
+    //     Icon: CloudFlareIcon,
+    //     to: "/admin/cloudflare-setup"
+    // },
 ]
 
 export const navLinks: TLink[] = [

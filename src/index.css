@@ -365,7 +365,7 @@ body {
 
 /* Button Wrapper */
 .ecj_btn_cta {
-  @apply relative inline-block overflow-hidden border rounded-[10px] leading-[110%] text-inherit bg-transparent transform transition-transform duration-300 px-8 py-2.5;
+  @apply relative inline-block overflow-hidden border rounded-[10px] leading-[110%] text-inherit bg-transparent transform transition-transform duration-300 px-8 py-2;
   transform: translateZ(0);
 }
 

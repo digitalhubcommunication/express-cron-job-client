@@ -59,7 +59,8 @@ export default function VerifyLoginOTP() {
         toast.success("Login success");
         setUserInfo(result?.user);
         dispatch(setAuthUser(result?.user));
-        navigate('/settings/dashboard', {replace:true})
+        const route = result?.user?.role === "admin" ? "/admin/dashboard":"/settings/dashboard"
+        navigate(route, {replace:true});
       }
 
       // If backend sent `resendAfter`, start countdown

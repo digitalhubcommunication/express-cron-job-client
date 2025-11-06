@@ -22,7 +22,7 @@ export const userActionApi = createApi({
       }),
     }),
 
-    getProfile:builder.mutation({
+    getProfile:builder.query({
       query: () => ({
         url: '/users/profile',
         method: 'GET'
@@ -44,12 +44,26 @@ export const userActionApi = createApi({
       }),
     }),
 
-    // manual domain crud
+    // domains crud
+      updateDefaultDomain:builder.mutation({
+      query: ({id,data}) => ({
+        url: `/users/default-domain/${id}`,
+        method: 'PUT',
+        body:data
+      }),
+    }),
       addManualDomain:builder.mutation({
       query: (data) => ({
-        url: "/users/domain",
+        url: "/users/manual-domain",
         method: 'POST',
         body:data
+      }),
+    }),
+
+      removeManualDomain:builder.mutation({
+      query: (id) => ({
+        url: `/users/domain/${id}`,
+        method: 'DELETE',
       }),
     }),
 
@@ -58,4 +72,17 @@ export const userActionApi = createApi({
   }),
 });
 
-export const {useAddManualDomainMutation,useClearCronLogMutation, useLazyGetCronLogQuery ,useUpdateProfileMutation , useAddManualCronMutation} = userActionApi;
+export const {
+  // domain hooks
+  useAddManualDomainMutation,
+  useAddManualCronMutation,
+  useUpdateDefaultDomainMutation,
+
+  // cron log hooks
+  useClearCronLogMutation,
+  useLazyGetCronLogQuery,
+
+  // profile hooks
+  useUpdateProfileMutation,
+  useLazyGetProfileQuery,
+} = userActionApi;

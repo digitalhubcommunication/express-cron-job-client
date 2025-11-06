@@ -1,6 +1,5 @@
 import Home from "@/pages/home/Home";
 import { createBrowserRouter } from "react-router-dom";
-// import AuthUserRoute from "../wrapper/AuthUserRoute";
 import UserDashboardPage from "@/pages/user/dashboard/UserDashboard";
 import SettingsLayout from "../layout/SettingsLayout";
 import DashboardContainer from "../wrapper/DashboardContainer";
@@ -9,7 +8,6 @@ import DhruFusionSetupPage from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
 import ConnectTelegramPage from "@/pages/user/connectTelegram/ConnectTelegram";
 import ProfilePage from "@/pages/user/profile/Profile";
 import CronHistoryPage from "@/pages/user/cronHistory/CronHistory";
-import ManualCronsPage from "@/pages/user/manualCron/ManualCrons";
 import PackagesPage from "@/pages/package/Packages";
 import AboutPage from "@/pages/about/About";
 import RootLayout from "../layout/RootLayout";
@@ -29,6 +27,7 @@ import VerifyLoginOTP from "@/pages/authentication/VerifyLoginOTP";
 import ResetPassword from "@/pages/authentication/ResetPassword";
 import AddedDomains from "@/pages/admin/domain/AddedDomains";
 import UserDetails from "@/pages/admin/users/UserDetails";
+import CronSetup from "@/pages/user/manualCron/CronSetup";
 
 export const router = createBrowserRouter([
   {
@@ -106,8 +105,8 @@ export const router = createBrowserRouter([
         element: <UserDashboardPage />,
       },
       {
-        path: "manual-cron-setup",
-        element: <ManualCronsPage />,
+        path: "cron-setup",
+        element: <CronSetup />,
       },
       {
         path: "cron-history",

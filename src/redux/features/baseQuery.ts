@@ -1,13 +1,13 @@
-import { getUserInfo } from "@/utils/token";
+import { getToken } from "@/utils/token";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 export const baseQuery = fetchBaseQuery({
     baseUrl: `https://expresscronjob.com/api`,
     credentials: "include",
      prepareHeaders: (headers) => {
-      const user = getUserInfo();
-      if (user) {
-        headers.set("Authorization", `Bearer ${user.accessToken}`);
+      const token = getToken("accessToken");
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
       }
 
       // Optional: Add more custom headers

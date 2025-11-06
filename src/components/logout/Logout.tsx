@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import { useLogoutMutation } from "@/redux/features/auth/AuthApiSlice";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import { setAuthUser } from "@/redux/features/auth/AuthSlice";
-import { deleteUserInfo } from "@/utils/token";
 import { useNavigate } from "react-router";
+import { deleteToken } from "@/utils/token";
 
 export default function Logout() {
   const navigate = useNavigate()
@@ -24,7 +24,8 @@ export default function Logout() {
     finally{
       navigate("/", {replace:true})
       dispatch(setAuthUser(null));
-      deleteUserInfo();
+      deleteToken("accessToken")
+      deleteToken("refreshToken")
       toast.success("Logged out");
     }
   };

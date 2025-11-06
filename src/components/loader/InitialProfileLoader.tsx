@@ -2,14 +2,16 @@ import {
   setAuthUser,
   setUserDataLoading,
 } from "@/redux/features/auth/AuthSlice";
+import { useLazyGetProfileQuery } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
-import { deleteUserInfo, getUserInfo } from "@/utils/token";
+import { deleteToken, getToken } from "@/utils/token";
 import { getRole, isTokenExpired } from "@/utils/utils";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function InitialProfileLoader() {
   const dispatch = useDispatch();
+  const [getProfile] = useLazyGetProfileQuery();
   const { authUser, isUserLoading } = useSelector(
     (state: RootState) => state.auth
   );
@@ -20,30 +22,39 @@ export default function InitialProfileLoader() {
       return;
     }
 
-    // get the user
-    const user = getUserInfo();
-    if (!user) {
-      authUser && dispatch(setAuthUser(null));
-      isUserLoading && dispatch(setUserDataLoading(false));
-      return;
-    }
+    const loadProfile = async () => {
+      // validate token
+      const accessToken = getToken("accessToken");
+      if (!accessToken || isTokenExpired(accessToken))
+        return dispatch(setUserDataLoading(false));
 
-    // check user validation
-    const ALLOWED_ROLES = ["user", "admin"];
-    const role = getRole(user.accessToken);
-    if (
-      isTokenExpired(user.accessToken) ||
-      !role ||
-      !ALLOWED_ROLES.includes(role)
-    ) {
-      authUser && dispatch(setAuthUser(null));
-      isUserLoading && dispatch(setUserDataLoading(false));
-      deleteUserInfo();
-      return;
-    }
+      //  validation user role
+      const ALLOWED_ROLES = ["user", "admin"];
+      const role = getRole(accessToken);
 
-    dispatch(setAuthUser(user));
-    isUserLoading && dispatch(setUserDataLoading(false));
+      if (!role || !ALLOWED_ROLES.includes(role)) {
+        deleteToken("accessToken");
+        deleteToken("refreshToken");
+        authUser && dispatch(setAuthUser(null));
+        isUserLoading && dispatch(setUserDataLoading(false));
+        return;
+      }
+
+      const res = await getProfile({}).unwrap();
+      try {
+        if (res.success) {
+          dispatch(setAuthUser(res.user));
+        } else {
+          throw new Error(res.message);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch(setUserDataLoading(false));
+      }
+    };
+
+    loadProfile();
   }, []);
 
   return <></>;

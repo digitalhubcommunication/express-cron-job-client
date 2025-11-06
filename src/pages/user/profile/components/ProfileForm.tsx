@@ -7,7 +7,6 @@ import { RootState } from "@/redux/store";
 import { useUpdateProfileMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { setAuthUser } from "@/redux/features/auth/AuthSlice";
-import { setUserInfo } from "@/utils/token";
 
 export type FormData = {
   name: string;
@@ -58,7 +57,6 @@ export default function ProfileForm() {
       const result = await updateProfile(dataToUpdate).unwrap();
       if(result.success && result.user){
         const updatedUser = {...result.user, accessToken:authUser?.accessToken}
-        setUserInfo(updatedUser)
         dispatch(setAuthUser(updatedUser));
         toast.success("Prfile updated");
       }

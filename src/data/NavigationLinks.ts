@@ -9,9 +9,9 @@ export const authUserLinks: TSidebarLink[] = [
         to: "/settings/dashboard"
     },
     {
-        label: "Manual Cron Setup",
+        label: "Cron Setup",
         Icon: NetworkIcon,
-        to: "/settings/manual-cron-setup"
+        to: "/settings/cron-setup"
     },
     {
         label: "Cron History",

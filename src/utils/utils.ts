@@ -51,7 +51,7 @@ import { deleteToken, getToken } from './token';
 
 export function decodeToken(jwttoken:string | null = null):TDecodedToken | null {
   try {
-    const token = jwttoken || getToken();
+    const token = jwttoken || getToken("accessToken");
 
     if(!token) return null;
 
@@ -76,7 +76,7 @@ export function isTokenExpired(token?:string):boolean{
      if(!decoded || !decoded.exp) return true;
 
      if(decoded.exp < (Date.now() / 1000)){
-        deleteToken()
+        deleteToken("accessToken")
         return true;
      }
      

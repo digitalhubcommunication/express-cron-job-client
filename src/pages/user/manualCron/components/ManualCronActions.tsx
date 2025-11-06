@@ -19,6 +19,7 @@ const AddNewCron = () => {
   const dispatch = useDispatch();
   const [addManualDomain, { isLoading }] = useAddManualDomainMutation();
   const { authUser } = useSelector((state: RootState) => state.auth);
+  console.log(authUser ,' auth user');
   const {
     register,
     handleSubmit,
@@ -37,15 +38,14 @@ const AddNewCron = () => {
       // toast.success();
       // dispatch(toggleModal(ACTIVE_KEY));
     } catch (error: any) {
-      console.log(error, ' error')
-      toast.error(error?.data?.message || "Something went wrong");
+      console.log(error, ' error updating data')
+      // toast.error(error?.data?.message || "Something went wrong");
     }
   };
 
   const limit = authUser?.subscription?.manualCronLimit || 3;
   const remainingLimit = limit - (authUser?.manualCronCount || 0);
 
-  console.log(authUser,' auth user');
   return (
     <>
       <button
@@ -66,8 +66,8 @@ const AddNewCron = () => {
 
         <div className="w-full h-full p-4">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex items-center justify-between my-5">
-              <h6 className="mb-3">Domain: {authUser?.domain || ""}</h6>
+            <div className="mb-3 flex-wrap gap-5 flex items-center justify-between my-5">
+              <h6 className="">Domain: {authUser?.domain || ""}</h6>
               <p>Allowed to add : {remainingLimit}</p>
             </div>
             <div className="flex flex-col gap-4">

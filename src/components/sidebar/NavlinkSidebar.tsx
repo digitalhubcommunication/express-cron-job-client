@@ -31,7 +31,7 @@ const SidebarLink = ({ link: { Icon, label, to } }: { link: TSidebarLink }) => {
     >
       <Icon />
       <span
-        className={`ecj_fs-md duration-700 whitespace-nowrap  ${
+        className={`ecj_fs-md duration-300 whitespace-nowrap  ${
           hide ? "lg:opacity-0 overflow-hidden" : "opacity-100"
         }`}
       >

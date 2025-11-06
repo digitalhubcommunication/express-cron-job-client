@@ -10,9 +10,9 @@ import {
 } from "@/redux/features/auth/AuthApiSlice";
 
 import { useNavigate, useSearchParams } from "react-router";
-import { setUserInfo } from "@/utils/token";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/redux/features/auth/AuthSlice";
+import { setToken } from "@/utils/token";
 
 type OTPFormData = {
   otp: string;
@@ -57,8 +57,11 @@ export default function VerifyLoginOTP() {
       // If success
       if (result?.status === 200 || result?.success) {
         toast.success("Login success");
-        setUserInfo(result?.user);
+        setToken("accessToken" ,result?.user?.accessToken);
+        setToken("refreshToken" ,result?.user?.refreshToken);
         dispatch(setAuthUser(result?.user));
+
+        // TODO: have to get the rotuer url from where the user redirected to login page.
         const route = result?.user?.role === "admin" ? "/admin/dashboard":"/settings/dashboard"
         navigate(route, {replace:true});
       }

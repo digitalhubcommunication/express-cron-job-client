@@ -10,7 +10,7 @@ import {
 } from "@/redux/features/auth/AuthApiSlice";
 
 import { useNavigate, useSearchParams } from "react-router";
-import { setUserInfo } from "@/utils/token";
+import { setToken} from "@/utils/token";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "@/redux/features/auth/AuthSlice";
 
@@ -57,7 +57,8 @@ export default function VerifyRegisterOTP() {
       // If success
       if (result?.status === 200 || result?.success) {
         toast.success("Verification success");
-        setUserInfo(result?.user);
+        setToken("accessToken" ,result?.user?.accessToken);
+        setToken("refreshToken" ,result?.user?.refreshToken);
         dispatch(setAuthUser(result?.user));
         navigate('/settings/dashboard', {replace:true})
       }

@@ -19,6 +19,7 @@ type Props = {
   setDomainUrl: Dispatch<SetStateAction<string>>;
   setCurrentPage:Dispatch<SetStateAction<number>>;
   setLogs:Dispatch<SetStateAction<ICronLog[]>>;
+  logs:ICronLog[];
 };
 
 export default function SearchBar({
@@ -29,7 +30,8 @@ export default function SearchBar({
   domainUrl,
   setDomainUrl,
   setCurrentPage,
-  setLogs
+  setLogs,
+  logs
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,7 +58,7 @@ export default function SearchBar({
 
   return (
     <div className="w-full h-20 flex items-center justify-between gap-5">
-      <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />
+      { !!logs.length  && <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />}
       <div className="w-full h-20 flex items-center justify-end gap-5">
         <FilterIcon className="w-5 md:w-6 h-5 md:h-6" />
         <select

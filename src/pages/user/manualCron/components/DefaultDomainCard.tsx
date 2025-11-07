@@ -23,6 +23,10 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
     id: string,
     updateStatus: DomainStatus
   ) => {
+
+    const agree = confirm(`Are you sure you want to ${updateStatus==="enabled" ? "enable":"disable"} this domain?`)
+    if(!agree)return;
+
     try {
       const res = await changeDefaultDomainStatus({
         id,
@@ -40,13 +44,14 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
     }
   };
 
+
   return (
-    <Card key={domain._id} className="flex flex-col gap-2">
+    <Card key={domain._id} className="flex flex-col gap-2 max-w-[700px]">
       <p className="flex items-center gap-2">
         <span className="font-semibold">Name: </span>
         <span>Default Cron</span>
       </p>
-      <p className="flex items-center gap-2">
+      <p className="flex items-start gap-2">
         <span className="font-semibold">URL: </span>
         <span>{domain.url}</span>
       </p>

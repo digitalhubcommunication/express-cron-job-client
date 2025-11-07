@@ -1,13 +1,11 @@
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import ManualCronActions from "./components/ManualCronActions";
-import NoDomainMsg from "./components/NoDomainMsg";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import Card from "@/components/shared/Card";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import PageLoading from "@/components/loading/PageLoading";
 import { useState } from "react";
-import DefaultDomainCard from "./components/DefaultDomainCard";
+import ManualCrons from "./components/ManualCrons";
+import DefaultCrons from "./components/DefaultCrons";
 
 type TActiveTab = "Default" | "Manual";
 
@@ -24,8 +22,7 @@ export default function CronSetup() {
     return (
       <ErrorMessage key="MANUAL_DOMAIN_PAGE_ERROR_PAGE" msg="Invalid user" />
     );
-  const manualDomains = authUser?.manualDomains || [];
-  const defaultDomains = authUser?.defaultDomains || [];
+  
 
   return (
     <>
@@ -50,64 +47,7 @@ export default function CronSetup() {
             </button>
           </div>
 
-          {activeTab === "Default" ? (
-            <>
-              {defaultDomains && defaultDomains?.length ? (
-                <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-5">
-                  {defaultDomains?.map((domain) => (
-                    <DefaultDomainCard
-                      domain={domain}
-                      intervalInMs={authUser?.subscription?.intervalInMs || 0}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <NoDomainMsg />
-              )}
-            </>
-          ) : (
-            <>
-              <ManualCronActions />
-              {manualDomains && manualDomains?.length ? (
-                <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-5">
-                  {manualDomains?.map((domain) => (
-                    <Card key={domain._id} className="">
-                      <p className="flex items-center gap-2">
-                        <span className="font-semibold">Name: </span>
-                        <span>{domain.title}</span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="font-semibold">URL: </span>
-                        <span>{domain.url}</span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="font-semibold">Execution Time: </span>
-                        <span>{domain?.executionTime}ms</span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <span className="font-semibold">Status: </span>
-                        <span className="capitalize">{domain.status}</span>
-                      </p>
-                      <div className="w-full flex gap-5 mt-3">
-                        <button
-                          className={`btn ${
-                            "enabled" === domain.status
-                              ? "btn-danger"
-                              : "btn-success"
-                          }`}
-                        >
-                          {"enabled" === domain.status ? "Disable" : "Enable"}
-                        </button>
-                        <button className="btn btn-danger">Delete</button>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              ) : (
-                <NoDomainMsg />
-              )}
-            </>
-          )}
+          {activeTab === "Default" ? <DefaultCrons domains={authUser.defaultDomains} /> : <ManualCrons domains={authUser.manualDomains || []} addedDomain={authUser.manualCronCount} />}
         </section>
       </DashboardContainer>
     </>

@@ -50,7 +50,7 @@ export default function VerifyRegisterOTP() {
   const onSubmit = async (data: OTPFormData) => {
     try {
       const result = await verify({
-        otp: data.otp,
+        otp: data.otp.trim(),
         email,
       }).unwrap();
 
@@ -87,7 +87,7 @@ export default function VerifyRegisterOTP() {
 
       if(result?.success){
             setTimeLeft(60);  
-            toast.info("OTP resent successfully");
+            toast.success("OTP resent successfully");
             return;
       }
     } catch (error: any) {
@@ -121,7 +121,7 @@ export default function VerifyRegisterOTP() {
             </label>
             <input
               id="otp"
-              type="number"
+              type="text"
               {...register("otp", {
                 required: "OTP is required",
               })}

@@ -24,7 +24,7 @@ export type TManualDomain = {
   status: "enabled" | "disabled";
   url: string;
   title: string;
-  executionTime: number;
+  executeInMs: number;
   _id: string;
 };
 

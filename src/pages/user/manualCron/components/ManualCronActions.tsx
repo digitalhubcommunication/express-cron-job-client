@@ -1,12 +1,14 @@
-import { PlusIcon, TrashIcon } from "@/components/icons/Icons";
+import { PlusIcon } from "@/components/icons/Icons";
 import { CustomModal, CustomModalHeader } from "@/components/modal/CustomModal";
 import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RootState } from "@/redux/store";
 import { useAddManualDomainMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import { TManualDomain } from "@/types/types";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type FormData = {
   url:string;
@@ -14,17 +16,22 @@ type FormData = {
   executeInMs:string;
 };
 
-const AddNewCron = () => {
+
+type Props = {
+ setManualDomains:Dispatch<SetStateAction<TManualDomain[]>>
+ addedDomain:number;
+}
+
+const AddNewCron = ({setManualDomains, addedDomain}:Props) => {
   const ACTIVE_KEY = "OPEN_ADD_NEW_CRON_MODAL";
   const dispatch = useDispatch();
   const [addManualDomain, { isLoading }] = useAddManualDomainMutation();
+  const [domainAdded, setDomainAdded] = useState(addedDomain);
   const { authUser } = useSelector((state: RootState) => state.auth);
-  console.log(authUser ,' auth user');
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    control,
+    formState: { errors }
   } = useForm<FormData>();
 
   // Handle URL submission
@@ -33,18 +40,19 @@ const AddNewCron = () => {
 
     try {
       const res = await addManualDomain(data).unwrap();
-      console.log(res, " res from adding manual domain");
-
-      // toast.success();
-      // dispatch(toggleModal(ACTIVE_KEY));
+      if(res.success){
+        toast.success(res?.message);
+        setManualDomains((prev)=>[...prev, res.domain]);
+        setDomainAdded((prev)=>prev+1);
+      }
     } catch (error: any) {
       console.log(error, ' error updating data')
-      // toast.error(error?.data?.message || "Something went wrong");
+      toast.error(error?.data?.message || "Something went wrong");
     }
   };
 
   const limit = authUser?.subscription?.manualCronLimit || 3;
-  const remainingLimit = limit - (authUser?.manualCronCount || 0);
+  const remainingLimit = limit - domainAdded;
 
   return (
     <>

@@ -5,7 +5,7 @@ const ReactToastifyMessage = () => {
   return (
     <>
       <ToastContainer
-        className="z-[99999]"
+        className="!z-[99999]"
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}

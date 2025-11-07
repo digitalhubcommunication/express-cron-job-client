@@ -4,15 +4,8 @@ import { baseQuery } from '../baseQuery';
 export const userActionApi = createApi({
   reducerPath: 'userActionApi',
   baseQuery,
+   tagTypes: ["Profile"],
   endpoints: (builder) => ({
-    addManualCron: builder.mutation({
-      query: (data) => ({
-        url: '/users/profile',
-        method: 'POST',
-        body: data,
-      }),
-    }),
-
     // profile apis
     updateProfile:builder.mutation({
       query: (data) => ({
@@ -20,13 +13,15 @@ export const userActionApi = createApi({
         method: 'PUT',
         body: data,
       }),
+      invalidatesTags: ['Profile']
     }),
 
     getProfile:builder.query({
       query: () => ({
-        url: '/users/profile',
-        method: 'GET'
+        url: '/profile',
+        method: 'GET',
       }),
+       providesTags: ['Profile']
     }),
 
     // cron log
@@ -44,28 +39,50 @@ export const userActionApi = createApi({
       }),
     }),
 
-    // domains crud
+    // default domain crud
       updateDefaultDomain:builder.mutation({
       query: ({id,data}) => ({
         url: `/users/default-domain/${id}`,
         method: 'PUT',
         body:data
       }),
+      invalidatesTags: ['Profile']
     }),
-      addManualDomain:builder.mutation({
+
+     addManualDomain:builder.mutation({
       query: (data) => ({
         url: "/users/manual-domain",
         method: 'POST',
         body:data
       }),
+      invalidatesTags: ['Profile']
     }),
 
+    // manual domain crud
       removeManualDomain:builder.mutation({
       query: (id) => ({
-        url: `/users/domain/${id}`,
+        url: `/users/manual-domain/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Profile']
     }),
+
+      updateManualDomain:builder.mutation({
+      query: (data) => ({
+        url: "/users/manual-domain",
+        method: 'POST',
+        body:data
+      }),
+      invalidatesTags: ['Profile']
+    }),
+
+    //  addManualCron: builder.mutation({
+    //   query: (data) => ({
+    //     url: '/users/profile',
+    //     method: 'POST',
+    //     body: data,
+    //   }),
+    // }),
 
     // ====== user action ends =======
 
@@ -75,8 +92,10 @@ export const userActionApi = createApi({
 export const {
   // domain hooks
   useAddManualDomainMutation,
-  useAddManualCronMutation,
   useUpdateDefaultDomainMutation,
+
+  // manual domain hook
+  useRemoveManualDomainMutation,
 
   // cron log hooks
   useClearCronLogMutation,

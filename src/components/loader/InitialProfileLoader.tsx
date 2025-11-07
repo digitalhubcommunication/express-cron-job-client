@@ -8,6 +8,7 @@ import { deleteToken, getToken } from "@/utils/token";
 import { getRole, isTokenExpired } from "@/utils/utils";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function InitialProfileLoader() {
   const dispatch = useDispatch();
@@ -40,14 +41,19 @@ export default function InitialProfileLoader() {
         return;
       }
 
-      const res = await getProfile({}).unwrap();
       try {
+        const res = await getProfile({}).unwrap();
         if (res.success) {
           dispatch(setAuthUser(res.user));
         } else {
           throw new Error(res.message);
         }
-      } catch (error) {
+      } catch (error:any) {
+        if(error?.status ===403){
+          deleteToken("accessToken");
+          deleteToken("refreshToken")
+        }
+        // toast.error(error?.data?.message);
         console.log(error);
       } finally {
         dispatch(setUserDataLoading(false));

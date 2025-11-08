@@ -3,8 +3,10 @@ import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
 import { setDefaultDomainStatus } from "@/redux/features/auth/AuthSlice";
 import { useUpdateDefaultDomainMutation } from "@/redux/features/userAction/userActionApi";
+import { RootState } from "@/redux/store";
 import { TDomain } from "@/types/types";
-import { useDispatch } from "react-redux";
+import { removeProtocolRegex } from "@/utils/utils";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 type DomainStatus = "enabled" | "disabled";
@@ -15,7 +17,7 @@ type Props = {
 };
 
 export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
-
+const { authUser } = useSelector((state: RootState) => state.auth);
   // hooks
   const dispatch = useDispatch()
   const [changeDefaultDomainStatus, { isLoading }] =
@@ -58,7 +60,7 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
       </p>
       <p className="flex items-start gap-2">
         <span className="font-semibold">URL: </span>
-        <span>{domain.url}</span>
+        <span>{removeProtocolRegex(authUser?.domain || "")}</span>
       </p>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Execution Time: </span>

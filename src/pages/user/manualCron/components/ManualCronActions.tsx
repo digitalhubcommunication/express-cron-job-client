@@ -8,7 +8,6 @@ import { RootState } from "@/redux/store";
 import { useAddManualDomainMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { setManualDomain } from "@/redux/features/auth/AuthSlice";
-import { useState } from "react";
 
 type FormData = {
   url: string;
@@ -36,6 +35,7 @@ const AddNewCron = () => {
       if (res.success) {
         toast.success(res?.message);
         dispatch(toggleModal(null));
+        console.log(res.domain,' domain response')
         dispatch(setManualDomain(res.domain));
       }
     } catch (error: any) {

@@ -18,7 +18,7 @@ export default function ManualCrons() {
               {authUser?.manualDomains?.length && authUser?.manualDomains ? (
                 <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-5">
                   {authUser?.manualDomains?.map((domain) => (
-                   <ManualDomainCard key={domain._id}  {...domain} />
+                   <ManualDomainCard key={domain?._id}  {...domain} />
                   ))}
                 </div>
               ) : (

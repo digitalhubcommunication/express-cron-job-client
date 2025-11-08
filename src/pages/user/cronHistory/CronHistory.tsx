@@ -8,11 +8,15 @@ import { useLazyGetCronLogQuery } from "@/redux/features/userAction/userActionAp
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ICronLog } from "@/types/types";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
 
 export type TCronType = "ALL" | "DEFAULT" | "MANUAL";
 export type TFilterBy = "URL" | "STATUS";
 
 export default function CronHistory() {
+  const { authUser } = useSelector((state: RootState) => state.auth);
   const [getCronLog,{}] = useLazyGetCronLogQuery();
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
@@ -111,24 +115,24 @@ export default function CronHistory() {
                       </th>
                       <th
                         scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
+                        className="bg-gray-50 sticky w-[50%] lg:w-[40%] xl:w-[30%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
                       >
                         Domain
                       </th>
 
-                      <th
+                      {/* <th
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 w-[70px] xl:w-[100px] overflow-hidden px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
                       >
                         Status
-                      </th>
+                      </th> */}
 
-                      <th
+                      {/* <th
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 xl:w-[220px] px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
                       >
                         Message
-                      </th>
+                      </th> */}
                       <th
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 w-[100px] lg:w-[200px] px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
@@ -140,6 +144,12 @@ export default function CronHistory() {
                         className="bg-gray-50 sticky top-0 left-0 w-[70px] xl:w-[100px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider"
                       >
                         Success
+                      </th>
+                      <th
+                        scope="col"
+                        className="bg-gray-50 sticky top-0 left-0 whitespace-nowrap lg:w-[180px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider rounded-tr-lg"
+                      >
+                        Execution Time
                       </th>
                       <th
                         scope="col"
@@ -170,15 +180,15 @@ export default function CronHistory() {
                           <td className="md:w-20 px-4 py-3.5 whitespace-nowrap font-medium text-gray-900">
                             {startingIndex + index + 1}
                           </td>
-                          <td className=" overflow-x-auto px-4 py-3.5 whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{history.domain}</span>
+                          <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
+                            <span>{history.domainType ==="default" ? removeProtocolRegex(authUser?.domain || "") : history.domain}</span>
                           </td>
-                          <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
+                          {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
                             {history.status === 0 ? 404 : history.status}
-                          </td>
-                          <td className="xl:w-[220px] px-4 py-3.5 whitespace-nowrap">
+                          </td> */}
+                          {/* <td className="xl:w-[220px] px-4 py-3.5 whitespace-nowrap">
                             <span>{history.message}</span>
-                          </td>
+                          </td> */}
                           <td className="w-[100px] capitalize lg:w-[200px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.domainType}</span>
                           </td>
@@ -190,6 +200,9 @@ export default function CronHistory() {
                                 <XMarkIcon className="max-w-5 text-red-600" />
                               )}
                             </span>
+                          </td>
+                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
+                            <span>{formatDateForDisplay(new Date(history.timestamp).toString())}</span>
                           </td>
                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.responseTime}ms</span>

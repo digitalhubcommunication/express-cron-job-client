@@ -97,3 +97,24 @@ export function isTokenExpired(token?:string):boolean{
     const query = params.toString();
     return query;
   };
+
+  export const removeProtocolRegex = (url:string) => {
+  const protocolRegex = /^\w+:\/\//i;
+  return url.replace(protocolRegex, '');
+};
+
+
+export function formatDateForDisplay(dateString: string): string {
+  const date = new Date(dateString);
+
+  // Format parts
+  const formattedDate = format(date, "dd-MM-yy HH:mm:ss");
+
+  // Get timezone offset in hours (e.g., +06)
+  const offsetMinutes = date.getTimezoneOffset(); // in minutes
+  const offsetHours = -offsetMinutes / 60;
+  const sign = offsetHours >= 0 ? "+" : "-";
+  const formattedOffset = `${sign}${String(Math.abs(offsetHours)).padStart(2, "0")}`;
+
+  return `${formattedDate} GMT${formattedOffset}`;
+}

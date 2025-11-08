@@ -36,11 +36,14 @@ export default function ManualDomainCard({
   ) => {
       const agree = confirm(`Are you sure you want to ${updateStatus==="enabled" ? "enable":"disable"} this domain?`)
     if(!agree)return;
+
+
     try {
       const res = await changeManualDomainStatus({
         id,
         data: { status: updateStatus },
       }).unwrap();
+      console.log(res,' res updating manual domain')
       if (res?.success) {
         toast.success(res.message || "Success");
         dispatch(setManualDomainStatus({id, status:updateStatus}))

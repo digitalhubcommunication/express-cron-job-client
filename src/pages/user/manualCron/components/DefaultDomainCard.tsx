@@ -1,9 +1,10 @@
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
+import { setDefaultDomainStatus } from "@/redux/features/auth/AuthSlice";
 import { useUpdateDefaultDomainMutation } from "@/redux/features/userAction/userActionApi";
 import { TDomain } from "@/types/types";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 type DomainStatus = "enabled" | "disabled";
@@ -14,9 +15,11 @@ type Props = {
 };
 
 export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
+
+  // hooks
+  const dispatch = useDispatch()
   const [changeDefaultDomainStatus, { isLoading }] =
     useUpdateDefaultDomainMutation();
-  const [status, setStatus] = useState<DomainStatus>(domain.status);
 
   // handlers
   const updateDefaultDomain = async (
@@ -34,7 +37,7 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
       }).unwrap();
       if (res?.success) {
         toast.success(res.message || "Success");
-        setStatus(updateStatus);
+        dispatch(setDefaultDomainStatus({id, status:updateStatus}))  
       } else {
         throw new Error(res?.message);
       }
@@ -43,6 +46,8 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
       console.log(error);
     }
   };
+
+  
 
 
   return (
@@ -68,13 +73,13 @@ export default function DefaultDomainCard({ domain, intervalInMs }: Props) {
           />
         ) : (
           <ToggleButton
-            isActive={status === "enabled"}
+            isActive={domain.status === "enabled"}
             key={`DEFAULT_DOMAIN_UPDATE_BTN_${domain._id}`}
-            label={status === "enabled" ? "Active" : "Deactive"}
+            label={domain.status === "enabled" ? "Active" : "Deactive"}
             onToggle={() =>
               updateDefaultDomain(
                 domain._id,
-                status === "enabled" ? "disabled" : "enabled"
+                domain.status === "enabled" ? "disabled" : "enabled"
               )
             }
           />

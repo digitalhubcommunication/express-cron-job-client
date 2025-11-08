@@ -1,4 +1,4 @@
-import { FilterIcon, SearchIcon } from "@/components/icons/Icons";
+import { FilterIcon, RefreshIcon, SearchIcon } from "@/components/icons/Icons";
 import {
   Dispatch,
   KeyboardEvent,
@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { TFilterBy } from "../CronHistory";
+import { TCronType, TFilterBy } from "../CronHistory";
 import ClearCronLogBtn from "./ClearCronLogBtn";
 import { ICronLog } from "@/types/types";
 
@@ -20,6 +20,8 @@ type Props = {
   setCurrentPage:Dispatch<SetStateAction<number>>;
   setLogs:Dispatch<SetStateAction<ICronLog[]>>;
   logs:ICronLog[];
+  setRefetch:Dispatch<SetStateAction<boolean>>;
+  cronType:TCronType,
 };
 
 export default function SearchBar({
@@ -31,7 +33,9 @@ export default function SearchBar({
   setDomainUrl,
   setCurrentPage,
   setLogs,
-  logs
+  logs,
+  setRefetch,
+  cronType
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,8 +61,9 @@ export default function SearchBar({
   };
 
   return (
-    <div className="w-full h-20 flex items-center justify-between gap-5">
-      { !!logs.length  && <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />}
+    <div className="w-full h-20 flex flex-wrap lg:flex-nowrap items-center justify-between gap-x-5 pb-5">
+      { !!logs.length  && cronType==="ALL" && <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />}
+      <button onClick={()=>setRefetch(true)}><RefreshIcon className="w-6 h-6 md:w-7 md:h-7" /></button>
       <div className="w-full h-20 flex items-center justify-end gap-5">
         <FilterIcon className="w-5 md:w-6 h-5 md:h-6" />
         <select

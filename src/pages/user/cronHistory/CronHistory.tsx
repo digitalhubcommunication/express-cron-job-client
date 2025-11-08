@@ -13,7 +13,7 @@ export type TCronType = "ALL" | "DEFAULT" | "MANUAL";
 export type TFilterBy = "URL" | "STATUS";
 
 export default function CronHistory() {
-  const [getCronLog] = useLazyGetCronLogQuery();
+  const [getCronLog,{}] = useLazyGetCronLogQuery();
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
   const [cronType, setCronType] = useState<TCronType>("ALL");
@@ -22,7 +22,9 @@ export default function CronHistory() {
   const [totalPages, setTotalPages] = useState(1);
   const [statusCode, setStatusCode] = useState("success");
   const [domainUrl, setDomainUrl] = useState("");
+  const [refetch, setRefetch] = useState(false); 
   const limit = 50;
+
 
   // requried fields
   useEffect(() => {
@@ -59,11 +61,12 @@ export default function CronHistory() {
         setTotalPages(1);
       } finally {
         setIsLoading(false);
+        setRefetch(false);
       }
     };
 
     loadLog();
-  }, [filterBy, currentPage, cronType, statusCode, domainUrl]);
+  }, [filterBy, currentPage, cronType, statusCode, domainUrl, refetch===true]);
 
   const startingIndex = (currentPage - 1) * limit;
   return (
@@ -84,6 +87,8 @@ export default function CronHistory() {
           ) : (
             <>
               <SearchBar
+              cronType={cronType}
+              setRefetch={setRefetch}
                 setLogs={setLogs}
                 logs={logs}
                 domainUrl={domainUrl}
@@ -94,7 +99,7 @@ export default function CronHistory() {
                 setFilterBy={setFilterBy}
                 setCurrentPage={setCurrentPage}
               />
-              <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh]">
+              <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
                 <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr className="">
@@ -197,7 +202,7 @@ export default function CronHistory() {
               </div>
             </>
           )}
-          {totalPages > 1 && !isLoading && (
+          {totalPages > 1 && !isLoading && logs?.length && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

@@ -47,7 +47,7 @@ export default function CronSetup() {
             </button>
           </div>
 
-          {activeTab === "Default" ? <DefaultCrons domains={authUser.defaultDomains} /> : <ManualCrons domains={authUser.manualDomains || []} addedDomain={authUser.manualCronCount} />}
+          {activeTab === "Default" ? <DefaultCrons /> : <ManualCrons />}
         </section>
       </DashboardContainer>
     </>

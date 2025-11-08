@@ -46,7 +46,6 @@ export const userActionApi = createApi({
         method: 'PUT',
         body:data
       }),
-      invalidatesTags: ['Profile']
     }),
 
      addManualDomain:builder.mutation({
@@ -55,7 +54,6 @@ export const userActionApi = createApi({
         method: 'POST',
         body:data
       }),
-      invalidatesTags: ['Profile']
     }),
 
     // manual domain crud
@@ -64,16 +62,14 @@ export const userActionApi = createApi({
         url: `/users/manual-domain/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Profile']
     }),
 
       updateManualDomain:builder.mutation({
-      query: (data) => ({
-        url: "/users/manual-domain",
-        method: 'POST',
+      query: ({id,data}) => ({
+        url: `/users/manual-domain/${id}`,
+        method: 'PUT',
         body:data
       }),
-      invalidatesTags: ['Profile']
     }),
 
     //  addManualCron: builder.mutation({
@@ -96,6 +92,7 @@ export const {
 
   // manual domain hook
   useRemoveManualDomainMutation,
+  useUpdateManualDomainMutation,
 
   // cron log hooks
   useClearCronLogMutation,

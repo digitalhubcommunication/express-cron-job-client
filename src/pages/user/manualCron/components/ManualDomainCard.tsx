@@ -2,10 +2,10 @@ import { TrashIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
-import { setAuthUser } from "@/redux/features/auth/AuthSlice";
+import { deleteManualDomain, setAuthUser, setManualDomainStatus } from "@/redux/features/auth/AuthSlice";
 import {
   useRemoveManualDomainMutation,
-  useUpdateDefaultDomainMutation,
+  useUpdateManualDomainMutation,
 } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";
@@ -19,31 +19,31 @@ export default function ManualDomainCard({
   title,
   _id,
   executeInMs,
-  status: domainStatus,
+  status,
   url,
 }: TManualDomain) {
   const dispatch = useDispatch();
-  const [deleted, setDeleted] = useState(false);
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const [changeDefaultDomainStatus, { isLoading }] =
-    useUpdateDefaultDomainMutation();
+  const [changeManualDomainStatus, { isLoading }] =
+    useUpdateManualDomainMutation();
 
   const [removeUrl, { isLoading: deleting }] = useRemoveManualDomainMutation();
-  const [status, setStatus] = useState<DomainStatus>(domainStatus);
 
   // handlers
   const updateDefaultDomain = async (
     id: string,
     updateStatus: DomainStatus
   ) => {
+      const agree = confirm(`Are you sure you want to ${updateStatus==="enabled" ? "enable":"disable"} this domain?`)
+    if(!agree)return;
     try {
-      const res = await changeDefaultDomainStatus({
+      const res = await changeManualDomainStatus({
         id,
         data: { status: updateStatus },
       }).unwrap();
       if (res?.success) {
         toast.success(res.message || "Success");
-        setStatus(updateStatus);
+        dispatch(setManualDomainStatus({id, status:updateStatus}))
       } else {
         throw new Error(res?.message);
       }
@@ -65,15 +65,14 @@ export default function ManualDomainCard({
           (domain) => domain._id !== _id
         );
         dispatch(setAuthUser(updatedUser));
-        setDeleted(true);
+        dispatch(deleteManualDomain(_id));
+        toast.success("Deleted successfully");
       }
     } catch (error: any) {
       toast.error(error?.data?.message);
       console.log(error);
     }
   };
-
-  if (deleted) return <></>;
 
   return (
     <Card className={`flex flex-col gap-2 relative max-w-[500px]`}>

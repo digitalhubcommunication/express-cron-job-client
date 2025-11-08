@@ -7,52 +7,47 @@ import { toast } from "react-toastify";
 import { RootState } from "@/redux/store";
 import { useAddManualDomainMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { TManualDomain } from "@/types/types";
-import { Dispatch, SetStateAction, useState } from "react";
+import { setManualDomain } from "@/redux/features/auth/AuthSlice";
+import { useState } from "react";
 
 type FormData = {
-  url:string;
-  title:string;
-  executeInMs:string;
+  url: string;
+  title: string;
+  executeInMs: string;
 };
 
-
-type Props = {
- setManualDomains:Dispatch<SetStateAction<TManualDomain[]>>
- addedDomain:number;
-}
-
-const AddNewCron = ({setManualDomains, addedDomain}:Props) => {
+const AddNewCron = () => {
   const ACTIVE_KEY = "OPEN_ADD_NEW_CRON_MODAL";
   const dispatch = useDispatch();
   const [addManualDomain, { isLoading }] = useAddManualDomainMutation();
-  const [domainAdded, setDomainAdded] = useState(addedDomain);
   const { authUser } = useSelector((state: RootState) => state.auth);
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormData>();
 
   // Handle URL submission
   const onSubmit = async (data: FormData) => {
-    if(!data || !data.title || !data.url || !data.executeInMs) return;
+    if (!data || !data.title || !data.url || !data.executeInMs) return;
 
     try {
       const res = await addManualDomain(data).unwrap();
-      if(res.success){
+      if (res.success) {
         toast.success(res?.message);
-        setManualDomains((prev)=>[...prev, res.domain]);
-        setDomainAdded((prev)=>prev+1);
+        dispatch(toggleModal(null));
+        dispatch(setManualDomain(res.domain));
       }
     } catch (error: any) {
-      console.log(error, ' error updating data')
+      console.log(error, " error updating data");
       toast.error(error?.data?.message || "Something went wrong");
     }
   };
 
+  if(!authUser)return <></>;
+
   const limit = authUser?.subscription?.manualCronLimit || 3;
-  const remainingLimit = limit - domainAdded;
+  const remainingLimit = limit - authUser?.manualCronCount;
 
   return (
     <>
@@ -80,53 +75,61 @@ const AddNewCron = ({setManualDomains, addedDomain}:Props) => {
             </div>
             <div className="flex flex-col gap-4">
               <div>
-                <label className="mb-1" htmlFor="title">Title</label>
+                <label className="mb-1" htmlFor="title">
+                  Title
+                </label>
                 <input
-                    type="text"
-                    {...register("title", {
-                      required: "Title is required",
-                    })}
-                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                      errors.title
-                        ? "border-[var(--clr-danger)]"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="Enter title"
-                  />
+                  type="text"
+                  {...register("title", {
+                    required: "Title is required",
+                  })}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                    errors.title
+                      ? "border-[var(--clr-danger)]"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="Enter title"
+                />
               </div>
-               <div>
-                <label className="mb-1" htmlFor="url">Execute in</label>
+              <div>
+                <label className="mb-1" htmlFor="url">
+                  Execute in
+                </label>
                 <select
-                    {...register("executeInMs", {
-                      required: "Execution time is required",
-                    })}
-                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                      errors.executeInMs
-                        ? "border-[var(--clr-danger)]"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <option value="1800000">30 Minutes</option>
-                    <option value="3600000">1 Hour</option>
-                    <option value="10800000">3 Hours</option>
-                  </select>
+                  {...register("executeInMs", {
+                    required: "Execution time is required",
+                  })}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                    errors.executeInMs
+                      ? "border-[var(--clr-danger)]"
+                      : "border-gray-300"
+                  }`}
+                >
+                  {/* <option value="1800000">30 Minutes</option>
+                  <option value="3600000">1 Hour</option>
+                  <option value="10800000">3 Hours</option> */}
+                  <option value="3000">3 seconds</option>
+                  <option value="5000">5 seconds</option>
+                  <option value="7000">7 seconds</option>
+                </select>
               </div>
-               <div>
-                <label className="mb-1" htmlFor="url">URL</label>
+              <div>
+                <label className="mb-1" htmlFor="url">
+                  URL
+                </label>
                 <input
-                    type="text"
-                    {...register("url", {
-                      required: "Url is required",
-                    })}
-                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                      errors.url
-                        ? "border-[var(--clr-danger)]"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="Enter cron URL"
-                  />
+                  type="text"
+                  {...register("url", {
+                    required: "Url is required",
+                  })}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                    errors.url
+                      ? "border-[var(--clr-danger)]"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="Enter cron URL"
+                />
               </div>
-             
             </div>
 
             {/* Submit Button */}

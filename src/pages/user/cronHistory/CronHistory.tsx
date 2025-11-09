@@ -44,14 +44,16 @@ export default function CronHistory() {
               : "manual",
           domainUrl,
           filterBy: filterBy === "STATUS" ? "status" : "url",
-          status: statusCode === "success" ? "200" : "",
+          status: statusCode === "success" ? "200" : "400",
           page: currentPage.toString(),
           limit: `${limit}`,
         });
 
         // Build query string like: ?domainType=xyz&cronType=ALL&filterBy=URL&page=1
         const query = params.toString();
+        console.log(query, ' query')
         const res = await getCronLog(query).unwrap();
+        console.log(res,' res from filter')
         if (res.logs && res.logs?.length > 0) {
           setLogs(res.logs);
           setTotalPages(res.pages);
@@ -113,6 +115,14 @@ export default function CronHistory() {
                       >
                         #
                       </th>
+                      {
+                        cronType==="MANUAL" ? <th
+                        scope="col"
+                        className="bg-gray-50 sticky w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
+                      >
+                        Title
+                      </th>:<></> 
+                      }
                       <th
                         scope="col"
                         className="bg-gray-50 sticky w-[50%] lg:w-[40%] xl:w-[30%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
@@ -180,8 +190,14 @@ export default function CronHistory() {
                           <td className="md:w-20 px-4 py-3.5 whitespace-nowrap font-medium text-gray-900">
                             {startingIndex + index + 1}
                           </td>
+                          {
+                            cronType ==="MANUAL" ? <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
+                            <span>{history.title}</span>
+                          </td>:<></>
+                          }
+                            
                           <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{history.domainType ==="default" ? removeProtocolRegex(authUser?.domain || "") : history.domain}</span>
+                            <span>{removeProtocolRegex(authUser?.domain || "")}</span>
                           </td>
                           {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
                             {history.status === 0 ? 404 : history.status}

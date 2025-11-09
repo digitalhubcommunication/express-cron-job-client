@@ -140,6 +140,7 @@ export type TDecodedToken = {
 
 export interface ICronLog {
   _id: string;
+  title:string;
   userId: string;
   domain: string;
   domainType: "default" | "manual" | ""; // empty string for “all” case

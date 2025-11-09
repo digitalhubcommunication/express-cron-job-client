@@ -6,15 +6,15 @@ export default function ConnectTelegram() {
 
   // handlers
   const handleConnect = () => {
-     toast.warn("API integration in progress")
+     toast.warn("Coming Soon...")
   };
 
   const handlePriceUpdate=()=>{
-    toast.warn("API integration in progress")
+    toast.warn("Coming Soon...")
   }
 
   const handle2FA=()=>{
-    toast.warn("API integration in progress")
+    toast.warn("Coming Soon...")
   }
   return (
     <DashboardContainer>

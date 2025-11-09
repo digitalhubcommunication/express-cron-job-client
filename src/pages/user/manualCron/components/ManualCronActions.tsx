@@ -24,6 +24,7 @@ const AddNewCron = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
 
   // Handle URL submission
@@ -37,6 +38,7 @@ const AddNewCron = () => {
         dispatch(toggleModal(null));
         console.log(res.domain,' domain response')
         dispatch(setManualDomain(res.domain));
+        reset();
       }
     } catch (error: any) {
       console.log(error, " error updating data");

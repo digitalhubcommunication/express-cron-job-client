@@ -12,20 +12,23 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
 
-export type TCronType = "ALL" | "DEFAULT" | "MANUAL";
-export type TFilterBy = "URL" | "STATUS";
+export type TCronType = '' | "manual" | "default";
+export type TFilterBy = "title" | "status";
+export type TStatusCode = '200' | '400';
 
 export default function CronHistory() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const [getCronLog,{}] = useLazyGetCronLogQuery();
+
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
-  const [cronType, setCronType] = useState<TCronType>("ALL");
-  const [filterBy, setFilterBy] = useState<TFilterBy>("URL");
+  const [cronType, setCronType] = useState<TCronType>('');
+
+  const [filterBy, setFilterBy] = useState<TFilterBy>("title");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [statusCode, setStatusCode] = useState("success");
-  const [domainUrl, setDomainUrl] = useState("");
+  const [statusCode, setStatusCode] = useState<TStatusCode>("200");
+  const [domainTitle, setDomainTitle] = useState("");
   const [refetch, setRefetch] = useState(false); 
   const limit = 50;
 
@@ -34,22 +37,25 @@ export default function CronHistory() {
   useEffect(() => {
     const loadLog = async () => {
       !isLoading && setIsLoading(true);
-      try {
-        const params = new URLSearchParams({
-          domainType:
-            cronType === "ALL"
-              ? ""
-              : cronType === "DEFAULT"
-              ? "default"
-              : "manual",
-          domainUrl,
-          filterBy: filterBy === "STATUS" ? "status" : "url",
-          status: statusCode === "success" ? "200" : "400",
+      let params:URLSearchParams = new URLSearchParams({
           page: currentPage.toString(),
           limit: `${limit}`,
-        });
+          domainType:cronType,
+          filterBy,
+      });
 
-        // Build query string like: ?domainType=xyz&cronType=ALL&filterBy=URL&page=1
+      if(cronType ==="manual"){
+          if(filterBy==="status"){
+            params.append("status", statusCode);
+          }else{
+            params.append("domainTitle", domainTitle);
+          }
+      }else{
+         params.append("status", statusCode);
+      }
+
+      try {
+        // Build query string like: ?domainType=default&cronType=manual&filterBy=title&page=1
         const query = params.toString();
         console.log(query, ' query')
         const res = await getCronLog(query).unwrap();
@@ -72,15 +78,17 @@ export default function CronHistory() {
     };
 
     loadLog();
-  }, [filterBy, currentPage, cronType, statusCode, domainUrl, refetch===true]);
+  }, [filterBy, currentPage, cronType, statusCode, domainTitle, refetch===true]);
 
   const startingIndex = (currentPage - 1) * limit;
+
+  console.log(cronType, ' cron type')
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
         <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
-          <CronTypeSwitcher cronType={cronType} setCronType={setCronType} />
+          <CronTypeSwitcher setFilterBy={setFilterBy} cronType={cronType} setCronType={setCronType} />
           
           {isLoading ? (
             <div className="w-full min-h-[150px] flex items-center justify-center">
@@ -97,8 +105,8 @@ export default function CronHistory() {
               setRefetch={setRefetch}
                 setLogs={setLogs}
                 logs={logs}
-                domainUrl={domainUrl}
-                setDomainUrl={setDomainUrl}
+                domainTitle={domainTitle}
+                setDomainTitle={setDomainTitle}
                 statusCode={statusCode}
                 setStatusCode={setStatusCode}
                 filterBy={filterBy}
@@ -116,7 +124,7 @@ export default function CronHistory() {
                         #
                       </th>
                       {
-                        cronType==="MANUAL" ? <th
+                        cronType==="manual" ? <th
                         scope="col"
                         className="bg-gray-50 sticky w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
                       >
@@ -191,7 +199,7 @@ export default function CronHistory() {
                             {startingIndex + index + 1}
                           </td>
                           {
-                            cronType ==="MANUAL" ? <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
+                            cronType ==="manual" ? <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
                             <span>{history.title}</span>
                           </td>:<></>
                           }

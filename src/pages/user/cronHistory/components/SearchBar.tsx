@@ -6,17 +6,17 @@ import {
   useRef,
   useState,
 } from "react";
-import { TCronType, TFilterBy } from "../CronHistory";
+import { TCronType, TFilterBy, TStatusCode } from "../CronHistory";
 import ClearCronLogBtn from "./ClearCronLogBtn";
 import { ICronLog } from "@/types/types";
 
 type Props = {
   filterBy: TFilterBy;
   setFilterBy: Dispatch<SetStateAction<TFilterBy>>;
-  statusCode: string;
-  setStatusCode: Dispatch<SetStateAction<string>>;
-  domainUrl: string;
-  setDomainUrl: Dispatch<SetStateAction<string>>;
+  statusCode: TStatusCode;
+  setStatusCode: Dispatch<SetStateAction<TStatusCode>>;
+  domainTitle: string;
+  setDomainTitle: Dispatch<SetStateAction<string>>;
   setCurrentPage:Dispatch<SetStateAction<number>>;
   setLogs:Dispatch<SetStateAction<ICronLog[]>>;
   logs:ICronLog[];
@@ -29,8 +29,8 @@ export default function SearchBar({
   setFilterBy,
   statusCode,
   setStatusCode,
-  domainUrl,
-  setDomainUrl,
+  domainTitle,
+  setDomainTitle,
   setCurrentPage,
   setLogs,
   logs,
@@ -49,7 +49,7 @@ export default function SearchBar({
 
   const handleFilter = () => {
     if (!inputRef?.current) return;
-    setDomainUrl(inputRef.current?.value);
+    setDomainTitle(inputRef.current?.value);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -57,25 +57,28 @@ export default function SearchBar({
   };
 
   const handleStatusCode = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatusCode(e.target.value as string);
+    setStatusCode(e.target.value as TStatusCode);
   };
 
   return (
     <div className="w-full h-20 flex flex-wrap lg:flex-nowrap items-center justify-between gap-x-5 pb-5">
-      { !!logs.length  && cronType==="ALL" && <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />}
+      { !!logs.length  && cronType==="" && <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />}
       <button onClick={()=>setRefetch(true)}><RefreshIcon className="w-6 h-6 md:w-7 md:h-7" /></button>
       <div className="w-full h-20 flex items-center justify-end gap-5">
         <FilterIcon className="w-5 md:w-6 h-5 md:h-6" />
-        <select
+        {
+          cronType !=="manual" ? <p>Status</p> :  <select
           className="border max-w-[100px] focus:border-slate-400 border-slate-300 outline-none rounded-[5px] lg:rounded-[7px] py-1.5 lg:text-[18px] px-2 w-auto"
           value={filterBy}
           onChange={handleChange}
         >
-          <option value="URL">URL</option>
-          <option value="STATUS">Status</option>
+          <option value="title">Title</option>
+          <option value="status">Status</option>
         </select>
+        }
+       
 
-        {filterBy === "URL" ? (
+        {filterBy==="title" && cronType==="manual" ? (
           <div
             className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
               focused ? "border-slate-400" : "border-slate-300"
@@ -86,9 +89,9 @@ export default function SearchBar({
               onKeyUp={handleKeyChange}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              defaultValue={domainUrl}
+              defaultValue={domainTitle}
               id="url_search_input"
-              placeholder="Enter URL"
+              placeholder="Enter title"
               type="text"
               className=" outline-none  py-1.5 lg:text-[18px] px-4 w-full"
             />
@@ -105,8 +108,8 @@ export default function SearchBar({
             value={statusCode}
             onChange={handleStatusCode}
           >
-            <option value="success">Success</option>
-            <option value="fail">Failed</option>
+            <option value="200">Success</option>
+            <option value="400">Failed</option>
           </select>
         )}
       </div>

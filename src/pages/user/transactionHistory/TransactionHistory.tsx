@@ -1,70 +1,52 @@
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import SearchBar from "./components/SearchBar";
 import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
 import { useEffect, useState } from "react";
-import CronTypeSwitcher from "./components/CronTypeSwitcher";
 import Pagination from "@/pages/shared/Pagination";
-import { useLazyGetCronLogQuery } from "@/redux/features/userAction/userActionApi";
+import { useLazyGetTransactionHistoryQuery } from "@/redux/features/userAction/userActionApi";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ICronLog } from "@/types/types";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
+import SearchBar from "./SearchBar";
 
-export type TCronType = '' | "manual" | "default";
-export type TFilterBy = "title" | "status";
-export type TStatusCode = '200' | '400';
+export type TFilterBy = "hash" | "status";
+export type TStatusCode = "200" | "400";
 
-export default function CronHistory() {
+export default function TransactionHistory() {
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const [getCronLog,{}] = useLazyGetCronLogQuery();
+  const [getHistory, {}] = useLazyGetTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [logs, setLogs] = useState<ICronLog[]>([]);
-  const [cronType, setCronType] = useState<TCronType>('');
+  const [transactions, setTransactions] = useState<ICronLog[]>([]);
 
-  const [filterBy, setFilterBy] = useState<TFilterBy>("title");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [statusCode, setStatusCode] = useState<TStatusCode>("200");
-  const [domainTitle, setDomainTitle] = useState("");
-  const [refetch, setRefetch] = useState(false); 
+  const [transactionHash, setTransactionHash] = useState("");
   const limit = 50;
-
 
   // requried fields
   useEffect(() => {
     const loadLog = async () => {
       !isLoading && setIsLoading(true);
-      let params:URLSearchParams = new URLSearchParams({
-          page: currentPage.toString(),
-          limit: `${limit}`,
-          domainType:cronType,
-          filterBy,
+      let params: URLSearchParams = new URLSearchParams({
+        page: currentPage.toString(),
+        transactionHash,
+        status:statusCode,
+        limit: `${limit}`,
       });
 
-      if(cronType ==="manual"){
-          if(filterBy==="status" && statusCode){
-            params.append("status", statusCode);
-          }else if(filterBy ==="title" && domainTitle){
-            params.append("domainTitle", domainTitle);
-          }
-      }else{
-         if(statusCode){
-params.append("status", statusCode);
-         }
-      }
-
       try {
-        // Build query string like: ?domainType=default&cronType=manual&filterBy=title&page=1
         const query = params.toString();
-        const res = await getCronLog(query).unwrap();
-        if (res.logs && res.logs?.length > 0) {
-          setLogs(res.logs);
+        const res = await getHistory(query).unwrap();
+        console.log(res, " res from filter");
+        if (res.transactions && res.transactions?.length > 0) {
+          setTransactions(res.transactions);
           setTotalPages(res.pages);
         } else {
-          setLogs([]);
+          setTransactions([]);
           setTotalPages(1);
         }
       } catch (error) {
@@ -73,21 +55,21 @@ params.append("status", statusCode);
         setTotalPages(1);
       } finally {
         setIsLoading(false);
-        setRefetch(false);
       }
     };
 
     loadLog();
-  }, [filterBy, currentPage, cronType, statusCode, domainTitle, refetch===true]);
+  }, [
+    currentPage,
+    statusCode,
+  ]);
 
   const startingIndex = (currentPage - 1) * limit;
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
-        <h3 className="text-center">History for all Cron Job</h3>
+        <h3 className="text-center">Transaction History</h3>
         <div className=" w-full mt-5">
-          <CronTypeSwitcher setFilterBy={setFilterBy} cronType={cronType} setCronType={setCronType} />
-          
           {isLoading ? (
             <div className="w-full min-h-[150px] flex items-center justify-center">
               <LoadingSpinner
@@ -99,17 +81,10 @@ params.append("status", statusCode);
           ) : (
             <>
               <SearchBar
-              cronType={cronType}
-              setRefetch={setRefetch}
-                setLogs={setLogs}
-                logs={logs}
-                domainTitle={domainTitle}
-                setDomainTitle={setDomainTitle}
+                transactionHash={transactionHash}
+                setTransactionHash={setTransactionHash}
                 statusCode={statusCode}
                 setStatusCode={setStatusCode}
-                filterBy={filterBy}
-                setFilterBy={setFilterBy}
-                setCurrentPage={setCurrentPage}
               />
               <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
                 <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">
@@ -121,43 +96,22 @@ params.append("status", statusCode);
                       >
                         #
                       </th>
-                      {
-                        cronType==="manual" ? <th
-                        scope="col"
-                        className="bg-gray-50 sticky w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Title
-                      </th>:<></> 
-                      }
+
                       <th
                         scope="col"
                         className="bg-gray-50 sticky w-[50%] lg:w-[40%] xl:w-[30%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
                       >
-                        Domain
-                      </th>
-
-                      {/* <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 w-[70px] xl:w-[100px] overflow-hidden px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Status
-                      </th> */}
-
-                      {/* <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 xl:w-[220px] px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Message
-                      </th> */}
-                      <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 w-[100px] lg:w-[200px] px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Type
+                        Hash
                       </th>
                       <th
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 w-[70px] xl:w-[100px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider"
+                      >
+                        Amount
+                      </th>
+                      <th
+                        scope="col"
+                        className="bg-gray-50 sticky top-0 left-0 whitespace-nowrap lg:w-[180px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider rounded-tr-lg"
                       >
                         Success
                       </th>
@@ -165,18 +119,12 @@ params.append("status", statusCode);
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 whitespace-nowrap lg:w-[180px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider rounded-tr-lg"
                       >
-                        Execution Time
-                      </th>
-                      <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 whitespace-nowrap lg:w-[180px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider rounded-tr-lg"
-                      >
-                        Response Time
+                        Package
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {logs.length === 0 ? (
+                    {transactions.length === 0 ? (
                       <tr>
                         <td
                           colSpan={7}
@@ -186,7 +134,7 @@ params.append("status", statusCode);
                         </td>
                       </tr>
                     ) : (
-                      logs.map((history, index) => (
+                      transactions.map((history, index) => (
                         <tr
                           key={history._id}
                           className={
@@ -196,21 +144,11 @@ params.append("status", statusCode);
                           <td className="md:w-20 px-4 py-3.5 whitespace-nowrap font-medium text-gray-900">
                             {startingIndex + index + 1}
                           </td>
-                          {
-                            cronType ==="manual" ? <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{history.title}</span>
-                          </td>:<></>
-                          }
-                            
                           <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{removeProtocolRegex(authUser?.domain || "")}</span>
+                            <span>
+                              {removeProtocolRegex(authUser?.domain || "")}
+                            </span>
                           </td>
-                          {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
-                            {history.status === 0 ? 404 : history.status}
-                          </td> */}
-                          {/* <td className="xl:w-[220px] px-4 py-3.5 whitespace-nowrap">
-                            <span>{history.message}</span>
-                          </td> */}
                           <td className="w-[100px] capitalize lg:w-[200px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.domainType}</span>
                           </td>
@@ -223,8 +161,12 @@ params.append("status", statusCode);
                               )}
                             </span>
                           </td>
-                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
-                            <span>{formatDateForDisplay(new Date(history.timestamp).toString())}</span>
+                          <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
+                            <span>
+                              {formatDateForDisplay(
+                                new Date(history.timestamp).toString()
+                              )}
+                            </span>
                           </td>
                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.responseTime}ms</span>
@@ -237,7 +179,7 @@ params.append("status", statusCode);
               </div>
             </>
           )}
-          {totalPages > 1 && !isLoading && logs?.length && (
+          {totalPages > 1 && !isLoading && transactions?.length && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

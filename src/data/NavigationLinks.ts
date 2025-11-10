@@ -19,6 +19,11 @@ export const authUserLinks: TSidebarLink[] = [
         to: "/settings/cron-history"
     },
     {
+        label: "Transaction History",
+        Icon: ClockWorkIcon,
+        to: "/settings/transaction-history"
+    },
+    {
         label: "Profile & Password",
         Icon: UserIcon,
         to: "/settings/profile-and-password"

@@ -1,5 +1,6 @@
 import { Button } from "@/components/button/Button";
 import { TPackage } from "@/types/types";
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
   index: number;
 };
 export default function PackageCard({ cronPackage, index }: Props) {
+  
   const handlePurchase = () => {
     // TODO:
     toast.warn("API integration in progress");
@@ -41,18 +43,20 @@ export default function PackageCard({ cronPackage, index }: Props) {
           <span className="ecj_fs-base">/per month</span>
         </h3>
         <p className="font-semibold">
-          Order update in every {cronPackage.intervalInMS / 1000}s.
+          Order update in every {cronPackage.intervalInMs / 1000}s.
         </p>
         <p className="font-semibold">
           Extra {cronPackage.manualCronLimit} manual cron job
         </p>
         <p className="font-semibold">24/7 admin support</p>
         <div className="w-full mt-5 px-5 flex items-center justify-center">
+          <Link to={`/settings/initialize-transaction?packageId=${cronPackage._id}`} >
           <Button
             className="ecj_fs-md !rounded-[10px] w-full "
             label="Get started"
-            cb={handlePurchase}
-          />
+            cb={()=>{}}
+            />
+            </Link>
         </div>
       </div>
     </div>

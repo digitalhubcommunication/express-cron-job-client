@@ -97,7 +97,7 @@ export type TPackage = {
   _id: string;
   name: string;
   validity: number;
-  intervalInMS: number;
+  intervalInMs: number;
   price: number;
   manualCronLimit: number;
   status: "available" | "unavailable";
@@ -164,4 +164,15 @@ export interface IPackage {
   validity: number;          // 2 (in days)
   createdAt: string;         // ISO date string
   updatedAt: string;         // ISO date string
+}
+
+
+
+export interface IInitializeTransactionResponse {
+  success: boolean;
+  message: string;
+  paymentId: string;
+  wallet_address: string;
+  expiresAt: string; // ISO date string
+  package: IPackage;
 }

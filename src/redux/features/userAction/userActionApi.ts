@@ -72,13 +72,31 @@ export const userActionApi = createApi({
       }),
     }),
 
-    //  addManualCron: builder.mutation({
-    //   query: (data) => ({
-    //     url: '/users/profile',
-    //     method: 'POST',
-    //     body: data,
-    //   }),
-    // }),
+
+  // transaction history
+     getTransactionHistory: builder.query({
+      query: (query) => ({
+        url: `/users/transactions?${query}`,
+        method: 'GET',
+      }),
+    }),
+
+      initializeTransaction: builder.mutation({
+      query: (data) => ({
+        url: "/users/initiate-subscribe-package",
+        method: 'POST',
+        body:data
+      }),
+    }),
+
+    subscribePackage: builder.mutation({
+      query: (data) => ({
+        url: "/users/subscribe-package",
+        method: 'POST',
+        body:data
+      }),
+    }),
+
 
     // ====== user action ends =======
 
@@ -97,6 +115,11 @@ export const {
   // cron log hooks
   useClearCronLogMutation,
   useLazyGetCronLogQuery,
+
+  // transaction history
+  useLazyGetTransactionHistoryQuery,
+  useInitializeTransactionMutation,
+  useSubscribePackageMutation,
 
   // profile hooks
   useUpdateProfileMutation,

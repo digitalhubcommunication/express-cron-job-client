@@ -28,6 +28,8 @@ import ResetPassword from "@/pages/authentication/ResetPassword";
 import AddedDomains from "@/pages/admin/domain/AddedDomains";
 import UserDetails from "@/pages/admin/users/UserDetails";
 import CronSetup from "@/pages/user/manualCron/CronSetup";
+import TransactionHistory from "@/pages/user/transactionHistory/TransactionHistory";
+import InitializeTransaction from "@/pages/user/initializeTransaction/InitializeTransaction";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +84,10 @@ export const router = createBrowserRouter([
         path: "terms-and-condition",
         element: <TermsPage />,
       },
+        {
+        path: "test",
+        element: <InitializeTransaction />,
+      },
     ],
   },
 
@@ -112,6 +118,15 @@ export const router = createBrowserRouter([
         path: "cron-history",
         element: <CronHistoryPage />,
       },
+      {
+        path:"initialize-transaction",
+        element:<InitializeTransaction />
+      },
+      {
+        path: "transaction-history",
+        element: <TransactionHistory />,
+      }
+      ,
       {
         path: "profile-and-password",
         element: <ProfilePage />,

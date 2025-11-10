@@ -95,6 +95,7 @@ export const {
   useDeletePackageMutation,
   useAddPackageMutation,
   useLazyGetPackagesQuery,
+  useGetPackagesQuery,
   useUpdatePackageMutation,
   useLazyGetAdminCronHistoryQuery,
   useGetDashboardInfoQuery,

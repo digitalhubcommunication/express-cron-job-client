@@ -118,3 +118,17 @@ export function formatDateForDisplay(dateString: string): string {
 
   return `${formattedDate} GMT${formattedOffset}`;
 }
+
+// export function getExpiryStatus(
+//   expiresAt: string,
+// ):{ remainingHours: number; remainingMinutes: number; } {
+//   const now = new Date();
+//   const expiryDate = new Date(expiresAt);
+//   const remainingMs = expiryDate.getTime() - now.getTime();
+
+//   // Create human-readable text
+//   const remainingHours = Math.floor(remainingMs / (1000 * 60 * 60));
+//   const remainingMinutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+
+//   return { remainingHours,remainingMinutes };
+// }

@@ -60,7 +60,6 @@ export default function InitializeTransaction() {
 
     try {
       const result = await subscribePackage(paymentData).unwrap();
-      console.log(result, " result");
       if (result?.success) {
         toast.success(`Payment success. ${initializeTransactionResponse.package.name} activated.`);
         navigate(`/settings/dashboard}`)

@@ -8,7 +8,7 @@ type Props = {
   index: number;
 };
 export default function PackageCard({ cronPackage, index }: Props) {
-  
+    
   const handlePurchase = () => {
     // TODO:
     toast.warn("API integration in progress");

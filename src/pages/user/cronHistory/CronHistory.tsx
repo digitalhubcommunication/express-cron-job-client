@@ -45,13 +45,15 @@ export default function CronHistory() {
       });
 
       if(cronType ==="manual"){
-          if(filterBy==="status"){
+          if(filterBy==="status" && statusCode){
             params.append("status", statusCode);
-          }else{
+          }else if(filterBy ==="title" && domainTitle){
             params.append("domainTitle", domainTitle);
           }
       }else{
-         params.append("status", statusCode);
+         if(statusCode){
+params.append("status", statusCode);
+         }
       }
 
       try {

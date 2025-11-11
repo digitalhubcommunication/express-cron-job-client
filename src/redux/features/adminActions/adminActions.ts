@@ -4,6 +4,7 @@ import { baseQuery } from "../baseQuery";
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
+   tagTypes: ["user_details"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -79,26 +80,37 @@ export const adminActionApi = createApi({
         url: `/admin/users/${userId}`,
         method: "GET",
       }),
+      providesTags:["user_details"]
     }),
 
       updateUser: builder.mutation({
-      query: (userId) => ({
-        url: `/admin/users/${userId}`,
+      query: ({id, data}) => ({
+        url: `/admin/users/${id}`,
         method: "PUT",
+        body:data,
       }),
+      invalidatesTags:['user_details']
     }),
     // ====== admin action ends =======
   }),
 });
 
 export const {
+  // package 
   useDeletePackageMutation,
   useAddPackageMutation,
   useLazyGetPackagesQuery,
   useGetPackagesQuery,
   useUpdatePackageMutation,
+
+  // cron history
   useLazyGetAdminCronHistoryQuery,
+
+  // dashboard query
   useGetDashboardInfoQuery,
+
+  // user query
   useLazyGetUsersQuery,
   useGetSingleUserQuery,
+  useUpdateUserMutation
 } = adminActionApi;

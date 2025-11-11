@@ -132,10 +132,10 @@ export const router = createBrowserRouter([
         path: "profile-and-password",
         element: <ProfilePage />,
       },
-      {
-        path: "connect-telegram",
-        element: <ConnectTelegramPage />,
-      },
+      // {
+      //   path: "connect-telegram",
+      //   element: <ConnectTelegramPage />,
+      // },
       {
         path: "dhru-fusion-setup",
         element: <DhruFusionSetupPage />,

@@ -107,12 +107,9 @@ const AddNewCron = () => {
                       : "border-gray-300"
                   }`}
                 >
-                  {/* <option value="1800000">30 Minutes</option>
+                  <option value="1800000">30 Minutes</option>
                   <option value="3600000">1 Hour</option>
-                  <option value="10800000">3 Hours</option> */}
-                  <option value="3000">3 seconds</option>
-                  <option value="5000">5 seconds</option>
-                  <option value="7000">7 seconds</option>
+                  <option value="10800000">3 Hours</option>
                 </select>
               </div>
               <div>

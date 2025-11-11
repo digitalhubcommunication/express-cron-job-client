@@ -119,6 +119,13 @@ export function formatDateForDisplay(dateString: string): string {
   return `${formattedDate} GMT${formattedOffset}`;
 }
 
+export function isDateExpired(date: string | Date): boolean {
+  const expiryDate = new Date(date);
+  const now = new Date();
+  return expiryDate.getTime() <= now.getTime();
+}
+
+
 // export function getExpiryStatus(
 //   expiresAt: string,
 // ):{ remainingHours: number; remainingMinutes: number; } {

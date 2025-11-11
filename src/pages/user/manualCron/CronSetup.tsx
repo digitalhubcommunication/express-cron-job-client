@@ -6,6 +6,7 @@ import PageLoading from "@/components/loading/PageLoading";
 import { useState } from "react";
 import ManualCrons from "./components/ManualCrons";
 import DefaultCrons from "./components/DefaultCrons";
+import { isDateExpired } from "@/utils/utils";
 
 type TActiveTab = "Default" | "Manual";
 
@@ -21,16 +22,22 @@ export default function CronSetup() {
   if (!authUser)
     return (
       <ErrorMessage key="MANUAL_DOMAIN_PAGE_ERROR_PAGE" msg="Invalid user" />
-    );
-  
+    ); 
 
   return (
     <>
       <DashboardContainer >
         <section className="mt-5 xl:mt-10 mb-10">
+          {
+             isDateExpired(authUser?.packageExpiresAt || '') && <div className="mb-5 md:mb-10 lg:mb-14 bg-red-500 rounded-md text-white py-3 px-3 w-auto">
+            <h5 className="text-center">Package expired. Please purchase again. All automated tasks have stopped.</h5>
+          </div>
+          }
+          
           <div className="w-full mb-5 md:mb-10 lg:mb-14">
             <h5 className="text-center">{activeTab} Cronjobs</h5>
           </div>
+
 
           <div className="w-full mb-5 md:mb-10 lg:mb-14 flex items-center gap-2">
             <button

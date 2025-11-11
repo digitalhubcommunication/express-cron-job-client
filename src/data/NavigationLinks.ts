@@ -1,4 +1,4 @@
-import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, GlobeIcon, NetworkIcon, TelegramIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
+import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, GlobeIcon, NetworkIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
 import { TLink, TSidebarLink } from "@/types/types";
 
 
@@ -33,11 +33,11 @@ export const authUserLinks: TSidebarLink[] = [
         Icon: UserIcon,
         to: "/settings/profile-and-password"
     },
-    {
-        label: "Connect Telegram",
-        Icon: TelegramIcon,
-        to: "/settings/connect-telegram"
-    },
+    // {
+    //     label: "Connect Telegram",
+    //     Icon: TelegramIcon,
+    //     to: "/settings/connect-telegram"
+    // },
     {
         label: "Dhru Fusion Setup",
         Icon: CartIcon,

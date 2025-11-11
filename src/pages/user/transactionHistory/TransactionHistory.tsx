@@ -146,7 +146,7 @@ export default function TransactionHistory() {
                           </td>
                           <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
                             <span>
-                              {removeProtocolRegex(authUser?.domain || "")}
+                              {history.transactionHash}
                             </span>
                           </td>
                           <td className="w-[100px] capitalize lg:w-[200px] text-center px-4 py-3.5 whitespace-nowrap font-medium">

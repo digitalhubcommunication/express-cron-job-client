@@ -1,8 +1,10 @@
 import { Button } from "@/components/button/Button";
 import { RootState } from "@/redux/store";
 import { TPackage } from "@/types/types";
+import { isDateExpired } from "@/utils/utils";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import { isatty } from "tty";
 
 type Props = {
   cronPackage: TPackage;
@@ -11,6 +13,9 @@ type Props = {
 export default function PackageCard({ cronPackage, index }: Props) {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const subscriptionId = authUser?.subscription._id || "";
+
+  const isActive =  subscriptionId ===cronPackage._id &&  !isDateExpired(authUser?.packageExpiresAt || '') 
+  console.log(isActive,' is active')
   return (
     <div
       className={`hover:shadow-xl duration-300 rounded-[10px] overflow-hidden ${
@@ -49,14 +54,14 @@ export default function PackageCard({ cronPackage, index }: Props) {
         <div className="w-full mt-5 px-5 flex items-center justify-center">
           <Link
             className={
-              subscriptionId === cronPackage._id ? "pointer-events-none" : ""
+              isActive ? "pointer-events-none" : ""
             }
             to={`/settings/initialize-transaction?packageId=${cronPackage._id}`}
           >
             <Button
-              // disabled={subscriptionId === cronPackage._id}
-              className={`ecj_fs-md !rounded-[10px] w-full ${subscriptionId === cronPackage._id ? "!bg-green-500 !text-white":""}`}
-              label={subscriptionId === cronPackage._id ? "Activated":"Get started" }
+              // disabled={isActive}
+              className={`ecj_fs-md !rounded-[10px] w-full ${isActive ? "!bg-green-500 !text-white":""}`}
+              label={isActive ? "Active":"Get started" }
               cb={() => {}}
             />
           </Link>

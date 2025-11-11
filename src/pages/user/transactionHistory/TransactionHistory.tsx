@@ -5,25 +5,25 @@ import Pagination from "@/pages/shared/Pagination";
 import { useLazyGetTransactionHistoryQuery } from "@/redux/features/userAction/userActionApi";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { ICronLog } from "@/types/types";
+import { ITransaction } from "@/types/types";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
 import SearchBar from "./SearchBar";
 
 export type TFilterBy = "hash" | "status";
-export type TStatusCode = "200" | "400";
+export type TStatusCode = "success" | "failed";
 
 export default function TransactionHistory() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const [getHistory, {}] = useLazyGetTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
-  const [transactions, setTransactions] = useState<ICronLog[]>([]);
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [statusCode, setStatusCode] = useState<TStatusCode>("200");
+  const [statusCode, setStatusCode] = useState<TStatusCode>("success");
   const [transactionHash, setTransactionHash] = useState("");
   const limit = 50;
 
@@ -119,7 +119,7 @@ export default function TransactionHistory() {
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 whitespace-nowrap lg:w-[180px] text-center px-4 py-2 font-medium text-gray-500 capitalize tracking-wider rounded-tr-lg"
                       >
-                        Package
+                        Time
                       </th>
                     </tr>
                   </thead>
@@ -150,11 +150,11 @@ export default function TransactionHistory() {
                             </span>
                           </td>
                           <td className="w-[100px] capitalize lg:w-[200px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
-                            <span>{history.domainType}</span>
+                            <span>${history.amount}</span>
                           </td>
                           <td className="w-[70px] xl:w-[100px] text-center px-4 py-1  whitespace-nowrap">
                             <span className="py-1 rounded-full flex items-center justify-center">
-                              {history.status === 200 ? (
+                              {history.status === "success" ? (
                                 <CheckIcon className="text-green-600 max-w-5" />
                               ) : (
                                 <XMarkIcon className="max-w-5 text-red-600" />
@@ -163,13 +163,8 @@ export default function TransactionHistory() {
                           </td>
                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>
-                              {formatDateForDisplay(
-                                new Date(history.timestamp).toString()
-                              )}
+                              {formatDateForDisplay(history.createdAt)}
                             </span>
-                          </td>
-                          <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
-                            <span>{history.responseTime}ms</span>
                           </td>
                         </tr>
                       ))

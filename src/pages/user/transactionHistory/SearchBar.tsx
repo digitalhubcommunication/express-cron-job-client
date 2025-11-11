@@ -51,8 +51,8 @@ export default function SearchBar({
             value={statusCode}
             onChange={handleStatusCode}
           >
-            <option value="200">Success</option>
-            <option value="400">Failed</option>
+            <option value="success">Success</option>
+            <option value="failed">Failed</option>
           </select>
         </div>
           <div

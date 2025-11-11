@@ -61,8 +61,8 @@ export default function InitializeTransaction() {
     try {
       const result = await subscribePackage(paymentData).unwrap();
       if (result?.success) {
-        toast.success(`Payment success. ${initializeTransactionResponse.package.name} activated.`);
-        navigate(`/settings/dashboard}`)
+        toast.success(`Payment success. ${initializeTransactionResponse.package.name} package activated.`);
+        navigate("/settings/dashboard")
       } else {
         throw new Error(result?.data?.message);
       }
@@ -81,7 +81,7 @@ export default function InitializeTransaction() {
     );
 
   return (
-    <DashboardContainer className="min-h-[80%] lg:min-h-[90%] w-full flex items-center justify-center">
+    <DashboardContainer className="py-10 w-full flex items-center justify-center">
       <div className="w-full max-w-[600px] bg-gray-50 shadow-sm px-4 md:px-5 py-3 md:py-4 lg:py-5 rounded-md">
         <h4 className="text-center">Payment information</h4>
         <div className="w-full items-start flex-col flex gap-1 mt-3">

@@ -1,19 +1,16 @@
 import { Button } from "@/components/button/Button";
+import { RootState } from "@/redux/store";
 import { TPackage } from "@/types/types";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import { toast } from "react-toastify";
 
 type Props = {
   cronPackage: TPackage;
   index: number;
 };
 export default function PackageCard({ cronPackage, index }: Props) {
-    
-  const handlePurchase = () => {
-    // TODO:
-    toast.warn("API integration in progress");
-  };
-
+  const { authUser } = useSelector((state: RootState) => state.auth);
+  const subscriptionId = authUser?.subscription._id || "";
   return (
     <div
       className={`hover:shadow-xl duration-300 rounded-[10px] overflow-hidden ${
@@ -50,13 +47,19 @@ export default function PackageCard({ cronPackage, index }: Props) {
         </p>
         <p className="font-semibold">24/7 admin support</p>
         <div className="w-full mt-5 px-5 flex items-center justify-center">
-          <Link to={`/settings/initialize-transaction?packageId=${cronPackage._id}`} >
-          <Button
-            className="ecj_fs-md !rounded-[10px] w-full "
-            label="Get started"
-            cb={()=>{}}
+          <Link
+            className={
+              subscriptionId === cronPackage._id ? "pointer-events-none" : ""
+            }
+            to={`/settings/initialize-transaction?packageId=${cronPackage._id}`}
+          >
+            <Button
+              // disabled={subscriptionId === cronPackage._id}
+              className={`ecj_fs-md !rounded-[10px] w-full ${subscriptionId === cronPackage._id ? "!bg-green-500 !text-white":""}`}
+              label={subscriptionId === cronPackage._id ? "Activated":"Get started" }
+              cb={() => {}}
             />
-            </Link>
+          </Link>
         </div>
       </div>
     </div>

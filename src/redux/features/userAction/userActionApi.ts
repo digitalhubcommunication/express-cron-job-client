@@ -95,6 +95,7 @@ export const userActionApi = createApi({
         method: 'POST',
         body:data
       }),
+      invalidatesTags: ['Profile']
     }),
 
 

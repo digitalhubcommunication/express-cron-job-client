@@ -100,7 +100,7 @@ export type TPackage = {
   intervalInMs: number;
   price: number;
   manualCronLimit: number;
-  status: "available" | "unavailable";
+  status: "enabled" | "disabled";
 };
 
 export type TDistributor = {
@@ -175,4 +175,15 @@ export interface IInitializeTransactionResponse {
   wallet_address: string;
   expiresAt: string; // ISO date string
   package: IPackage;
+}
+
+export interface ITransaction {
+  _id:string;
+  userId: string;
+  status: "success" | "fail" | "pending";
+  amount: number;
+  transactionHash: string;
+  packageId: string;
+  createdAt:string;
+  updatedAt:string;
 }

@@ -10,26 +10,22 @@ export default function AvailablePackages() {
     (state: RootState) => state.auth
   );
   const { data, isFetching } = useGetPackagesQuery({});
-  console.log(data, " data package");
-  console.log(isFetching, " data fetching");
   if (isFetching || isUserLoading) return <PageLoading />;
-  if (!data?.data?.length)
-    return <p className="text-center">No package found</p>;
+  if (!data?.packages?.length)
+    return <p className="text-center mt-10">No package found</p>;
 
-  const filteredData = (data?.data as TPackage[]).filter(
-    (p) => p.status !== "unavailable"
-  );
+  let allPackages: TPackage[] = [];
+
+  // filter the subscribed package
+  if (authUser?.subscription) {
+    allPackages = (data?.packages || []).filter((p: TPackage) => p.price > 0);
+  }
 
   return (
     <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-7 lg:mt-10 gap-10">
-      {authUser?.refreshToken
-        ? filteredData
-            .filter((p) => p.price !== 0).map((item, index) => (
-              <PackageCard index={index} key={item._id} cronPackage={item} />
-            ))
-        : filteredData.map((item, index) => (
-            <PackageCard index={index} key={item._id} cronPackage={item} />
-          ))}
+      {allPackages.map((item, index) => (
+        <PackageCard index={index} key={item._id} cronPackage={item} />
+      ))}
     </div>
   );
 }

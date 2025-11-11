@@ -23,6 +23,11 @@ export const authUserLinks: TSidebarLink[] = [
         Icon: ClockWorkIcon,
         to: "/settings/transaction-history"
     },
+     {
+        label: "Packages",
+        Icon: CreditCartIcon,
+        to: "/settings/packages"
+    },
     {
         label: "Profile & Password",
         Icon: UserIcon,
@@ -61,7 +66,6 @@ export const adminLinks: TSidebarLink[] = [
         Icon: GlobeIcon,
         to: "/admin/domains"
     },
-    ,
     {
         label: "History",
         Icon: ClockWorkIcon,

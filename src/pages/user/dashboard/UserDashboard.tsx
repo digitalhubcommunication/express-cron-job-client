@@ -14,6 +14,15 @@ export default function UserDashboard() {
     authUser.defaultDomains?.length ||
     0 + (authUser.manualDomains ? authUser.manualDomains.length : 0);
 
+    let isManualDomainOnline  = false;
+    if(authUser?.manualDomains?.length){
+      authUser.manualDomains.forEach(domain => {
+          if(domain?.status==="enabled" && !isManualDomainOnline){
+            isManualDomainOnline = true;
+          }
+      });
+    }
+
   return (
     <DashboardContainer>
       <section className="section-pb mt-5 xl:mt-10">
@@ -92,13 +101,13 @@ export default function UserDashboard() {
               <DashboardInfoCard
                 label="Price Update"
                 value={
-                  !authUser?.manualDomains?.length ? "Empty" : authUser?.manualDomains[1]?.status === "enabled"
+                  !authUser?.manualDomains?.length ? "Empty" : isManualDomainOnline
                     ? "ONLINE"
                     : "OFFLINE"
                 }
                 key="USER_PRCIE_UPDATE_DEFAULT_CRONJOBS_CARD"
                 valueStyle={`${
-                  authUser.defaultDomains[1]?.status === "enabled"
+                  authUser?.manualDomains?.length && authUser?.manualDomains[1]?.status === "enabled"
                     ? "text-green-600"
                     : "text-red-500"
                 } font-semibold`}

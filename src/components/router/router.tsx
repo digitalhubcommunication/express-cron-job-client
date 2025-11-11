@@ -30,6 +30,7 @@ import UserDetails from "@/pages/admin/users/UserDetails";
 import CronSetup from "@/pages/user/manualCron/CronSetup";
 import TransactionHistory from "@/pages/user/transactionHistory/TransactionHistory";
 import InitializeTransaction from "@/pages/user/initializeTransaction/InitializeTransaction";
+import AvailablePackages from "@/pages/user/packages/AvailablePackages";
 
 export const router = createBrowserRouter([
   {
@@ -72,10 +73,10 @@ export const router = createBrowserRouter([
         path: "verify-register-otp",
         element: <VerifyRegisterOTP />,
       },
-      {
-        path: "forgot-password",
-        element: <div>Forgot password page</div>,
-      },
+      // {
+      //   path: "forgot-password",
+      //   element: <div>Forgot password page</div>,
+      // },
       {
         path: "privacy-policy",
         element: <PrivacyPolicyPage />,
@@ -83,10 +84,6 @@ export const router = createBrowserRouter([
       {
         path: "terms-and-condition",
         element: <TermsPage />,
-      },
-        {
-        path: "test",
-        element: <InitializeTransaction />,
       },
     ],
   },
@@ -125,6 +122,10 @@ export const router = createBrowserRouter([
       {
         path: "transaction-history",
         element: <TransactionHistory />,
+      },
+      {
+        path: "packages",
+        element: <AvailablePackages />,
       }
       ,
       {

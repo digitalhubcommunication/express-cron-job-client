@@ -42,7 +42,7 @@ const ATAMD_CB = ()=>updateUserInfo({allowedToAddManualDomains: !data?.user?.sub
          <p className="mt-1"><span className="font-semibold">Domain :</span> {data?.user?.domain || ""}</p>
          <div className="mt-1 flex items-center gap-2"><span className="font-semibold">Status :</span> <ToggleButton onToggle={status_CB} size="sm" label={data?.user?.status} isActive={data?.user?.status==="enabled"} /></div>
          <br />
-         <div className="mt-1 flex items-center gap-2"><span className="font-semibold">Allowed to add manual urls :{" "}</span> <ToggleButton onToggle={ATAMD_CB} size="sm" label={data?.user?.allowedToAddManualDomains ? "OFF":"ON"} isActive={data?.user?.allowedToAddManualDomains} /></div>
+         <div className="mt-1 flex items-center gap-2"><span className="font-semibold">Allowed to add manual urls :{" "}</span> <ToggleButton onToggle={ATAMD_CB} size="sm" label={data?.user?.allowedToAddManualDomains ? "ON":"OFF"} isActive={data?.user?.allowedToAddManualDomains} /></div>
          <p className="mt-1"><span className="font-semibold">Telegram ID :</span> {data?.user?.telegramId || "null"}</p>
          <p className="mt-1"><span className="font-semibold">Telegram connected :</span> {data?.user?.telegramConnected ? "Yes": "No"}</p>
          <p className="mt-1"><span className="font-semibold">Total Manual Cron Added :</span> {data?.user?.manualCronCount || 0}</p>

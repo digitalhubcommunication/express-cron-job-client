@@ -4,7 +4,6 @@ import { TPackage } from "@/types/types";
 import { isDateExpired } from "@/utils/utils";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import { isatty } from "tty";
 
 type Props = {
   cronPackage: TPackage;
@@ -13,9 +12,7 @@ type Props = {
 export default function PackageCard({ cronPackage, index }: Props) {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const subscriptionId = authUser?.subscription._id || "";
-
   const isActive =  subscriptionId ===cronPackage._id &&  !isDateExpired(authUser?.packageExpiresAt || '') 
-  console.log(isActive,' is active')
   return (
     <div
       className={`hover:shadow-xl duration-300 rounded-[10px] overflow-hidden ${

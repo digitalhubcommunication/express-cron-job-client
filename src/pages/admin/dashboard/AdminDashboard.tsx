@@ -91,7 +91,7 @@ export default function AdminDashboard() {
             value={data?.onlineDomains || "0"}
             key="USER_CRONJOB_WORK_DEFAULT_CRONJOBS_CARD"
             valueStyle={`${
-              authUser.defaultDomains[0].status === "enabled"
+              authUser?.defaultDomains[0]?.status === "enabled"
                 ? "text-green-600"
                 : "text-red-500"
             } font-semibold`}

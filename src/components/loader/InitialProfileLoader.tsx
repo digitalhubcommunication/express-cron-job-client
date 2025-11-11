@@ -8,7 +8,6 @@ import { deleteToken, getToken } from "@/utils/token";
 import { getRole, isTokenExpired } from "@/utils/utils";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
 export default function InitialProfileLoader() {
   const dispatch = useDispatch();
@@ -43,6 +42,7 @@ export default function InitialProfileLoader() {
 
       try {
         const res = await getProfile({}).unwrap();
+        console.log(res, ' res from initial load')
         if (res.success) {
           dispatch(setAuthUser(res.user));
         } else {

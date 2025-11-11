@@ -10,11 +10,13 @@ export default function AvailablePackages() {
     (state: RootState) => state.auth
   );
   const { data, isFetching } = useGetPackagesQuery({});
+  console.log(data,' data');
+  console.log(isFetching,' isFetching');
   if (isFetching || isUserLoading) return <PageLoading />;
   if (!data?.packages?.length)
     return <p className="text-center mt-10">No package found</p>;
 
-  let allPackages: TPackage[] = [];
+  let allPackages: TPackage[] = data.packages || [];
 
   // filter the subscribed package
   if (authUser?.subscription) {

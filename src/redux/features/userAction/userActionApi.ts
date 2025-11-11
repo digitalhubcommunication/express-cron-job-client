@@ -99,7 +99,19 @@ export const userActionApi = createApi({
     }),
 
 
+    // public apis
+     sendMail: builder.mutation({
+      query: (data) => ({
+        url: "/mail",
+        method: 'POST',
+        body:data
+      }),
+      invalidatesTags: ['Profile']
+    }),
+
+
     // ====== user action ends =======
+
 
   }),
 });
@@ -125,4 +137,7 @@ export const {
   // profile hooks
   useUpdateProfileMutation,
   useLazyGetProfileQuery,
+
+  // public apis
+  useSendMailMutation,
 } = userActionApi;

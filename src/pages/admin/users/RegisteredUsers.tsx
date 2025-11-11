@@ -1,6 +1,6 @@
 import PageLoading from "@/components/loading/PageLoading";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import { useLazyGetSingleUserQuery, useLazyGetUsersQuery } from "@/redux/features/adminActions/adminActions";
+import { useLazyGetUsersQuery } from "@/redux/features/adminActions/adminActions";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { IUser, TUserFilter } from "@/types/types";
 import { toast } from "react-toastify";
@@ -97,7 +97,7 @@ export default function RegisteredUsers() {
         <div className="w-full mb-5">
           <h3 className="text-center">User lists</h3>
         </div>
-        <div className="w-full bg-white z-20 sticky top-[63px] md:top-[65px] right-0">
+        <div className="w-full bg-white z-20">
           {/* ===== filter and search ====== */}
           <div className="w-full flex md:pt-5 items-center flex-wrap md:justify-end gap-2 md:gap-5 mb-5">
             <div className="flex items-center gap-3 md:gap-5 ">
@@ -148,10 +148,10 @@ export default function RegisteredUsers() {
         ) : users.length > 0 ? (
           <>
             {/* ====== table heading ======= */}
-            <div className="overflow-x-auto border-t border-b max-h-[500px] h-[50vh] xl:h-[60vh] lg:border border-slate-300 rounded-md">
+            <div className="overflow-x-auto border-t border-b lg:border border-slate-300 rounded-md">
               {/* Desktop Table */}
               <table className="w-full min-w-[750px] lg:min-w-[800px] text-left border-collapse hidden sm:table">
-                <thead className="bg-slate-800 text-white sticky top-0 z-10">
+                <thead className="bg-slate-800 text-white">
                   <tr className="text-sm xl:text-base text-white">
                     <th className="w-20 px-3 py-2">
                       <ListIcon className="w-5" />

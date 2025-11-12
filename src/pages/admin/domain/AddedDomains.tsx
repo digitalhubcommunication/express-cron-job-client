@@ -3,6 +3,9 @@ import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import AddNewCron from "./AddNewCron";
+import AdminManualCronCard from "./AdminManualCronCard";
+import NoDomainMsg from "@/pages/user/manualCron/components/NoDomainMsg";
 
 export default function AddedDomains() {
   const { authUser, isUserLoading } = useSelector(
@@ -35,7 +38,16 @@ export default function AddedDomains() {
 
         <h5 className="font-semibold mb-4 mt-10 md:mt-20">Manual Domains</h5>
         <div className="w-full">
-          <p>${authUser.domain}</p>
+                      <AddNewCron />
+                        {authUser?.manualDomains?.length && authUser?.manualDomains ? (
+                          <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-5">
+                            {authUser?.manualDomains?.map((domain) => (
+                             <AdminManualCronCard key={domain?._id}  {...domain} />
+                            ))}
+                          </div>
+                        ) : (
+                          <NoDomainMsg />
+                        )}
         </div>
       </section>
       {/* <CronStatus /> */}

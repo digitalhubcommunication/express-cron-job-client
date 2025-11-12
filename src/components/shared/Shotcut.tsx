@@ -39,4 +39,22 @@ useEffect(() => {
 
     loadData()
 }, [])
+
+
+
+
+        try {
+            const data = { userId:id, packageId:subcribePackage._id }
+            const res = await assginPackage(data).unwrap();
+        } catch (error:any) {
+              console.log(error);
+              toast.error(error?.data?.message);
+        }   
+        finally {
+       
+    }
+
+
 */ 
+
+

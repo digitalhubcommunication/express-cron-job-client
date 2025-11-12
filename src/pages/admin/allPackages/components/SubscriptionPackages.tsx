@@ -23,6 +23,7 @@ import PageLoading from "@/components/loading/PageLoading";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { SpinnerIcon, XMarkIcon } from "@/components/icons/Icons";
+import { useGetPackagesQuery } from "@/redux/features/packages/packageApiSlice";
 
 const packageSchema = z.object({
   name: z.string("Name is required").min(1, "Name is required"),
@@ -261,39 +262,20 @@ const SubscriptionPackage = ({ item }: { item: IPackage }) => {
 
 export default function SubscriptionPackages() {
   // hooks
-  const dispatch = useDispatch();
-  const [getPackages, { isLoading }] = useLazyGetPackagesQuery();
-  const { packages } = useSelector((state: RootState) => state.packages);
-  const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res = await getPackages({}).unwrap();
-        if (res.success) {
-          dispatch(setPackages(res.data));
-        } else {
-          setError(res.message);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    
-    // load data initially
-    loadData();
-  }, []);
+  const {data, isFetching, isError} = useGetPackagesQuery({});
 
-  if (isLoading) return <PageLoading />;
+  if (isFetching) return <PageLoading />;
 
-  if (error)
-    return <ErrorMessage key="ERROR_MESSAGE_LOADING_PACKAGES" msg={error} />;
+  if (isError)
+    return <ErrorMessage key="ERROR_MESSAGE_LOADING_PACKAGES" msg={"Error loading packages"} />;
 
-  if (!packages.length)
+  if (!data?.packages.length){
     return <p className="mt-20 text-center">Please add a package first</p>;
+  }
 
   return (
     <div className="w-full z-0 grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-10">
-      {packages.map((item) => (
+      {data?.packages && (data?.packages as IPackage[])?.map((item) => (
         <SubscriptionPackage key={item._id} item={item} />
       ))}
     </div>

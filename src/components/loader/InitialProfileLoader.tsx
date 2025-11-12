@@ -42,7 +42,6 @@ export default function InitialProfileLoader() {
 
       try {
         const res = await getProfile({}).unwrap();
-        console.log(res, ' res from initial load')
         if (res.success) {
           dispatch(setAuthUser(res.user));
         } else {

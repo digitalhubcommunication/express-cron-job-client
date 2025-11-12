@@ -38,10 +38,10 @@ export const adminActionApi = createApi({
     }),
 
     //====== cron log history ======
-    getAdminCronHistory: builder.query({
-      query: () => ({
-        url: "/admin/cron-log",
-        method: "GET",
+        getAdminCronHistory:builder.query({
+      query: (query) => ({
+        url: `/admin/cron-log?${query}`,
+        method: 'GET'
       }),
     }),
 
@@ -91,6 +91,34 @@ export const adminActionApi = createApi({
       }),
       invalidatesTags:['user_details']
     }),
+
+     removeUserPackage: builder.mutation({
+      query: (data) => ({
+        url: "/admin/users/removepackage",
+        method: "DELETE",
+        body:data,
+      }),
+      invalidatesTags:['user_details']
+    }),
+
+     assignUserPackage: builder.mutation({
+      query: (data) => ({
+        url: "/admin/users/assignPackage",
+        method: "PUT",
+        body:data,
+      }),
+      invalidatesTags:['user_details']
+    }),
+
+
+    // domain crud
+      addManualDomain:builder.mutation({
+      query: (data) => ({
+        url: "/admin/manual-domain",
+        method: 'POST',
+        body:data
+      }),
+    }),
     // ====== admin action ends =======
   }),
 });
@@ -112,5 +140,7 @@ export const {
   // user query
   useLazyGetUsersQuery,
   useGetSingleUserQuery,
-  useUpdateUserMutation
+  useUpdateUserMutation,
+  useRemoveUserPackageMutation,
+  useAssignUserPackageMutation
 } = adminActionApi;

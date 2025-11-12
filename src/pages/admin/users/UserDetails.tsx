@@ -6,6 +6,7 @@ import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import ToggleButton from "@/pages/shared/ToggleButton";
 import {
   useGetSingleUserQuery,
+  useRemoveUserPackageMutation,
   useUpdateUserMutation,
 } from "@/redux/features/adminActions/adminActions";
 import { TDomain, TManualDomain } from "@/types/types";
@@ -13,14 +14,23 @@ import { getExpiryText, isDateExpired } from "@/utils/utils";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
+import AssignPackage from "./AssignPackage";
 
-type TUpdateAction = "STATUS" | "PERMISSION" | "URLS_STATUS" | "DELETE_PACKAGE" | "ASSING_PACKAGE" | null;
+type TUpdateAction =
+  | "STATUS"
+  | "PERMISSION"
+  | "URLS_STATUS"
+  | "PACKAGE_UPDATE"
+  | null;
 
 export default function UserDetails() {
   const { id } = useParams();
   const { data, isFetching } = useGetSingleUserQuery(id);
-  const [update, { isLoading }] = useUpdateUserMutation();
+  const [update] = useUpdateUserMutation();
   const [updateAction, setUpdateAction] = useState<TUpdateAction>(null);
+  const [removeUserPackage] =
+    useRemoveUserPackageMutation();
+  const [loading, setLoading] = useState(false);
 
   //   handlers
   const handleStatusChange = (
@@ -42,6 +52,20 @@ export default function UserDetails() {
       toast.error(error?.data?.message);
     } finally {
       setUpdateAction(null);
+    }
+  };
+
+  const handleRemovePackage = async(userId:string) => {
+  try {
+      const res = await removeUserPackage({ userId}).unwrap();
+      if (res.success) {
+        toast.success(res?.message);
+      } else {
+        throw new Error(res.message);
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message);
     }
   };
 
@@ -67,10 +91,9 @@ export default function UserDetails() {
     return <ErrorMessage key="NO_USER_FOUND" msg="No user found" />;
 
   const firstIndexes = data?.user?.defaultDomains?.length || 0;
-  const isPackageActive = isDateExpired(data?.user?.packageExpiresAt || "");
-
+  const active = !isDateExpired(data?.user?.packageExpiresAt || "");
   return (
-    <DashboardContainer className="py-10">
+    <DashboardContainer className={loading ? "py-10 pointer-events-none":"py-10"}>
       <div className="flex gap-10">
         <div className="w-full">
           <p className="">
@@ -95,7 +118,7 @@ export default function UserDetails() {
           </p>
           <div className="mt-1 flex items-center gap-2">
             <span className="font-semibold">Status :</span>{" "}
-            {updateAction === "STATUS" && !isLoading ? (
+            {updateAction === "STATUS" && loading ? (
               <LoadingSpinner
                 className="min-h-[39.81px]"
                 containerClass="w-3 md:w-4 h-3 2xl:h-4"
@@ -156,10 +179,22 @@ export default function UserDetails() {
               : "Not found"}
           </p>
 
-          {isPackageActive ? (
-            <button className="py-1 rounded-md mt-1 px-3.5 bg-red-500 hover:bg-red-600 text-white">Remove Package</button>
+          {loading &&  updateAction === "PACKAGE_UPDATE" ? (
+            <div className="w-full flex start mt-1">
+              <LoadingSpinner
+                totalVisuals={3}
+                containerClass="w-5 md:w-6 h-6 2xl:h-6"
+              />
+            </div>
+          ) : active ? (
+            <button
+              onClick={()=>handleRemovePackage(data?.user?._id)}
+              className="py-1 rounded-md mt-1 px-3.5 bg-red-500 hover:bg-red-600 text-white"
+            >
+              Remove Package
+            </button>
           ) : (
-            <button className="btn btn-success">Assing Package</button>
+            <AssignPackage loading={loading} id={data?.user?._id} setLoading={setLoading} />
           )}
         </div>
       </div>

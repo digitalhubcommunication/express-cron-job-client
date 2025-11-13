@@ -21,6 +21,7 @@ type TUpdateAction =
   | "PERMISSION"
   | "URLS_STATUS"
   | "PACKAGE_UPDATE"
+  | "DOMAIN_UPDATE"
   | null;
 
 export default function UserDetails() {
@@ -28,9 +29,9 @@ export default function UserDetails() {
   const { data, isFetching } = useGetSingleUserQuery(id);
   const [update] = useUpdateUserMutation();
   const [updateAction, setUpdateAction] = useState<TUpdateAction>(null);
-  const [removeUserPackage] =
-    useRemoveUserPackageMutation();
+  const [removeUserPackage] = useRemoveUserPackageMutation();
   const [loading, setLoading] = useState(false);
+  const [domainId, setDomainId] = useState("");
 
   //   handlers
   const handleStatusChange = (
@@ -55,9 +56,9 @@ export default function UserDetails() {
     }
   };
 
-  const handleRemovePackage = async(userId:string) => {
-  try {
-      const res = await removeUserPackage({ userId}).unwrap();
+  const handleRemovePackage = async (userId: string) => {
+    try {
+      const res = await removeUserPackage({ userId }).unwrap();
       if (res.success) {
         toast.success(res?.message);
       } else {
@@ -84,6 +85,13 @@ export default function UserDetails() {
     });
   };
 
+  const domain_update_CB = () => {
+    setUpdateAction("PERMISSION");
+    updateUserInfo({
+      allowedToAddManualDomains: !data?.user?.allowedToAddManualDomains,
+    });
+  };
+
   // conditional return
   if (isFetching) return <PageLoading />;
 
@@ -93,7 +101,9 @@ export default function UserDetails() {
   const firstIndexes = data?.user?.defaultDomains?.length || 0;
   const active = !isDateExpired(data?.user?.packageExpiresAt || "");
   return (
-    <DashboardContainer className={loading ? "py-10 pointer-events-none":"py-10"}>
+    <DashboardContainer
+      className={loading ? "py-10 pointer-events-none" : "py-10"}
+    >
       <div className="flex gap-10">
         <div className="w-full">
           <p className="">
@@ -179,7 +189,7 @@ export default function UserDetails() {
               : "Not found"}
           </p>
 
-          {loading &&  updateAction === "PACKAGE_UPDATE" ? (
+          {loading && updateAction === "PACKAGE_UPDATE" ? (
             <div className="w-full flex start mt-1">
               <LoadingSpinner
                 totalVisuals={3}
@@ -188,13 +198,17 @@ export default function UserDetails() {
             </div>
           ) : active ? (
             <button
-              onClick={()=>handleRemovePackage(data?.user?._id)}
+              onClick={() => handleRemovePackage(data?.user?._id)}
               className="py-1 rounded-md mt-1 px-3.5 bg-red-500 hover:bg-red-600 text-white"
             >
               Remove Package
             </button>
           ) : (
-            <AssignPackage loading={loading} id={data?.user?._id} setLoading={setLoading} />
+            <AssignPackage
+              loading={loading}
+              id={data?.user?._id}
+              setLoading={setLoading}
+            />
           )}
         </div>
       </div>
@@ -268,20 +282,31 @@ export default function UserDetails() {
                       {domain.executeInMs / 1000 / 60 || ""}M
                     </td>
                     <td className="max-w-[200px] px-3 py-2">
-                      <button
-                        onClick={() =>
-                          handleStatusChange(
-                            domain._id,
-                            "default",
-                            domain.status === "enabled" ? "disabled" : "enabled"
-                          )
-                        }
-                        className=" underline text-blue-600"
-                      >
-                        {domain.status === "enabled"
-                          ? "Disable URL"
-                          : "Enable URL"}
-                      </button>
+                      {loading &&
+                      domainId === domain._id &&
+                      updateAction === "DOMAIN_UPDATE" ? (
+                        <LoadingSpinner
+                          totalVisuals={3}
+                          containerClass="w-3 md:w-4 h-3 2xl:h-4"
+                        />
+                      ) : (
+                        <button
+                          onClick={() =>
+                            handleStatusChange(
+                              domain._id,
+                              "default",
+                              domain.status === "enabled"
+                                ? "disabled"
+                                : "enabled"
+                            )
+                          }
+                          className=" underline text-blue-600"
+                        >
+                          {domain.status === "enabled"
+                            ? "Disable URL"
+                            : "Enable URL"}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 )

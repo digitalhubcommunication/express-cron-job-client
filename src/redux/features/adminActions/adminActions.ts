@@ -132,6 +132,15 @@ export const adminActionApi = createApi({
       },
       invalidatesTags:["profile"]
     }),
+
+
+    updateAdminManualDomain:builder.mutation({
+      query: ({id,data}) => ({
+        url: `/admin/crons/${id}`,
+        method: 'PUT',
+        body:data
+      }),
+    }),
     // ====== admin action ends =======
   }),
 });
@@ -158,5 +167,6 @@ export const {
   useAssignUserPackageMutation,
 
   // domain crud
-  useAddAdminManualDomainMutation
+  useAddAdminManualDomainMutation,
+  useUpdateAdminManualDomainMutation
 } = adminActionApi;

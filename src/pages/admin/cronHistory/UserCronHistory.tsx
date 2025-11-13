@@ -24,7 +24,7 @@ export default function UserCronHistory() {
   const [logs, setLogs] = useState<ICronLog[]>([]);
   const [cronType, setCronType] = useState<TCronType>("");
 
-  const [filterBy, setFilterBy] = useState<TFilterBy>("title");
+  const [filterBy, setFilterBy] = useState<TFilterBy>("status");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [statusCode, setStatusCode] = useState<TStatusCode>("");
@@ -222,7 +222,7 @@ export default function UserCronHistory() {
 
                           <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
                             <span>
-                              {removeProtocolRegex(authUser?.domain || "")}
+                              {history?.domain || ""}
                             </span>
                           </td>
                           {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">

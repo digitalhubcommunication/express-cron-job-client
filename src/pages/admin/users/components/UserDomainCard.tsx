@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 
 type DomainStatus = "enabled" | "disabled";
 
-export default function AdminManualCronCard({
+export default function UserDomainCard({
   title,
   _id,
   executeInMs,
@@ -127,3 +127,4 @@ export default function AdminManualCronCard({
     </Card>
   );
 }
+

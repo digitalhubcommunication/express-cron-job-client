@@ -14,7 +14,7 @@ import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
 
 export type TCronType = '' | "manual" | "default";
 export type TFilterBy = "title" | "status";
-export type TStatusCode = '200' | '400';
+export type TStatusCode = '200' | '400' | '';
 
 export default function CronHistory() {
   const { authUser } = useSelector((state: RootState) => state.auth);
@@ -27,7 +27,7 @@ export default function CronHistory() {
   const [filterBy, setFilterBy] = useState<TFilterBy>("title");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [statusCode, setStatusCode] = useState<TStatusCode>("200");
+  const [statusCode, setStatusCode] = useState<TStatusCode>("");
   const [domainTitle, setDomainTitle] = useState("");
   const [refetch, setRefetch] = useState(false); 
   const limit = 50;

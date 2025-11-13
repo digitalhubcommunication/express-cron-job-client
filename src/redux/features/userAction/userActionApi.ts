@@ -4,7 +4,7 @@ import { baseQuery } from '../baseQuery';
 export const userActionApi = createApi({
   reducerPath: 'userActionApi',
   baseQuery,
-   tagTypes: ["Profile"],
+   tagTypes: ["profile"],
   endpoints: (builder) => ({
     // profile apis
     updateProfile:builder.mutation({
@@ -13,7 +13,7 @@ export const userActionApi = createApi({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['Profile']
+      invalidatesTags: ['profile']
     }),
 
     getProfile:builder.query({
@@ -21,7 +21,7 @@ export const userActionApi = createApi({
         url: '/profile',
         method: 'GET',
       }),
-       providesTags: ['Profile']
+       providesTags: ['profile']
     }),
 
     // cron log
@@ -95,7 +95,7 @@ export const userActionApi = createApi({
         method: 'POST',
         body:data
       }),
-      invalidatesTags: ['Profile']
+      invalidatesTags: ['profile']
     }),
 
 
@@ -106,7 +106,7 @@ export const userActionApi = createApi({
         method: 'POST',
         body:data
       }),
-      invalidatesTags: ['Profile']
+      invalidatesTags: ['profile']
     }),
 
 

@@ -9,6 +9,7 @@ import {
 } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";
+import { msToTimeString } from "@/utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -77,18 +78,18 @@ export default function AdminManualCronCard({
   };
 
   return (
-    <Card className={`flex flex-col gap-2 relative max-w-[500px]`}>
+    <Card className={`flex flex-col gap-2 relative`}>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Title: </span>
         <span>{title}</span>
       </p>
-      <p className="flex items-center gap-2">
+      <p className="flex items-center gap-2 flex-wrap">
         <span className="font-semibold">URL: </span>
         <span className="text-wrap">{url}</span>
       </p>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Execution Time: </span>
-        <span>{executeInMs ? executeInMs / 1000 / 60 : 30} Minutes</span>
+        <span>{executeInMs ? msToTimeString(executeInMs) : "0 ms"}</span>
       </p>
       <div className="flex items-center justify-between gap-5">
         <div className="flex items-center gap-2">

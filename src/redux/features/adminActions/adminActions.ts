@@ -1,10 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../baseQuery";
+import { userActionApi } from "../userAction/userActionApi";
 
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
-   tagTypes: ["user_details"],
+   tagTypes: ["user_details", "profile"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -112,12 +113,24 @@ export const adminActionApi = createApi({
 
 
     // domain crud
-      addManualDomain:builder.mutation({
+      addAdminManualDomain:builder.mutation({
       query: (data) => ({
-        url: "/admin/manual-domain",
+        url: "/admin/crons",
         method: 'POST',
         body:data
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled; 
+          dispatch(
+            userActionApi.util.invalidateTags(['profile'])
+          );
+        } catch (error) {
+          // Handle error if needed
+          console.log(error)
+        }
+      },
+      invalidatesTags:["profile"]
     }),
     // ====== admin action ends =======
   }),
@@ -142,5 +155,8 @@ export const {
   useGetSingleUserQuery,
   useUpdateUserMutation,
   useRemoveUserPackageMutation,
-  useAssignUserPackageMutation
+  useAssignUserPackageMutation,
+
+  // domain crud
+  useAddAdminManualDomainMutation
 } = adminActionApi;

@@ -77,7 +77,6 @@ export default function SearchBar({
         </select>
         }
        
-
         {filterBy==="title" && cronType==="manual" ? (
           <div
             className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
@@ -108,6 +107,7 @@ export default function SearchBar({
             value={statusCode}
             onChange={handleStatusCode}
           >
+            <option value="">All</option>
             <option value="200">Success</option>
             <option value="400">Failed</option>
           </select>

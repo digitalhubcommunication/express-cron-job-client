@@ -31,16 +31,16 @@ export default function AddedDomains() {
             Welcome <span className="font-semibold">{authUser.name}</span>
           </h3>
         </div>
-        <h5 className="font-semibold mb-4">Default Domain</h5>
+        {/* <h5 className="font-semibold mb-4">Default Domain</h5>
         <div className="w-full">
           <p>{authUser.domain}</p>
-        </div>
+        </div> */}
 
         <h5 className="font-semibold mb-4 mt-10 md:mt-20">Manual Domains</h5>
         <div className="w-full">
                       <AddNewCron />
                         {authUser?.manualDomains?.length && authUser?.manualDomains ? (
-                          <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 mt-5">
+                          <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
                             {authUser?.manualDomains?.map((domain) => (
                              <AdminManualCronCard key={domain?._id}  {...domain} />
                             ))}

@@ -125,17 +125,34 @@ export function isDateExpired(date: string | Date): boolean {
   return expiryDate.getTime() <= now.getTime();
 }
 
+export function msToTimeString(ms: number): string {
+  if (ms < 0) {
+    ms = 0;
+  }
+    
+  let totalSeconds = Math.floor(ms / 1000);
 
-// export function getExpiryStatus(
-//   expiresAt: string,
-// ):{ remainingHours: number; remainingMinutes: number; } {
-//   const now = new Date();
-//   const expiryDate = new Date(expiresAt);
-//   const remainingMs = expiryDate.getTime() - now.getTime();
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600; 
 
-//   // Create human-readable text
-//   const remainingHours = Math.floor(remainingMs / (1000 * 60 * 60));
-//   const remainingMinutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
-
-//   return { remainingHours,remainingMinutes };
-// }
+  const minutes = Math.floor(totalSeconds / 60);
+  
+  const seconds = totalSeconds % 60;
+  
+  let timeString = '';
+  
+  // 1. Add Hours
+  if (hours > 0) {
+    timeString += `${hours}h `;
+  }
+  
+  // 2. Add Minutes
+  if (minutes > 0) {
+    timeString += `${minutes}m `;
+  }
+  
+  // 3. Add Seconds (Always included)
+  timeString += `${seconds}s`;
+  
+  return timeString.trim();
+}

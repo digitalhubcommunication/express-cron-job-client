@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RootState } from "@/redux/store";
-import { useAddManualDomainMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { setManualDomain } from "@/redux/features/auth/AuthSlice";
+import { useAddAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
 
 type FormData = {
   url: string;
@@ -18,7 +18,7 @@ type FormData = {
 const AddNewCron = () => {
   const ACTIVE_KEY = "OPEN_ADMIN_ADD_NEW_CRON_MODAL";
   const dispatch = useDispatch();
-  const [addManualDomain, { isLoading }] = useAddManualDomainMutation();
+  const [addManualDomain, { isLoading }] = useAddAdminManualDomainMutation();
   const { authUser } = useSelector((state: RootState) => state.auth);
   const {
     register,
@@ -36,7 +36,6 @@ const AddNewCron = () => {
       if (res.success) {
         toast.success(res?.message);
         dispatch(toggleModal(null));
-        console.log(res.domain,' domain response')
         dispatch(setManualDomain(res.domain));
         reset();
       }
@@ -47,10 +46,6 @@ const AddNewCron = () => {
   };
 
   if(!authUser)return <></>;
-
-  const limit = authUser?.subscription?.manualCronLimit || 3;
-  const remainingLimit = limit - authUser?.manualCronCount;
-
   return (
     <>
       <button
@@ -71,10 +66,6 @@ const AddNewCron = () => {
 
         <div className="w-full h-full p-4">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-3 flex-wrap gap-5 flex items-center justify-between my-5">
-              <h6 className="">Domain: {authUser?.domain || ""}</h6>
-              <p>Allowed to add : {remainingLimit}</p>
-            </div>
             <div className="flex flex-col gap-4">
               <div>
                 <label className="mb-1" htmlFor="title">
@@ -92,25 +83,26 @@ const AddNewCron = () => {
                   }`}
                   placeholder="Enter title"
                 />
+                {!!errors?.title &&  <p className="mt-1 text-red-500">Title is required</p>}
               </div>
               <div>
                 <label className="mb-1" htmlFor="url">
                   Execute in
                 </label>
-                <select
-                  {...register("executeInMs", {
+                <input 
+                 type="number"
+                {...register("executeInMs", {
                     required: "Execution time is required",
+                    min:{value:3000, message:"Minimum 3000 MS is required"},
                   })}
-                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                   className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
                     errors.executeInMs
                       ? "border-[var(--clr-danger)]"
                       : "border-gray-300"
                   }`}
-                >
-                  <option value="1800000">30 Minutes</option>
-                  <option value="3600000">1 Hour</option>
-                  <option value="10800000">3 Hours</option>
-                </select>
+                  placeholder="Enter execution time in seconds"
+                  />
+                  {!!errors?.executeInMs &&  <p className="mt-1 text-red-500">{errors.executeInMs?.message}</p>}
               </div>
               <div>
                 <label className="mb-1" htmlFor="url">
@@ -128,6 +120,7 @@ const AddNewCron = () => {
                   }`}
                   placeholder="Enter cron URL"
                 />
+              {!!errors?.url &&  <p className="mt-1 text-red-500">URL is required</p>}
               </div>
             </div>
 

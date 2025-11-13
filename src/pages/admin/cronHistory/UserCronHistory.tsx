@@ -12,55 +12,56 @@ import CronTypeSwitcher from "@/pages/user/cronHistory/components/CronTypeSwitch
 import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { useLazyGetAdminCronHistoryQuery } from "@/redux/features/adminActions/adminActions";
 
-export type TCronType = '' | "manual" | "default";
+export type TCronType = "" | "manual" | "default";
 export type TFilterBy = "title" | "status";
-export type TStatusCode = '200' | '400';
-
-
+export type TStatusCode = "200" | "400" | "";
 
 export default function UserCronHistory() {
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const [getCronLog,{}] = useLazyGetAdminCronHistoryQuery();
+  const [getCronLog, {}] = useLazyGetAdminCronHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
-  const [cronType, setCronType] = useState<TCronType>('');
+  const [cronType, setCronType] = useState<TCronType>("");
 
   const [filterBy, setFilterBy] = useState<TFilterBy>("title");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [statusCode, setStatusCode] = useState<TStatusCode>("200");
+  const [statusCode, setStatusCode] = useState<TStatusCode>("");
   const [domainTitle, setDomainTitle] = useState("");
-  const [refetch, setRefetch] = useState(false); 
+  const [refetch, setRefetch] = useState(false);
   const limit = 50;
-
 
   // requried fields
   useEffect(() => {
     const loadLog = async () => {
       !isLoading && setIsLoading(true);
-      let params:URLSearchParams = new URLSearchParams({
-          page: currentPage.toString(),
-          limit: `${limit}`,
-          domainType:cronType,
-          filterBy,
+      let params: URLSearchParams = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: `${limit}`,
+        filterBy,
       });
 
-      if(cronType ==="manual"){
-          if(filterBy==="status" && statusCode){
-            params.append("status", statusCode);
-          }else if(filterBy ==="title" && domainTitle){
-            params.append("domainTitle", domainTitle);
-          }
-      }else{
-         if(statusCode){
-params.append("status", statusCode);
-         }
+      if (cronType) {
+        params.append("domainType", cronType);
+      }
+
+      if (cronType === "manual") {
+        if (filterBy === "status" && statusCode) {
+          params.append("status", statusCode);
+        } else if (filterBy === "title" && domainTitle) {
+          params.append("domainTitle", domainTitle);
+        }
+      } else {
+        if (statusCode) {
+          params.append("status", statusCode);
+        }
       }
 
       try {
         // Build query string like: ?domainType=default&cronType=manual&filterBy=title&page=1
         const query = params.toString();
+        console.log(query, " query");
         const res = await getCronLog(query).unwrap();
         if (res.logs && res.logs?.length > 0) {
           setLogs(res.logs);
@@ -80,16 +81,27 @@ params.append("status", statusCode);
     };
 
     loadLog();
-  }, [filterBy, currentPage, cronType, statusCode, domainTitle, refetch===true]);
-
+  }, [
+    filterBy,
+    currentPage,
+    cronType,
+    statusCode,
+    domainTitle,
+    refetch === true,
+  ]);
+  // console.log(logs, " logs");
   const startingIndex = (currentPage - 1) * limit;
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
         <h3 className="text-center">History for all Cron Job</h3>
         <div className=" w-full mt-5">
-          <CronTypeSwitcher setFilterBy={setFilterBy} cronType={cronType} setCronType={setCronType} />
-          
+          <CronTypeSwitcher
+            setFilterBy={setFilterBy}
+            cronType={cronType}
+            setCronType={setCronType}
+          />
+
           {isLoading ? (
             <div className="w-full min-h-[150px] flex items-center justify-center">
               <LoadingSpinner
@@ -101,8 +113,8 @@ params.append("status", statusCode);
           ) : (
             <>
               <SearchBar
-              cronType={cronType}
-              setRefetch={setRefetch}
+                cronType={cronType}
+                setRefetch={setRefetch}
                 setLogs={setLogs}
                 logs={logs}
                 domainTitle={domainTitle}
@@ -123,14 +135,16 @@ params.append("status", statusCode);
                       >
                         #
                       </th>
-                      {
-                        cronType==="manual" ? <th
-                        scope="col"
-                        className="bg-gray-50 sticky w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Title
-                      </th>:<></> 
-                      }
+                      {cronType === "manual" ? (
+                        <th
+                          scope="col"
+                          className="bg-gray-50 sticky w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
+                        >
+                          Title
+                        </th>
+                      ) : (
+                        <></>
+                      )}
                       <th
                         scope="col"
                         className="bg-gray-50 sticky w-[50%] lg:w-[40%] xl:w-[30%] top-0 left-0 px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
@@ -198,14 +212,18 @@ params.append("status", statusCode);
                           <td className="md:w-20 px-4 py-3.5 whitespace-nowrap font-medium text-gray-900">
                             {startingIndex + index + 1}
                           </td>
-                          {
-                            cronType ==="manual" ? <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{history.title}</span>
-                          </td>:<></>
-                          }
-                            
+                          {cronType === "manual" ? (
+                            <td className=" overflow-x-auto px-4 py-3.5 w-[25%] overflow-hidden lg:w-[20%] xl:w-[10%] whitespace-nowrap text-blue-600 hover:underline">
+                              <span>{history.title}</span>
+                            </td>
+                          ) : (
+                            <></>
+                          )}
+
                           <td className=" overflow-x-auto px-4 py-3.5 w-[50%] lg:w-[40%] xl:w-[30%] whitespace-nowrap text-blue-600 hover:underline">
-                            <span>{removeProtocolRegex(authUser?.domain || "")}</span>
+                            <span>
+                              {removeProtocolRegex(authUser?.domain || "")}
+                            </span>
                           </td>
                           {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
                             {history.status === 0 ? 404 : history.status}
@@ -225,8 +243,12 @@ params.append("status", statusCode);
                               )}
                             </span>
                           </td>
-                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
-                            <span>{formatDateForDisplay(new Date(history.timestamp).toString())}</span>
+                          <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
+                            <span>
+                              {formatDateForDisplay(
+                                new Date(history.timestamp).toString()
+                              )}
+                            </span>
                           </td>
                           <td className="lg:w-[180px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.responseTime}ms</span>

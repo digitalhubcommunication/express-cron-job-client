@@ -5,7 +5,7 @@ import SettingsLayout from "../layout/SettingsLayout";
 import DashboardContainer from "../wrapper/DashboardContainer";
 import CloudflareSetupPage from "@/pages/user/cloudflareSetup/CloudflareSetup";
 import DhruFusionSetupPage from "@/pages/user/dhruFusionSetup/DhruFusionSetup";
-import ConnectTelegramPage from "@/pages/user/connectTelegram/ConnectTelegram";
+// import ConnectTelegramPage from "@/pages/user/connectTelegram/ConnectTelegram";
 import ProfilePage from "@/pages/user/profile/Profile";
 import CronHistoryPage from "@/pages/user/cronHistory/CronHistory";
 import PackagesPage from "@/pages/package/Packages";

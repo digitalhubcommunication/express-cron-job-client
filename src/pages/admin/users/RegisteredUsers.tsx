@@ -181,8 +181,11 @@ export default function RegisteredUsers() {
                       <td className="px-3 py-2">{user.domain}</td>
                       <td className="max-w-[200px] px-3 py-2">{user.status}</td>
                       <td className="max-w-[200px] px-3 py-2">
-                        <button  onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")} className=" underline text-blue-600">
-                          {user.status === "enabled" ? "Disable" : "Enable"}
+                        <button  
+                        // onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")} 
+                        className=" underline text-blue-600">
+                          {/* {user.status === "enabled" ? "Disable" : "Enable"} */}
+                          Details
                         </button>
                       </td>
                     </tr>

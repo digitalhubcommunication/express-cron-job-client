@@ -5,8 +5,7 @@ import ToggleButton from "@/pages/shared/ToggleButton";
 import { useUpdateAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
 import { deleteManualDomain, setAuthUser, setManualDomainStatus } from "@/redux/features/auth/AuthSlice";
 import {
-  useRemoveManualDomainMutation,
-  useUpdateManualDomainMutation,
+  useRemoveManualDomainMutation
 } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";

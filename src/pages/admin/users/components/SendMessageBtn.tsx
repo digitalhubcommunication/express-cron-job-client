@@ -5,21 +5,23 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RootState } from "@/redux/store";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { useSendMailMutation } from "@/redux/features/userAction/userActionApi";
 import { Button } from "@/components/button/Button";
-import { NewMailIcon } from "@/components/icons/Icons";
+import { MailIcon } from "@/components/icons/Icons";
 import { useSendMailToUserMutation } from "@/redux/features/adminActions/adminActions";
 
 interface ContactFormInputs {
-  name: string;
   subject: string;
-  email: string;
   message: string;
 }
 
+type Props = {
+  id: string;
+  name: string;
+  email: string;
+};
 
-export default function SendMail() {
-  const ACTIVE_KEY = "OPEN_EMAIL_SEND_TO_NEW_USER_MODAL";
+export default function SendMessageBtn({ id, name, email }: Props) {
+  const ACTIVE_KEY = `OPEN_EMAIL_SEND_MODAL_${id}`;
   const dispatch = useDispatch();
   const { authUser } = useSelector((state: RootState) => state.auth);
   const {
@@ -29,21 +31,25 @@ export default function SendMail() {
     reset,
   } = useForm<ContactFormInputs>();
 
-   const [sendMessage, { isLoading }] = useSendMailToUserMutation();
-  
+  const [sendMessage, { isLoading }] = useSendMailToUserMutation();
+
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    // In a real application, you would send this data to your backend
     try {
-      const res = await sendMessage(data).unwrap();
+      const dataToSubmit = {
+        name,
+        email,
+        ...data,
+      };
+      const res = await sendMessage(dataToSubmit).unwrap();
       if (res.success) {
-        reset();
+          reset();
         toast.success(res.message);
         dispatch(toggleModal(null));
       } else {
         throw new Error(res.message);
       }
-    } catch (error:any) {
-        toast.error(error?.data?.message);
+    } catch (error: any) {
+      toast.error(error?.data?.message);
       console.error("Submission error:", error);
     }
   };
@@ -51,11 +57,8 @@ export default function SendMail() {
   if (!authUser) return <></>;
   return (
     <>
-      <button
-        onClick={() => dispatch(toggleModal(ACTIVE_KEY))}
-        className="btn btn-success !py-2 flex items-center gap-2"
-      >
-        <span><NewMailIcon /></span>
+      <button onClick={() => dispatch(toggleModal(ACTIVE_KEY))} className="">
+        <MailIcon className="text-blue-600 w-7 h-7 lg:h-8 lg:w-8" />
       </button>
 
       {/* ======= modal to open add new cron form ======= */}
@@ -71,30 +74,6 @@ export default function SendMail() {
             onSubmit={handleSubmit(onSubmit)}
             className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}
           >
-            <div>
-              <label
-                htmlFor="name"
-                className="block ecj_fs-md font-medium mb-1"
-              >
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                {...register("name", { required: "Name is required" })}
-                className={`w-full px-3 py-2 border ${
-                  errors.name
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                } rounded-md outline-none transition-all duration-200`}
-                placeholder="Your Name"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.name?.message}
-                </p>
-              )}
-            </div>
             <div>
               <label
                 htmlFor="subject"
@@ -123,37 +102,6 @@ export default function SendMail() {
             </div>
             <div>
               <label
-                htmlFor="email"
-                className="block ecj_fs-md font-medium text-gray-700 mb-1"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                    message: "Invalid email address",
-                  },
-                })}
-                className={`w-full px-3 py-2 border ${
-                  errors.email
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                } rounded-md outline-none transition-all duration-200`}
-                placeholder="you@example.com"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
                 htmlFor="message"
                 className="block ecj_fs-md font-medium text-gray-700 mb-1"
               >
@@ -179,15 +127,15 @@ export default function SendMail() {
 
             {isLoading ? (
               <LoadingSpinner
-                className="min-h-[39.81px]"
+                className=" min-h-[39.81px]"
                 containerClass="w-6 md:w-8 h-6 2xl:h-8"
               />
             ) : (
               <Button
                 disabled={isSubmitting}
                 type="submit"
-                className="!rounded-[10px] ecj_fs-md w-full"
-                label="Send Message"
+                className="w-full !rounded-[10px] ecj_fs-md"
+                label="Send"
               />
             )}
           </form>

@@ -1,4 +1,3 @@
-import { ListIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import PageLoading from "@/components/loading/PageLoading";
 import ErrorMessage from "@/components/shared/ErrorMessage";
@@ -16,6 +15,7 @@ import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import AssignPackage from "./components/AssignPackage";
 import UserDomainCard from "./components/UserDomainCard";
+import SendMessageBtn from "./components/SendMessageBtn";
 
 type TUpdateAction =
   | "STATUS"
@@ -33,7 +33,7 @@ export default function UserDetails() {
   const [removeUserPackage] = useRemoveUserPackageMutation();
   const [loading, setLoading] = useState(false);
 
-  const user = data?.user || {} as IUser;
+  const user = data?.user || ({} as IUser);
 
   //   handlers
   const updateUserInfo = async (data: any) => {
@@ -81,13 +81,6 @@ export default function UserDetails() {
     });
   };
 
-  const domain_update_CB = () => {
-    setUpdateAction("PERMISSION");
-    updateUserInfo({
-      allowedToAddManualDomains: !user?.allowedToAddManualDomains,
-    });
-  };
-
   // conditional return
   if (isFetching) return <PageLoading />;
 
@@ -102,24 +95,20 @@ export default function UserDetails() {
       <div className="flex gap-10">
         <div className="w-full">
           <p className="">
-            <span className="font-semibold">Name :</span>{" "}
-            {user?.name || ""}
+            <span className="font-semibold">Name :</span> {user?.name || ""}
           </p>
           <p className="mt-1">
             <span className="font-semibold">Username :</span>{" "}
             {user?.username || ""}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Role :</span>{" "}
-            {user?.role || ""}
+            <span className="font-semibold">Role :</span> {user?.role || ""}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Mobile :</span>{" "}
-            {user?.mobile || ""}
+            <span className="font-semibold">Mobile :</span> {user?.mobile || ""}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Domain :</span>{" "}
-            {user?.domain || ""}
+            <span className="font-semibold">Domain :</span> {user?.domain || ""}
           </p>
           <div className="mt-1 flex items-center gap-2">
             <span className="font-semibold">Status :</span>{" "}
@@ -141,8 +130,6 @@ export default function UserDetails() {
             <span className="font-semibold">Subscription :</span>{" "}
             {user?.subscription?.name || ""}
           </p>
-        </div>
-        <div className="w-full">
           <div className="mt-1 flex items-center gap-2">
             <span className="font-semibold">Allowed to add manual urls : </span>{" "}
             <ToggleButton
@@ -152,6 +139,8 @@ export default function UserDetails() {
               isActive={user?.allowedToAddManualDomains}
             />
           </div>
+        </div>
+        <div className="w-full">
           <p className="mt-1">
             <span className="font-semibold">Telegram ID :</span>{" "}
             {user?.telegramId || "null"}
@@ -183,45 +172,58 @@ export default function UserDetails() {
               ? getExpiryText(user?.createdAt).date
               : "Not found"}
           </p>
-
-          {loading && updateAction === "PACKAGE_UPDATE" ? (
-            <div className="w-full flex start mt-1">
-              <LoadingSpinner
-                totalVisuals={3}
-                containerClass="w-5 md:w-6 h-6 2xl:h-6"
+          <div className="w-full flex items-center justify-between max-w-[320px] mt-5">
+            {loading && updateAction === "PACKAGE_UPDATE" ? (
+              <div className="w-full flex start">
+                <LoadingSpinner
+                  totalVisuals={3}
+                  containerClass="w-5 md:w-6 h-6 2xl:h-6"
+                />
+              </div>
+            ) : active ? (
+              <button
+                onClick={() => handleRemovePackage(user?._id)}
+                className="py-1 rounded-md px-3.5 bg-red-500 hover:bg-red-600 text-white"
+              >
+                Remove Package
+              </button>
+            ) : (
+              <AssignPackage
+                loading={loading}
+                id={user?._id}
+                setLoading={setLoading}
               />
-            </div>
-          ) : active ? (
-            <button
-              onClick={() => handleRemovePackage(user?._id)}
-              className="py-1 rounded-md mt-1 px-3.5 bg-red-500 hover:bg-red-600 text-white"
-            >
-              Remove Package
-            </button>
-          ) : (
-            <AssignPackage
-              loading={loading}
-              id={user?._id}
-              setLoading={setLoading}
-            />
-          )}
+            )}
+            <SendMessageBtn id={user._id} name={user.name} email={user.email} />
+          </div>
         </div>
       </div>
 
       <h6 className="mb-3 font-semibold mt-10">Default Domains</h6>
       <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
-          {
-            user?.defaultDomains?.length && user?.defaultDomains.map((domain:TDomain)=><UserDomainCard userId={id} domain={{...domain, domainType:"default", title:"No title", executeInMs:user.subscription?.intervalInMs}} />)
-          }
-       
+        {user?.defaultDomains?.length &&
+          user?.defaultDomains.map((domain: TDomain) => (
+            <UserDomainCard
+              userId={id}
+              domain={{
+                ...domain,
+                domainType: "default",
+                title: "No title",
+                executeInMs: user.subscription?.intervalInMs,
+              }}
+            />
+          ))}
       </div>
 
-       <h6 className="mb-3 font-semibold mt-10">Manual Domains</h6>
+      <h6 className="mb-3 font-semibold mt-10">Manual Domains</h6>
       <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
-          {
-            user?.manualDomains?.length && user?.manualDomains.map((domain:TManualDomain)=><UserDomainCard userId={id} domain={{...domain, domainType:"manual"}} />)
-          }
-       
+        {user?.manualDomains?.length &&
+          user?.manualDomains.map((domain: TManualDomain) => (
+            <UserDomainCard
+              userId={id}
+              domain={{ ...domain, domainType: "manual" }}
+            />
+          ))}
       </div>
     </DashboardContainer>
   );

@@ -1,14 +1,13 @@
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import Pagination from "@/pages/shared/Pagination";
-import { useLazyGetAllTransactionHistoryQuery, useLazyGetUserMailsQuery } from "@/redux/features/adminActions/adminActions";
+import {useLazyGetUserMailsQuery } from "@/redux/features/adminActions/adminActions";
 
 import { IMail } from "@/types/types";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import SearchFilter from "./components/SearchFilter";
-import { formatDateForDisplay } from "@/utils/utils";
 import SendMail from "./components/SendMail";
 import { format } from "date-fns";
 import { Link } from "react-router";
@@ -38,7 +37,6 @@ export default function Mails() {
           try {
             const query = params.toString();
             const res = await getMails(query).unwrap();
-            console.log(res, " res from filter");
             if (res.mails && res.mails?.length > 0) {
               setMails(res.mails);
               setTotalPages(res.pages);

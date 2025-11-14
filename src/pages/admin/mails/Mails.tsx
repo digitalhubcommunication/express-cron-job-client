@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 import SearchFilter from "./components/SearchFilter";
 import { formatDateForDisplay } from "@/utils/utils";
+import SendMail from "./components/SendMail";
 
 
 export default function Mails() {
@@ -73,10 +74,13 @@ export default function Mails() {
             </div>
           ) : (
             <>
-              <SearchFilter
+              <div className="w-full">
+                <SendMail />
+                <SearchFilter
                 filterMail={filterMail}
                 setFilterMail={setFilterMail}
               />
+              </div>
               <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
               {
                 mails.map((mail, indx)=><div key={mail._id} className="flex flex-wrap gap-3 w-full shadow-xs">

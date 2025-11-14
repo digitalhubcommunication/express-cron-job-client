@@ -24,16 +24,19 @@ const ContactForm: React.FC = () => {
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     // In a real application, you would send this data to your backend
     try {
-      const res = await sendMessage(data);
-      console.log(res, " res");
-      reset(); // Reset form after successful submission
-    } catch (error) {
-      console.error("Submission error:", error);
-    }
+      const res = await sendMessage(data).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        throw new Error(res.message);
+      }
 
-    // TODO:
-    toast.warn("API integration in progress");
-    reset();
+      reset(); // Reset form after successful submission
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      toast.error(error?.data?.message);
+    }
+    // reset();
   };
 
   return (

@@ -31,6 +31,9 @@ import CronSetup from "@/pages/user/manualCron/CronSetup";
 import TransactionHistory from "@/pages/user/transactionHistory/TransactionHistory";
 import InitializeTransaction from "@/pages/user/initializeTransaction/InitializeTransaction";
 import AvailablePackages from "@/pages/user/packages/AvailablePackages";
+import AllTransactions from "@/pages/admin/allTransactions/AllTransactions";
+import Mails from "@/pages/admin/mails/Mails";
+import SingleMail from "@/pages/admin/mails/SingleMail";
 
 export const router = createBrowserRouter([
   {
@@ -186,6 +189,18 @@ export const router = createBrowserRouter([
       {
         path: "all-packages",
         element: <AllPackagesPage />,
+      },
+       {
+        path: "mails",
+        element: <Mails />,
+      },
+      {
+        path: "mails/:id",
+        element: <SingleMail />,
+      },
+      {
+        path: "all-transactions",
+        element: <AllTransactions />,
       },
       {
         path: "profile-and-password",

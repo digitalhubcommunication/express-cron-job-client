@@ -187,3 +187,12 @@ export interface ITransaction {
   createdAt:string;
   updatedAt:string;
 }
+
+export interface IMail {
+  _id:string;
+  name:string;
+  email:string;
+  subject:string;
+  message:string;
+  createdAt:string;
+}

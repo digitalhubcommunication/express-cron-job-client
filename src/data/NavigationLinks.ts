@@ -1,4 +1,4 @@
-import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, GlobeIcon, NetworkIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
+import { CartIcon, ClockWorkIcon, CloudFlareIcon, CreditCartIcon, GlobeIcon, MailBulkIcon, MailIcon, NetworkIcon, UserDashboardIcon, UserIcon, UsersIcon } from "@/components/icons/Icons";
 import { TLink, TSidebarLink } from "@/types/types";
 
 
@@ -61,10 +61,20 @@ export const adminLinks: TSidebarLink[] = [
         Icon: UsersIcon,
         to: "/admin/users"
     },
+       {
+        label: "Mails",
+        Icon: MailBulkIcon,
+        to: "/admin/mails"
+    },
      {
         label: "Domains",
         Icon: GlobeIcon,
         to: "/admin/domains"
+    },
+    {
+        label: "Transactions",
+        Icon: CreditCartIcon,
+        to: "/admin/all-transactions"
     },
     {
         label: "History",

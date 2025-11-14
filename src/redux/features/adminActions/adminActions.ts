@@ -141,6 +141,21 @@ export const adminActionApi = createApi({
         body:data
       }),
     }),
+
+     deleteAdminManualDomain:builder.mutation({
+      query: (id) => ({
+        url: `/admin/crons/${id}`,
+        method: 'DELETE'
+      }),
+    }),
+
+    // transaction history
+      getAllTransactionHistory: builder.query({
+      query: (query) => ({
+        url: `/admin/transaction-history?${query}`,
+        method: 'GET',
+      }),
+    }),
     // ====== admin action ends =======
   }),
 });
@@ -168,5 +183,9 @@ export const {
 
   // domain crud
   useAddAdminManualDomainMutation,
-  useUpdateAdminManualDomainMutation
+  useUpdateAdminManualDomainMutation,
+  useDeleteAdminManualDomainMutation,
+
+  // transaction history
+  useLazyGetAllTransactionHistoryQuery,
 } = adminActionApi;

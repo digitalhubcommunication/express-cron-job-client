@@ -2,7 +2,7 @@ import { TrashIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
-import { useUpdateAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
+import { useDeleteAdminManualDomainMutation, useUpdateAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
 import { deleteManualDomain, setAuthUser, setManualDomainStatus } from "@/redux/features/auth/AuthSlice";
 import {
   useRemoveManualDomainMutation
@@ -27,7 +27,7 @@ export default function AdminManualCronCard({
   const [changeManualDomainStatus, { isLoading }] =
     useUpdateAdminManualDomainMutation();
 
-  const [removeUrl, { isLoading: deleting }] = useRemoveManualDomainMutation();
+  const [removeUrl, { isLoading: deleting }] = useDeleteAdminManualDomainMutation();
 
   // handlers
   const updateDefaultDomain = async (

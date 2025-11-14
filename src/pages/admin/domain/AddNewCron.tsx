@@ -8,11 +8,12 @@ import { RootState } from "@/redux/store";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { setManualDomain } from "@/redux/features/auth/AuthSlice";
 import { useAddAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
+import { msToTimeString } from "@/utils/utils";
 
 type FormData = {
   url: string;
   title: string;
-  executeInMs: string;
+  executeInMs: number;
 };
 
 const AddNewCron = () => {
@@ -25,7 +26,10 @@ const AddNewCron = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormData>();
+    watch
+  } = useForm<FormData>({
+    defaultValues:{executeInMs:5000}
+  });
 
   // Handle URL submission
   const onSubmit = async (data: FormData) => {
@@ -44,6 +48,8 @@ const AddNewCron = () => {
       toast.error(error?.data?.message || "Something went wrong");
     }
   };
+
+  const executionTime = watch("executeInMs");
 
   if(!authUser)return <></>;
   return (
@@ -87,9 +93,10 @@ const AddNewCron = () => {
               </div>
               <div>
                 <label className="mb-1" htmlFor="url">
-                  Execute in
+                  Execute in {msToTimeString(executionTime)}
                 </label>
                 <input 
+                defaultValue={5000}
                  type="number"
                 {...register("executeInMs", {
                     required: "Execution time is required",

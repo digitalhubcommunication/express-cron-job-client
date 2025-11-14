@@ -156,6 +156,41 @@ export const adminActionApi = createApi({
         method: 'GET',
       }),
     }),
+
+    // mails 
+    getUserMails: builder.query({
+      query: (query) => ({
+        url: `/admin/mails?${query}`,
+        method: 'GET',
+      }),
+    }),
+      getUserMailDetails: builder.query({
+      query: (id) => ({
+        url: `/admin/mails/${id}`,
+        method: 'GET',
+      }),
+    }),
+      deleteUserMails: builder.mutation({
+      query: () => ({
+        url: `/admin/mails`,
+        method: 'DELETE',
+      }),
+    }),
+
+    sendMailToUser: builder.mutation({
+      query: (data) => ({
+        url: `/admin/send-mail`,
+        method: 'POST',
+        body:data
+      }),
+    }),
+     sendMailToAllUser: builder.mutation({
+      query: (data) => ({
+        url: `/admin/send-bulk-mail`,
+        method: 'POST',
+        body:data
+      }),
+    }),
     // ====== admin action ends =======
   }),
 });
@@ -188,4 +223,11 @@ export const {
 
   // transaction history
   useLazyGetAllTransactionHistoryQuery,
+
+  // mails
+  useLazyGetUserMailsQuery,
+  useGetUserMailDetailsQuery,
+  useDeleteUserMailsMutation,
+  useSendMailToUserMutation,
+  useSendMailToAllUserMutation,
 } = adminActionApi;

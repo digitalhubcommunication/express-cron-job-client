@@ -1,7 +1,7 @@
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import Pagination from "@/pages/shared/Pagination";
-import { useLazyGetAllTransactionHistoryQuery } from "@/redux/features/adminActions/adminActions";
+import { useLazyGetAllTransactionHistoryQuery, useLazyGetUserMailsQuery } from "@/redux/features/adminActions/adminActions";
 
 import { IMail } from "@/types/types";
 import { useEffect, useState } from "react";
@@ -10,10 +10,12 @@ import { toast } from "react-toastify";
 import SearchFilter from "./components/SearchFilter";
 import { formatDateForDisplay } from "@/utils/utils";
 import SendMail from "./components/SendMail";
+import { format } from "date-fns";
+import { Link } from "react-router";
 
 
 export default function Mails() {
-          const [getHistory, {}] = useLazyGetAllTransactionHistoryQuery();
+          const [getMails] = useLazyGetUserMailsQuery();
 
       const [isLoading, setIsLoading] = useState(true);
       const [mails, setMails] = useState<IMail[]>([]);
@@ -29,15 +31,15 @@ export default function Mails() {
           !isLoading && setIsLoading(true);
           let params: URLSearchParams = new URLSearchParams({
             page: currentPage.toString(),
-            filterMail,
+            mail:filterMail,
             limit: `${limit}`,
           });
     
           try {
             const query = params.toString();
-            const res = await getHistory(query).unwrap();
+            const res = await getMails(query).unwrap();
             console.log(res, " res from filter");
-            if (res.transactions && res.transactions?.length > 0) {
+            if (res.mails && res.mails?.length > 0) {
               setMails(res.mails);
               setTotalPages(res.pages);
             } else {
@@ -83,21 +85,21 @@ export default function Mails() {
               </div>
               <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
               {
-                mails.map((mail, indx)=><div key={mail._id} className="flex flex-wrap gap-3 w-full shadow-xs">
-                        <h6>{indx+1}</h6>
-                        <p className="w-full max-w-[200px] overflow-hidden whitespace-nowrap">
+                mails.map((mail, indx)=><Link to={`/admin/mails/${mail._id}`} key={mail._id} title="Click to see details" className="duration-200 hover:bg-slate-50 cursor-pointer flex items-center px-4 py-2 flex-wrap gap-3 w-full shadow-xs">
+                        <h6 className="min-w-10">{indx+1}</h6>
+                        <p className=" w-full max-w-[250px] overflow-hidden whitespace-nowrap">
                             {mail.name}
                         </p>
-                        <p className="w-full max-w-[200px] overflow-hidden whitespace-nowrap">
+                        <p className="w-full max-w-[250px] overflow-hidden whitespace-nowrap">
                             {mail.email}
                         </p>
-                          <p className="w-full max-w-[200px] overflow-hidden whitespace-nowrap">
+                          <p className="font-semibold grow overflow-hidden whitespace-nowrap">
                             {mail.subject}
                         </p>
-                         <p className="w-full max-w-[200px] overflow-hidden whitespace-nowrap">
-                            {formatDateForDisplay(mail.createdAt)}
+                         <p className="w-full max-w-[100px] overflow-hidden whitespace-nowrap">
+                            {format(mail.createdAt, "hh:mm a")}
                         </p>
-                    </div>
+                    </Link>
                 )
               }
               </div>

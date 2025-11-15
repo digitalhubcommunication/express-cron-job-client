@@ -53,10 +53,12 @@ export default function InitializeTransaction() {
       return;
 
     const paymentData = {
-      amount: initializeTransactionResponse?.package.price,
-      packageId: initializeTransactionResponse?.package._id,
+      paymentId: initializeTransactionResponse?.paymentId,
       transactionHash,
     };
+
+    // console.log(paymentData,' payment data')
+    // return;
 
     try {
       const result = await subscribePackage(paymentData).unwrap();

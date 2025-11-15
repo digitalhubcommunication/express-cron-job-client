@@ -10,7 +10,7 @@ export default function DhruFusionSetup() {
           <p className="mb-3">
             To enable API automation features to run, make sure you set up a
             cronjob to run every (5 seconds, 10 seconds). Create the following
-            CronJob using fastcronjob.com. How to set up a Cronjob in the panel
+            CronJob using ExpressCronJob.com. How to set up a Cronjob in the panel
           </p>
 
           <p className="font-semibold mb-3">
@@ -25,7 +25,7 @@ export default function DhruFusionSetup() {
             <li className="font-semibold">SetCronJob.com (Recommended)</li>
             <li className="font-semibold">Save</li>
           </ul>
-          <p>After clicking "Save," the Cronjob will be automatically added to all the services on your domain, and your Fastcronjob will work.</p>
+          <p>After clicking "Save," the Cronjob will be automatically added to all the services on your domain, and your ExpressCronJob will work.</p>
 
           <div className="w-full my-10 xl:my-20 flex flex-col gap-20">
             <img src={dhrufusion_setup} width={1000} height={700} alt="Dhru Fusion Setup" className="w-full max-w-[1200px] mx-auto h-auto" />

@@ -55,7 +55,7 @@ export default function CloudflareSetup() {
             <li>
               <p className="font-semibold">Add IP Addresses:</p>
               <p>
-                Enter the fastcronjob IP addresses as Incoming IP Source
+                Enter the ExpressCronJob IP addresses as Incoming IP Source
                 conditions. Use "Or" between each IP. Select "Skip" as the
                 action and check the box to skip "All remaining custom rules."
               </p>

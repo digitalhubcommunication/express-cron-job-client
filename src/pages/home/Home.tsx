@@ -5,7 +5,6 @@ import { Button } from "@/components/button/Button";
 import { Link } from "react-router-dom";
 import Features from "./components/Features";
 import LatestUpdates from "../package/components/LatestUpdates";
-import Distributor from "../about/components/Distributor";
 
 export default function Home() {
   return (
@@ -23,9 +22,14 @@ export default function Home() {
               ease.Streamline your operations and reclaim valuable time,
               empowering you to focus on what matters most.
             </p>
-            <Link to="/packages">
+            <div className="w-full flex flex-wrap lg:flex-nowrap items-center gap-3 lg:gap-5 items-center">
+              <Link to="/packages">
               <Button className="ecj_fs-base" label="Get Now" />
             </Link>
+            <Link className="block " target="_blank" to="https://telegram.me/ExpressCronJOB">
+              <Button className="!bg-blue-500 !text-white ecj_fs-base" label="Join our telegram channel" />
+            </Link>
+            </div>
           </div>
         </Container>
       </section>
@@ -43,7 +47,9 @@ export default function Home() {
           <Button className="ecj_fs-base" label="Get Now" />
         </Link>
       </LatestUpdates>
+      {/* ====== our distributors =========
       <Distributor />
+      */}
       <section className="section w-full">
         <Container>
           <h3 className="text-center mb-2 font-semibold">Get you domain automated</h3>
@@ -52,9 +58,12 @@ export default function Home() {
             EXPRESSCRONJOB. It's incredibly simple. It's super fast. And it's
             always dependable.
           </p>
-          <div className="w-full text-center flex items-center justify-center">
-            <Link className="block mt-5" to="/packages">
+          <div className="w-full text-center mt-5 flex flex-wrap lg:flex-nowrap items-center justify-center gap-3 lg:gap-5">
+            <Link className="block" to="/packages">
               <Button className="ecj_fs-base" label="Get Now" />
+            </Link>
+            <Link className="block " target="_blank" to="https://telegram.me/ExpressCronJOB">
+              <Button className="!bg-blue-500 !text-white ecj_fs-base" label="Join our telegram channel" />
             </Link>
           </div>
         </Container>

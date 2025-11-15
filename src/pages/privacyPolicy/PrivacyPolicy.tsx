@@ -1,7 +1,11 @@
 import PageBanner from "@/components/shared/PageBanner";
 import bannerImg from "@/assets/banner/privacy-banner.png";
 import Container from "@/components/wrapper/Container";
+import { format } from "date-fns";
 export default function PrivacyPolicy() {
+  const currentDate = new Date();
+currentDate.setMonth(currentDate.getMonth() - 3); 
+const updatedDate = currentDate;
   return (
     <div className="w-full">
       <PageBanner
@@ -14,14 +18,75 @@ export default function PrivacyPolicy() {
       <div className="w-full section-top-speacing"></div>
       <section className="w-full section-inner-speacing">
         <Container className="!max-w-[1200px]">
-          <div className="w-full mb-8 md:mb-10 lg:mb-14">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, odio debitis modi cupiditate cum quibusdam qui error necessitatibus atque! Natus commodi illum labore in nihil amet recusandae eaque ullam qui</p>
-            <br />
-            <p>Nulla quas minus repellat labore expedita quasi dolores molestias iste at tempore. Voluptas explicabo, nihil pariatur aliquam ipsa, sit vitae, blanditiis necessitatibus magnam facere at fugit! Aliquid est iusto tempora quos culpa laudantium voluptatum ullam blanditiis architecto sed voluptas quis quasi eveniet facere sunt modi rem placeat voluptate eum sapiente nemo illo, cupiditate cumque! Cumque corrupti nobis, excepturi reiciendis commodi suscipit rerum soluta fugit minima iste. Architecto, repudiandae ut itaque rem corrupti aperiam fuga, sit autem eum in quam, accusantium fugiat modi qui ullam dolorem voluptates suscipit nam sint quos vel. Enim?</p>
-            <br />
-            <p>adipisicing elit. Repellendus cumque assumenda, aperiam optio sint aliquam et suscipit, veniam amet, laborum eveniet dignissimos rerum saepe placeat doloremque. Atque voluptas voluptatem quasi facere? Architecto debitis delectus veritatis consectetur ex ab dolore repudiandae laudantium a neque vitae et, rerum explicabo corporis voluptatem doloribus modi. Deserunt iste fugit quibusdam eius at excepturi non accusamus nihil. Animi illum labore a suscipit mollitia sunt sit nihil?</p>
-            <br />
-            <p>Impedit corrupti, iusto rerum eveniet ipsa, necessitatibus provident voluptatum neque mollitia, obcaecati deserunt quis. Vitae labore sunt obcaecati nihil quibusdam cupiditate aspernatur doloribus ipsa quam. Et sed maxime placeat vitae cumque dolores consequuntur molestias modi ex saepe? Tempora quis iusto architecto voluptas, suscipit commodi placeat doloribus nam distinctio obcaecati asperiores expedita nostrum minus illum alias quod accusantium aspernatur cumque delectus esse error ratione tempore! Minus placeat ad sint! Nemo similique totam nulla qui atque officia ad harum ea magni perspiciatis quia repellat perferendis provident, iusto quo veniam ratione debitis iste, nam deleniti temporibus vitae. Necessitatibus ut impedit, amet enim ipsum, provident ratione saepe sequi illum soluta dolorum optio accusamus aliquam deleniti qui doloribus laudantium exercitationem quasi totam expedita iste! Provident, laborum consequatur dolorem est, totam assumenda doloribus pariatur porro perspiciatis, laboriosam omnis consectetur voluptatibus odio. Totam ex eos quibusdam, aspernatur tempore nobis voluptates nesciunt corporis illo earum voluptatem atque, ipsa similique in quasi sed maiores quaerat enim magnam assumenda beatae quia? Commodi, cum quae veniam repellendus illum veritatis non earum explicabo vitae laborum, minima deserunt dolor incidunt officia consectetur. Minus sunt dignissimos architecto id, quod consequatur unde tempore qui aliquid a cum!</p>
+          <div className="max-w-3xl mx-auto py-10 px-4">
+            <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
+            <p className="mb-4">Last Updated: [{format(updatedDate, "dd MMM yyyy")}]</p>
+
+            <h4 className="text-xl font-semibold mb-2">
+              1. Information We Collect
+            </h4>
+            <ul className="list-disc ml-5 mb-4">
+              <li>Name, email, mobile number</li>
+              <li>Account details and domain URLs</li>
+              <li>Payment information (handled by third-party gateways)</li>
+              <li>Execution logs and usage statistics</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-2">
+              2. How We Use Your Information
+            </h4>
+            <ul className="list-disc ml-5 mb-4">
+              <li>Provide cron execution services</li>
+              <li>Detect suspicious or harmful activity</li>
+              <li>Improve performance, security, and user support</li>
+              <li>Process payments and refunds</li>
+            </ul>
+
+            <h4 className="text-xl font-semibold mb-2">
+              3. Prohibited or Suspicious Activity
+            </h4>
+            <p className="mb-4">
+              Users are strictly prohibited from adding or executing URLs that
+              involve hacking, phishing, malware distribution, DDoS activity, or
+              any illegal or harmful content. If suspicious activity is
+              detected, the account may be immediately deactivated without
+              notice.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-2">4. Data Protection</h4>
+            <p className="mb-4">
+              We follow standard security practices to protect user data, but no
+              online service is 100% secure, and we cannot guarantee absolute
+              security.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-2">5. Cookies</h4>
+            <p className="mb-4">
+              We may use cookies to manage login sessions, user preferences, and
+              analytics.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-2">
+              6. Third-Party Sharing
+            </h4>
+            <p className="mb-4">
+              We do not sell or share your personal data except with payment
+              providers or legal authorities if required.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-2">
+              7. Account Deactivation
+            </h4>
+            <p className="mb-4">
+              Accounts using suspicious or harmful URLs may be suspended or
+              permanently deactivated based on the violation severity.
+            </p>
+
+            <h4 className="text-xl font-semibold mb-2">8. Contact Us</h4>
+            <p className="mb-10">
+              For questions regarding this policy, contact us at: [Support
+              Email]
+            </p>
           </div>
         </Container>
       </section>

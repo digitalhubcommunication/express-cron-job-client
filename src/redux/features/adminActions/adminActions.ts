@@ -5,7 +5,7 @@ import { userActionApi } from "../userAction/userActionApi";
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
-   tagTypes: ["user_details", "profile"],
+   tagTypes: ["user_details", "profile", "mails"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -163,6 +163,7 @@ export const adminActionApi = createApi({
         url: `/admin/mails?${query}`,
         method: 'GET',
       }),
+      providesTags:['mails']
     }),
       getUserMailDetails: builder.query({
       query: (id) => ({
@@ -175,6 +176,7 @@ export const adminActionApi = createApi({
         url: `/admin/mails`,
         method: 'DELETE',
       }),
+      invalidatesTags:['mails']
     }),
 
     sendMailToUser: builder.mutation({

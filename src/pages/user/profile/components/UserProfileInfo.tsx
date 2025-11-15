@@ -28,6 +28,7 @@ export default function UserProfileInfo() {
       <div className="w-full flex flex-col gap-1.5">
         <p className=""><span className="font-semibold">Status :</span> {authUser.status ==="enabled" ? <span className="text-green-600">{authUser.status}</span>:authUser.status}</p>
         <p className=""><span className="font-semibold">User Name :</span> {authUser.username}</p>
+        <p className=""><span className="font-semibold">Domain Name :</span> {authUser.domain}</p>
         <p className=""><span className="font-semibold">Email :</span> {authUser.email}</p>
         <p className=""><span className="font-semibold">Phone :</span> {authUser.mobile}</p>
         <p className=""><span className="font-semibold">Current Package :</span> {authUser.subscription.name}</p>

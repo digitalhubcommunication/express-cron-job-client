@@ -26,7 +26,7 @@ export default function Packages() {
           <h3 className="text-center">Our Available Packages</h3>
           <AvailablePackages />
         </section>
-        <section className="section-inner-speacing text-center">
+        <section className="section-inner-speacing text-center  ">
          <Link className="block " target="_blank" to="https://telegram.me/ExpressCronJOB">
               <Button className="!bg-blue-500 !text-white ecj_fs-base" label="Join our telegram channel" />
             </Link>

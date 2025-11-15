@@ -32,7 +32,7 @@ export default function PackageCard({ cronPackage, index }: Props) {
         </h5>
       </div>
       <div
-        className={`w-full flex flex-col items-start gap-1 px-3 md:px-4 py-5 md:py-6 rounded-[10px] border ${
+        className={`w-full flex flex-col items-start gap-1 px-3 md:px-4 lg:px-5 xl:px-8 py-5 md:py-6 rounded-[10px] border ${
           index === 1
             ? "border-slate-200"
             : index === 2

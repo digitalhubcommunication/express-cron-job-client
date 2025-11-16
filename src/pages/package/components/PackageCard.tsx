@@ -12,9 +12,9 @@ type Props = {
 };
 export default function PackageCard({ cronPackage, index }: Props) {
   const { authUser } = useSelector((state: RootState) => state.auth);
-  const subscriptionId = authUser?.subscription._id || "";
+  const subscriptionId = authUser?.subscription?._id || "";
   const isActive =
-    subscriptionId === cronPackage._id &&
+    subscriptionId === cronPackage?._id &&
     !isDateExpired(authUser?.packageExpiresAt || "");
   return (
     <div
@@ -28,7 +28,7 @@ export default function PackageCard({ cronPackage, index }: Props) {
     >
       <div className="w-full bg-slate-800 text-white py-2.5">
         <h5 className="uppercase font-semibold text-center">
-          {cronPackage.name}
+          {cronPackage?.name}
         </h5>
       </div>
       <div
@@ -41,16 +41,16 @@ export default function PackageCard({ cronPackage, index }: Props) {
         }`}
       >
         <h3 className="text-center w-full">
-          <span className="font-semibold text-blue-600">${cronPackage.price}</span>
-          <span className="ecj_fs-base">/{cronPackage.validity} Days</span>
+          <span className="font-semibold text-blue-600">${cronPackage?.price}</span>
+          <span className="ecj_fs-base">/{cronPackage?.validity} Days</span>
         </h3>
         <p className="font-semibold  flex items-center gap-3 justify-start">
           <CheckIcon className="text-green-500 w-5 h-5" />
-          <span>Order update in every {cronPackage.intervalInMs / 1000}s.</span>
+          <span>Order update in every {cronPackage?.intervalInMs / 1000}s.</span>
         </p>
         <p className="font-semibold  flex items-center gap-3 justify-start">
           <CheckIcon className="text-green-500 w-5 h-5" />
-          <span>Extra {cronPackage.manualCronLimit} manual cron job</span>
+          <span>Extra {cronPackage?.manualCronLimit} manual cron job</span>
         </p>
         <p className="font-semibold  flex items-center gap-3 justify-start">
           <CheckIcon className="text-green-500 w-5 h-5" />
@@ -67,7 +67,7 @@ export default function PackageCard({ cronPackage, index }: Props) {
         <div className="w-full mt-5 px-5 flex items-center justify-center">
           <Link
             className={isActive ? "pointer-events-none" : ""}
-            to={`/settings/initialize-transaction?packageId=${cronPackage._id}`}
+            to={`/settings/initialize-transaction?packageId=${cronPackage?._id}`}
           >
             <Button
               // disabled={isActive}

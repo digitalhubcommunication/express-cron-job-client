@@ -20,7 +20,6 @@ export default function SingleMail() {
 
   return (
     <DashboardContainer>
-
       <div className="mt-10">
         <h6 className="mb-5 text-center">Mail from {data?.mail.name}</h6>
         <h3 className="capitalize mb-1">{data?.mail?.subject}</h3>

@@ -17,9 +17,11 @@ export default function AvailablePackages() {
   let allPackages: TPackage[] = data.packages || [];
 
   // filter the subscribed package
-  if (authUser?.subscription) {
+  if (authUser) {
     allPackages = (data?.packages || []).filter((p: TPackage) => p.price > 0);
   }
+
+  
 
   return (
     <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-7 lg:mt-10 gap-10">

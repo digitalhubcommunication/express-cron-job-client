@@ -5,7 +5,6 @@ import {
   CreditCartIcon,
   GlobeIcon,
   MailBulkIcon,
-  MailIcon,
   NetworkIcon,
   UserDashboardIcon,
   UserIcon,

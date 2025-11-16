@@ -3,12 +3,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   deletePackage,
-  setPackages,
   updatePackage,
 } from "@/redux/features/packages/packages";
 import { RootState } from "@/redux/store";
 import { IPackage } from "@/types/types";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/button/Button";
 import Card from "@/components/shared/Card";
@@ -16,7 +15,6 @@ import { toast } from "react-toastify";
 
 import {
   useDeletePackageMutation,
-  useLazyGetPackagesQuery,
   useUpdatePackageMutation,
 } from "@/redux/features/adminActions/adminActions";
 import PageLoading from "@/components/loading/PageLoading";

@@ -5,11 +5,9 @@ import Pagination from "@/pages/shared/Pagination";
 import SearchBar from "@/pages/user/transactionHistory/SearchBar";
 import { TStatusCode } from "@/pages/user/transactionHistory/TransactionHistory";
 import { useLazyGetAllTransactionHistoryQuery } from "@/redux/features/adminActions/adminActions";
-import { RootState } from "@/redux/store";
 import { ITransaction } from "@/types/types";
 import { formatDateForDisplay } from "@/utils/utils";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 

@@ -1,7 +1,6 @@
 import PageBanner from "@/components/shared/PageBanner";
 import Container from "@/components/wrapper/Container";
 import bannerImg from "@/assets/banner/about-banner.png";
-import Distributor from "./components/Distributor";
 
 export default function About() {
   return (

@@ -1,4 +1,4 @@
-import { FilterIcon, RefreshIcon, SearchIcon } from "@/components/icons/Icons";
+import { FilterIcon, SearchIcon } from "@/components/icons/Icons";
 import {
   Dispatch,
   KeyboardEvent,

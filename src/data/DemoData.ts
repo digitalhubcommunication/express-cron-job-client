@@ -1,4 +1,4 @@
-import {TCronHistory, TDistributor, TPackage } from "@/types/types";
+import {TCronHistory, TDistributor } from "@/types/types";
 
 function randomId(): string {
   return Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
@@ -177,47 +177,6 @@ export const cronHistories: TCronHistory[] = [
     message: "Profile loaded.",
   },
 ];
-
-
-// ====== packages 
-export const cronPackages: TPackage[] = [
-  {
-    "_id": "65f0e9b2a7c3d4e5f6a7b854",
-    "name": "Trial",
-    "validity": 2,
-    "intervalInMS": 7000,
-    "price": 0,
-    "manualCronLimit": 0,
-    "status": "unavailable"
-  },
-  {
-    "_id": "65f0e9b2a7c3d4e5f6a7b8c9",
-    "name": "Silver",
-    "validity": 30,
-    "intervalInMS": 7000,
-    "price": 19.99,
-    "manualCronLimit": 3,
-    "status": "available"
-  },
-  {
-    "_id": "65f0e9b2a7c3d4e5f6a7b8da",
-    "name": "Diamond",
-    "validity": 30,
-    "intervalInMS": 5000,
-    "price": 29.99,
-    "manualCronLimit": 5,
-    "status": "available"
-  },
-  {
-    "_id": "65f0e9b2a7c3d4e5f6a7b8eb",
-    "name": "Platinium",
-    "validity": 30,
-    "intervalInMS": 3000,
-    "price": 39.99,
-    "manualCronLimit": 7,
-    "status": "available"
-  }
-]
 
 
 // distributors

@@ -119,7 +119,7 @@ export const adminActionApi = createApi({
         method: 'POST',
         body:data
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled; 
           dispatch(

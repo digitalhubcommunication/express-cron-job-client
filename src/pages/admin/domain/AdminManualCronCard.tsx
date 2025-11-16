@@ -4,9 +4,6 @@ import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
 import { useDeleteAdminManualDomainMutation, useUpdateAdminManualDomainMutation } from "@/redux/features/adminActions/adminActions";
 import { deleteManualDomain, setAuthUser, setManualDomainStatus } from "@/redux/features/auth/AuthSlice";
-import {
-  useRemoveManualDomainMutation
-} from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";
 import { msToTimeString } from "@/utils/utils";

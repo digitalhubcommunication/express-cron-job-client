@@ -5,9 +5,7 @@ import Pagination from "@/pages/shared/Pagination";
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ICronLog } from "@/types/types";
-import { RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
-import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
+import { formatDateForDisplay } from "@/utils/utils";
 import CronTypeSwitcher from "@/pages/user/cronHistory/components/CronTypeSwitcher";
 import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { useLazyGetAdminCronHistoryQuery } from "@/redux/features/adminActions/adminActions";
@@ -17,7 +15,6 @@ export type TFilterBy = "title" | "status";
 export type TStatusCode = "200" | "400" | "";
 
 export default function UserCronHistory() {
-  const { authUser } = useSelector((state: RootState) => state.auth);
   const [getCronLog, {}] = useLazyGetAdminCronHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);

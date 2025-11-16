@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { ITypeOfDomain } from "./UserDomainCard";
 import { msToTimeString } from "@/utils/utils";
 import { useUpdateUserMutation } from "@/redux/features/adminActions/adminActions";
-import { TDomain } from "@/types/types";
 
 type TDomainStatus = "enabled" | "disabled";
 

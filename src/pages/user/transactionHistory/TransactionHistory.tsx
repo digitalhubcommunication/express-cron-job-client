@@ -6,16 +6,13 @@ import { useLazyGetTransactionHistoryQuery } from "@/redux/features/userAction/u
 import { toast } from "react-toastify";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ITransaction } from "@/types/types";
-import { RootState } from "@/redux/store";
-import { useSelector } from "react-redux";
-import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
+import { formatDateForDisplay } from "@/utils/utils";
 import SearchBar from "./SearchBar";
 
 export type TFilterBy = "hash" | "status";
 export type TStatusCode = "success" | "failed";
 
 export default function TransactionHistory() {
-  const { authUser } = useSelector((state: RootState) => state.auth);
   const [getHistory, {}] = useLazyGetTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);

@@ -156,3 +156,7 @@ export function msToTimeString(ms: number): string {
   
   return timeString.trim();
 }
+
+export const splitUrlIntoSpans = (urlString:string) => {
+  return  urlString.split('');
+};

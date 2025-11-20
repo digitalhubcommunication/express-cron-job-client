@@ -196,3 +196,12 @@ export interface IMail {
   message:string;
   createdAt:string;
 }
+
+export type TCountry = {
+   name: string;
+    code: string;
+    dialCode: string;
+    flag: string;
+    format: RegExp;
+    example: string;
+}

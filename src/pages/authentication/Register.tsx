@@ -2,7 +2,9 @@ import { Button } from "@/components/button/Button";
 import { EyeOpen, EyeSlash } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Container from "@/components/wrapper/Container";
+import { countries } from "@/data/DemoData";
 import { useRegisterMutation } from "@/redux/features/auth/AuthApiSlice";
+import { TCountry } from "@/types/types";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -22,14 +24,34 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
+    setError,
   } = useForm<RegisterFormData>();
   const [showPassword, setShowPassword] = useState(false);
   const [registerUser, { isLoading }] = useRegisterMutation();
+  const [selectedCountry, setSelectedCountry] = useState<TCountry>(
+    countries[0]
+  );
 
+  const number = watch("mobile");
+
+  // handler
   const onSubmit = async (data: RegisterFormData) => {
+    if (!number) return;
+
+    // validate the number
+    const cleanedNumber = number.replace(/\D/g, "");
+    const isValid = selectedCountry?.format?.test(cleanedNumber) || false;
+
+    if (!isValid) {
+      setError("mobile", { type: "manual", message: "Invalid phone number" });
+      return;
+    }
+
     try {
-      const result = await registerUser(data).unwrap();
+      const fullPhoneNumber = `${selectedCountry.dialCode}${data.mobile}`;
+      const result = await registerUser({...data, mobile:fullPhoneNumber}).unwrap();
       if (result?.success) {
         toast.success(result?.message);
         navigate(`/verify-register-otp?email=${data.email}`);
@@ -39,6 +61,12 @@ export default function RegisterPage() {
     } catch (error: any) {
       toast.error(error?.data?.message);
     }
+  };
+
+  const handleCountrySelect = (name: string) => {
+    const countrySelected = countries.find((country) => country.name === name);
+    if (!countrySelected) return;
+    setSelectedCountry(countrySelected);
   };
 
   return (
@@ -200,22 +228,37 @@ export default function RegisterPage() {
             >
               Mobile Number
             </label>
-            <input
-              id="mobile"
-              type="tel"
-              {...register("mobile", {
-                required: "Mobile number is required",
-                pattern: {
-                  value: /^01[0-9]{9}$/,
-                  message:
-                    "Enter a valid Bangladeshi number (e.g., 01712345678)",
-                },
-              })}
-              className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                errors.mobile ? "border-[var(--clr-danger)]" : "border-gray-300"
-              }`}
-              placeholder="Enter your mobile number"
-            />
+            <div className="w-full flex gap-2">
+              <select
+                onChange={(e) => handleCountrySelect(e.target.value)}
+                name=""
+                id=""
+                className="border rounded-md outline-none focus:ring-1 border-gray-300 focus:ring-slate-400"
+              >
+                {countries.map((country) => (
+                  <option
+                    className="flex items-center gap-2"
+                    value={country.name}
+                  >
+                    <span>{country.flag}</span> <span>{country.dialCode}</span>
+                  </option>
+                ))}
+              </select>
+              <input
+                id="mobile"
+                type="tel"
+                {...register("mobile", {
+                  required: "Mobile number is required",
+                })}
+                className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
+                  errors.mobile
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                }`}
+                placeholder={selectedCountry.example}
+              />
+            </div>
+
             {errors.mobile && (
               <p className="text-[var(--clr-danger)] text-sm mt-1">
                 {errors.mobile.message}

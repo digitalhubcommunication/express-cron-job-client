@@ -2,13 +2,18 @@ import { TrashIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Card from "@/components/shared/Card";
 import ToggleButton from "@/pages/shared/ToggleButton";
-import { deleteManualDomain, setAuthUser, setManualDomainStatus } from "@/redux/features/auth/AuthSlice";
+import {
+  deleteManualDomain,
+  setAuthUser,
+  setManualDomainStatus,
+} from "@/redux/features/auth/AuthSlice";
 import {
   useRemoveManualDomainMutation,
   useUpdateManualDomainMutation,
 } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";
+import { splitUrlIntoSpans } from "@/utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -33,19 +38,22 @@ export default function ManualDomainCard({
     id: string,
     updateStatus: DomainStatus
   ) => {
-      const agree = confirm(`Are you sure you want to ${updateStatus==="enabled" ? "enable":"disable"} this domain?`)
-    if(!agree)return;
-
+    const agree = confirm(
+      `Are you sure you want to ${
+        updateStatus === "enabled" ? "enable" : "disable"
+      } this domain?`
+    );
+    if (!agree) return;
 
     try {
       const res = await changeManualDomainStatus({
         id,
         data: { status: updateStatus },
       }).unwrap();
-      console.log(res,' res updating manual domain')
+      console.log(res, " res updating manual domain");
       if (res?.success) {
         toast.success(res.message || "Success");
-        dispatch(setManualDomainStatus({id, status:updateStatus}))
+        dispatch(setManualDomainStatus({ id, status: updateStatus }));
       } else {
         throw new Error(res?.message);
       }
@@ -77,14 +85,18 @@ export default function ManualDomainCard({
   };
 
   return (
-    <Card className={`flex flex-col gap-2 relative max-w-[500px]`}>
+    <Card className={`flex flex-col gap-2 relative`}>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Title: </span>
         <span>{title}</span>
       </p>
-      <p className="flex items-center gap-2">
+      <p className="flex flex-col md:flex-row md:items-center md:gap-2">
         <span className="font-semibold">URL: </span>
-        <span className="text-wrap">{url}</span>
+        <span className="flex flex-wrap">
+          {splitUrlIntoSpans(url)?.map((ch) => (
+            <span>{ch}</span>
+          ))}
+        </span>
       </p>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Execution Time: </span>

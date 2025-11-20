@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-// import logo from "@/assets/logo/fast-crone-logo.png";
-// import logo from "@/assets/logo/expresscronjob_logo.png";
-import logo from "@/assets/logo/site-logo.png";
+import logo from "@/assets/logo/expresscronjob_logo.png";
 
 export default function SiteLogo({ className = "" }: { className?: string }) {
   return (

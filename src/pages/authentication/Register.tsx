@@ -48,7 +48,6 @@ export default function RegisterPage() {
       setError("mobile", { type: "manual", message: "Invalid phone number" });
       return;
     }
-
     try {
       const fullPhoneNumber = `${selectedCountry.dialCode}${data.mobile}`;
       const result = await registerUser({...data, mobile:fullPhoneNumber}).unwrap();

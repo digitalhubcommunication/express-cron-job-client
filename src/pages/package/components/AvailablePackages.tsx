@@ -12,7 +12,6 @@ export default function AvailablePackages() {
   const { data, isFetching } = useGetPackagesQuery({});
   if (isFetching || isUserLoading) return <PageLoading />;
 
-  console.log(data, ' package data')
   if (!data?.packages?.length)
     return <p className="text-center mt-10">No package found</p>;
 

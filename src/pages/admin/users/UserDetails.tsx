@@ -98,14 +98,21 @@ export default function UserDetails() {
             <span className="font-semibold">Name :</span> {user?.name || ""}
           </p>
           <p className="mt-1">
+            <span className="font-semibold">Role :</span> {user?.role || ""}
+          </p>
+          <p className="mt-1">
+            <span className="font-semibold">Subscription :</span>{" "}
+            {user?.subscription?.name || ""}
+          </p>
+          <p className="mt-1">
             <span className="font-semibold">Username :</span>{" "}
             {user?.username || ""}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Role :</span> {user?.role || ""}
+            <span className="font-semibold">Phone :</span> {user?.mobile || ""}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Mobile :</span> {user?.mobile || ""}
+            <span className="font-semibold">Email :</span> {user?.email || ""}
           </p>
           <p className="mt-1">
             <span className="font-semibold">Domain :</span> {user?.domain || ""}
@@ -126,10 +133,7 @@ export default function UserDetails() {
               />
             )}
           </div>
-          <p className="mt-1">
-            <span className="font-semibold">Subscription :</span>{" "}
-            {user?.subscription?.name || ""}
-          </p>
+
           <div className="mt-1 flex items-center gap-2">
             <span className="font-semibold">Allowed to add manual urls : </span>{" "}
             <ToggleButton
@@ -150,12 +154,12 @@ export default function UserDetails() {
             {user?.telegramConnected ? "Yes" : "No"}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Total Manual Cron Added :</span>{" "}
-            {user?.manualCronCount || 0}
-          </p>
-          <p className="mt-1">
             <span className="font-semibold">Total Manual Cron : </span>{" "}
             {user?.manualDomains?.length || 0}
+          </p>
+            <p className="mt-1">
+            <span className="font-semibold">Total Manual Cron Added :</span>{" "}
+            {user?.manualCronCount || 0}
           </p>
 
           <p className="mt-1">

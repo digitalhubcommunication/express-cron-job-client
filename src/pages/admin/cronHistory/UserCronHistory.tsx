@@ -1,14 +1,9 @@
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
 import { useEffect, useState } from "react";
-import Pagination from "@/pages/shared/Pagination";
 import { toast } from "react-toastify";
-import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { ICronLog } from "@/types/types";
-import { formatDateForDisplay } from "@/utils/utils";
-import CronTypeSwitcher from "@/pages/user/cronHistory/components/CronTypeSwitcher";
-import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
 import { useLazyGetAdminCronHistoryQuery } from "@/redux/features/adminActions/adminActions";
+import CronLogs from "./CronLogs";
 
 export type TCronType = "" | "manual" | "default";
 export type TFilterBy = "title" | "status";
@@ -86,13 +81,30 @@ export default function UserCronHistory() {
     domainTitle,
     refetch === true,
   ]);
-  // console.log(logs, " logs");
-  const startingIndex = (currentPage - 1) * limit;
   return (
     <DashboardContainer>
       <section className="mt-5 xl:mt-10">
         <h3 className="text-center">History for all Cron Job</h3>
-        <div className=" w-full mt-5">
+        <CronLogs
+          cronType={cronType}
+          setRefetch={setRefetch}
+          setLogs={setLogs}
+          logs={logs}
+          domainTitle={domainTitle}
+          setDomainTitle={setDomainTitle}
+          statusCode={statusCode}
+          setStatusCode={setStatusCode}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          setCurrentPage={setCurrentPage}
+          limit={limit}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          isLoading={isLoading}
+          setCronType={setCronType}
+          key="ALL_USERS_CRON"
+        />
+        {/* <div className=" w-full mt-5">
           <CronTypeSwitcher
             setFilterBy={setFilterBy}
             cronType={cronType}
@@ -148,20 +160,6 @@ export default function UserCronHistory() {
                       >
                         Domain
                       </th>
-
-                      {/* <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 w-[70px] xl:w-[100px] overflow-hidden px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Status
-                      </th> */}
-
-                      {/* <th
-                        scope="col"
-                        className="bg-gray-50 sticky top-0 left-0 xl:w-[220px] px-4 py-2 text-left font-medium text-gray-500 capitalize tracking-wider"
-                      >
-                        Message
-                      </th> */}
                       <th
                         scope="col"
                         className="bg-gray-50 sticky top-0 left-0 w-[100px] lg:w-[200px] px-4 py-2 text-center font-medium text-gray-500 capitalize tracking-wider"
@@ -222,12 +220,6 @@ export default function UserCronHistory() {
                               {history?.domain || ""}
                             </span>
                           </td>
-                          {/* <td className="w-[70px] xl:w-[100px] text-center px-4 py-3.5 whitespace-nowrap">
-                            {history.status === 0 ? 404 : history.status}
-                          </td> */}
-                          {/* <td className="xl:w-[220px] px-4 py-3.5 whitespace-nowrap">
-                            <span>{history.message}</span>
-                          </td> */}
                           <td className="w-[100px] capitalize lg:w-[200px] text-center px-4 py-3.5 whitespace-nowrap font-medium">
                             <span>{history.domainType}</span>
                           </td>
@@ -265,7 +257,7 @@ export default function UserCronHistory() {
               setCurrentPage={setCurrentPage}
             />
           )}
-        </div>
+        </div> */}
       </section>
     </DashboardContainer>
   );

@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import AssignPackage from "./components/AssignPackage";
 import UserDomainCard from "./components/UserDomainCard";
 import SendMessageBtn from "./components/SendMessageBtn";
+import SingleUserCronHistory from "./components/SingleUserCronHistory";
 
 type TUpdateAction =
   | "STATUS"
@@ -157,7 +158,7 @@ export default function UserDetails() {
             <span className="font-semibold">Total Manual Cron : </span>{" "}
             {user?.manualDomains?.length || 0}
           </p>
-            <p className="mt-1">
+          <p className="mt-1">
             <span className="font-semibold">Total Manual Cron Added :</span>{" "}
             {user?.manualCronCount || 0}
           </p>
@@ -218,17 +219,21 @@ export default function UserDetails() {
             />
           ))}
       </div>
+      {!!user?.manualDomains?.length && (
+        <>
+          <h6 className="mb-3 font-semibold mt-10">Manual Domains</h6>
+          <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
+            {user?.manualDomains.map((domain: TManualDomain) => (
+              <UserDomainCard
+                userId={id}
+                domain={{ ...domain, domainType: "manual" }}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
-      <h6 className="mb-3 font-semibold mt-10">Manual Domains</h6>
-      <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
-        {user?.manualDomains?.length &&
-          user?.manualDomains.map((domain: TManualDomain) => (
-            <UserDomainCard
-              userId={id}
-              domain={{ ...domain, domainType: "manual" }}
-            />
-          ))}
-      </div>
+      <SingleUserCronHistory userId={id} />
     </DashboardContainer>
   );
 }

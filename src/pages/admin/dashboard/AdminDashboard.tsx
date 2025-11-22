@@ -50,7 +50,7 @@ export default function AdminDashboard() {
             </div>
           </DashboardInfoCard>
           <DashboardInfoCard
-            label="Manual Domain"
+            label="Manual Domains"
             value={data?.totalManualDomains || "0"}
             key="USER_CRONJOBS_DOMAIN_CARD"
           >

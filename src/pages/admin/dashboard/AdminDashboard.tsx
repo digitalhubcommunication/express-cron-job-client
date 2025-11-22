@@ -11,6 +11,7 @@ import { GlobeIcon, UsersIcon } from "@/components/icons/Icons";
 export default function AdminDashboard() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const { data, isFetching, isError } = useGetDashboardInfoQuery({});
+  console.log(data,' data')
   if (!authUser) return <InvalidUser message="Invalid User" />;
 
   if (isFetching)
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
             </div>
           </DashboardInfoCard>
           <DashboardInfoCard
-            label="Manual Domains"
+            label="Manual Domains"  
             value={data?.totalManualDomains || "0"}
             key="USER_CRONJOBS_DOMAIN_CARD"
           >
@@ -90,16 +91,23 @@ export default function AdminDashboard() {
             label="Online Domains"
             value={data?.onlineDomains || "0"}
             key="USER_CRONJOB_WORK_DEFAULT_CRONJOBS_CARD"
-            valueStyle={`${
-              authUser?.defaultDomains[0]?.status === "enabled"
-                ? "text-green-600"
-                : "text-red-500"
-            } font-semibold`}
+            valueStyle={`text-green-600 font-semibold`}
           >
             <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
               <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
             </div>
           </DashboardInfoCard>
+           <DashboardInfoCard
+            label="Total expired users"
+            value={data?.totalExpiredUsers || "0"}
+            key="USER_CRONJOB_EXPIRED_USERS_CARD"
+            valueStyle={`text-red-500 font-semibold`}
+          >
+            <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
+              <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
+            </div>
+          </DashboardInfoCard>
+          
         </div>
 
 {/* 

@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { ICronLog } from "@/types/types";
 import { useLazyGetAdminCronHistoryQuery } from "@/redux/features/adminActions/adminActions";
 import CronLogs from "./CronLogs";
+import ClearCronLogBtn from "@/pages/user/cronHistory/components/ClearCronLogBtn";
+import DeleteCronHistory from "./DeleteCronHistory";
 
 export type TCronType = "" | "manual" | "default";
 export type TFilterBy = "title" | "status";
@@ -103,7 +105,17 @@ export default function UserCronHistory() {
           isLoading={isLoading}
           setCronType={setCronType}
           key="ALL_USERS_CRON"
-        />
+        >
+          {!!logs.length && cronType === "" ? (
+            <DeleteCronHistory
+              key="ADMIN_CRON_LOG_FILTER"
+              setLogs={setLogs}
+              setCurrentPage={setCurrentPage}
+            />
+          ) : (
+            <></>
+          )}
+        </CronLogs>
         {/* <div className=" w-full mt-5">
           <CronTypeSwitcher
             setFilterBy={setFilterBy}

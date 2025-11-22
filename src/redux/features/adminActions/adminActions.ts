@@ -49,7 +49,7 @@ export const adminActionApi = createApi({
     deleteAdminCronHistory: builder.mutation({
       query: () => ({
         url: "/admin/cron-log",
-        method: "GET",
+        method: "DELETE",
       }),
     }),
 
@@ -207,6 +207,7 @@ export const {
 
   // cron history
   useLazyGetAdminCronHistoryQuery,
+  useDeleteAdminCronHistoryMutation,
 
   // dashboard query
   useGetDashboardInfoQuery,

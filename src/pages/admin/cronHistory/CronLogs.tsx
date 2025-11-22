@@ -1,5 +1,5 @@
 import CronTypeSwitcher from "@/pages/user/cronHistory/components/CronTypeSwitcher";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { TCronType, TFilterBy, TStatusCode } from "./UserCronHistory";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import SearchBar from "@/pages/user/cronHistory/components/SearchBar";
@@ -11,10 +11,10 @@ import { ICronLog } from "@/types/types";
 type Props = {
   setFilterBy: Dispatch<SetStateAction<TFilterBy>>;
   filterBy: TFilterBy;
-  setCronType:Dispatch<SetStateAction<TCronType>>;
+  setCronType: Dispatch<SetStateAction<TCronType>>;
   cronType: TCronType;
-  setRefetch:Dispatch<SetStateAction<boolean>>;
-   isLoading:boolean;
+  setRefetch: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
   setLogs: Dispatch<SetStateAction<ICronLog[]>>;
   logs: ICronLog[];
   domainTitle: string;
@@ -22,13 +22,13 @@ type Props = {
   statusCode: TStatusCode;
   setStatusCode: Dispatch<SetStateAction<TStatusCode>>;
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  limit:number;
-  currentPage:number;
-  totalPages:number;
+  limit: number;
+  currentPage: number;
+  totalPages: number;
+  children: ReactNode;
 };
 export default function CronLogs(props: Props) {
-
-     const startingIndex = (props.currentPage - 1) * props.limit;
+  const startingIndex = (props.currentPage - 1) * props.limit;
   return (
     <>
       <div className=" w-full mt-5">
@@ -51,16 +51,15 @@ export default function CronLogs(props: Props) {
             <SearchBar
               cronType={props.cronType}
               setRefetch={props.setRefetch}
-              setLogs={props.setLogs}
-              logs={props.logs}
               domainTitle={props.domainTitle}
               setDomainTitle={props.setDomainTitle}
               statusCode={props.statusCode}
               setStatusCode={props.setStatusCode}
               filterBy={props.filterBy}
               setFilterBy={props.setFilterBy}
-              setCurrentPage={props.setCurrentPage}
-            />
+            >
+              {props.children}
+            </SearchBar>
             <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
               <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -128,7 +127,7 @@ export default function CronLogs(props: Props) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {props.logs.length === 0 ? (
+                  {props.logs?.length === 0 ? (
                     <tr>
                       <td
                         colSpan={7}
@@ -138,7 +137,7 @@ export default function CronLogs(props: Props) {
                       </td>
                     </tr>
                   ) : (
-                    props.logs.map((history, index) => (
+                    props.logs?.map((history, index) => (
                       <tr
                         key={history._id}
                         className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
@@ -193,12 +192,14 @@ export default function CronLogs(props: Props) {
             </div>
           </>
         )}
-        {props.totalPages > 1 && !props.isLoading && props.logs?.length && (
+        {props.totalPages > 1 && !props.isLoading && props.logs?.length ? (
           <Pagination
             totalPages={props.totalPages}
             currentPage={props.currentPage}
             setCurrentPage={props.setCurrentPage}
           />
+        ) : (
+          <></>
         )}
       </div>
     </>

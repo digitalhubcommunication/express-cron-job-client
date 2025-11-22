@@ -1,5 +1,5 @@
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { useClearCronLogMutation } from "@/redux/features/userAction/userActionApi";
+import { useDeleteAdminCronHistoryMutation } from "@/redux/features/adminActions/adminActions";
 import { ICronLog } from "@/types/types";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
@@ -9,11 +9,13 @@ type Props = {
     setCurrentPage:Dispatch<SetStateAction<number>>;
 }
 
-export default function ClearCronLogBtn({setCurrentPage, setLogs}:Props) {
-  const [clearLog, { isLoading }] =  useClearCronLogMutation();
+export default function DeleteCronHistory({setCurrentPage, setLogs}:Props) {
+  const [clearLog, { isLoading }] =  useDeleteAdminCronHistoryMutation()
   
   const handleClear = async() => {
     try {
+        //   toast.success("Log deleted")
+        //   return;
         const res = await clearLog({}).unwrap();
         if(res?.deletedCount){
         setCurrentPage(1);

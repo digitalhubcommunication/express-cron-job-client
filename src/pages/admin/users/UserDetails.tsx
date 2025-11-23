@@ -10,7 +10,7 @@ import {
 } from "@/redux/features/adminActions/adminActions";
 import { IUser, TDomain, TManualDomain } from "@/types/types";
 import { getExpiryText, isDateExpired } from "@/utils/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import AssignPackage from "./components/AssignPackage";
@@ -24,6 +24,7 @@ type TUpdateAction =
   | "URLS_STATUS"
   | "PACKAGE_UPDATE"
   | "DOMAIN_UPDATE"
+  | "ROOT_DOMAIN"
   | null;
 
 export default function UserDetails() {
@@ -40,6 +41,7 @@ export default function UserDetails() {
   const updateUserInfo = async (data: any) => {
     try {
       const res = await update({ id, data }).unwrap();
+      console.log(res,' res')
       if (res.success) {
         toast.success(res?.message);
       } else {
@@ -82,6 +84,13 @@ export default function UserDetails() {
     });
   };
 
+  const ROOT_DOMAIN_UPDATE_CB = (val: string) => {
+    setUpdateAction("ROOT_DOMAIN");
+    updateUserInfo({
+      domain: val,
+    });
+  };
+
   // conditional return
   if (isFetching) return <PageLoading />;
 
@@ -103,7 +112,7 @@ export default function UserDetails() {
           </p>
           <p className="mt-1">
             <span className="font-semibold">Subscription :</span>{" "}
-            {user?.subscription?.name || ""}
+            {user?.subscription?.name || "No package assign"}
           </p>
           <p className="mt-1">
             <span className="font-semibold">Username :</span>{" "}
@@ -115,9 +124,12 @@ export default function UserDetails() {
           <p className="mt-1">
             <span className="font-semibold">Email :</span> {user?.email || ""}
           </p>
-          <p className="mt-1">
-            <span className="font-semibold">Domain :</span> {user?.domain || ""}
-          </p>
+          <UserDomain
+            loading={loading}
+            updateAction={updateAction}
+            cb={ROOT_DOMAIN_UPDATE_CB}
+            domain={data?.user.domain}
+          />
           <div className="mt-1 flex items-center gap-2">
             <span className="font-semibold">Status :</span>{" "}
             {updateAction === "STATUS" && loading ? (
@@ -237,3 +249,45 @@ export default function UserDetails() {
     </DashboardContainer>
   );
 }
+
+type TUserDomain = {
+  domain: string;
+  cb: (val: string) => void;
+  loading: boolean;
+  updateAction: TUpdateAction;
+};
+
+const UserDomain = ({ domain, cb, loading, updateAction }: TUserDomain) => {
+  const [rootDomain, setRootDomain] = useState("");
+
+  useEffect(() => {
+    setRootDomain(domain);
+  }, [])
+  
+  return (
+    <p className="mt-1 flex gap-2 items-center">
+      <span className="font-semibold">Domain :</span>
+      {loading && updateAction === "ROOT_DOMAIN" ? (
+        <LoadingSpinner
+          className="min-h-[39.81px]"
+          containerClass="w-3 md:w-4 h-3 2xl:h-4"
+        />
+      ) : (
+        <>
+          <input
+            onChange={(e) => setRootDomain(e.target.value)}
+            defaultValue={domain}
+            className="px-2 border rounded-sm"
+            placeholder="Enter domain"
+          />
+          <button
+            onClick={() => cb(rootDomain)}
+            className={`px-2 ecj_fs-sm py-0.5 text-white rounded-sm ${rootDomain===domain ? "bg-gray-400 pointer-events-none":"bg-blue-500 hover:bg-blue-600"}`}
+          >
+            Update
+          </button>
+        </>
+      )}
+    </p>
+  );
+};

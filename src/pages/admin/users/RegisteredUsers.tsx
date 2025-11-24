@@ -15,9 +15,18 @@ import {
   getUserFilterInputPlaceholderText,
 } from "@/utils/utils";
 import Pagination from "@/pages/shared/Pagination";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export default function RegisteredUsers() {
+  const query = useQuery();
+  const expired = query.get("expired");
+  console.log(expired,' expired')
+  console.log(typeof expired,' tpe')
+
   const [loadUsers] = useLazyGetUsersQuery();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -49,11 +58,16 @@ export default function RegisteredUsers() {
 
   const loadData = async () => {
     try {
-      const query = buildUserFilterQuery(
+      let query = buildUserFilterQuery(
         filterType,
         inputRef.current?.value || "",
         currentPage
       );
+
+      if(expired){
+        query+= `&expired=${expired}`;
+      }
+
       const result = await loadUsers(query).unwrap();
       if (result?.success) {
         setUsers(result.users || []);
@@ -69,23 +83,22 @@ export default function RegisteredUsers() {
     }
   };
 
-  const handleStatusChange =(status:"enabled"|"disabled")=>{
-    const msg = `Are you sure you want to ${status} this user`
+  const handleStatusChange = (status: "enabled" | "disabled") => {
+    const msg = `Are you sure you want to ${status} this user`;
     const agree = confirm(msg);
 
-    if(!agree)return;
+    if (!agree) return;
 
     // Change user status
-  }
+  };
 
   // navigate to user details page
-  const navigate = useNavigate()
-  const handleSeeDetails = (id:string)=>{
+  const navigate = useNavigate();
+  const handleSeeDetails = (id: string) => {
     navigate(`/admin/users/${id}`);
-  }
-  
+  };
+
   useEffect(() => {
-    // initial load
     loadData();
   }, [currentPage]);
 
@@ -166,8 +179,8 @@ export default function RegisteredUsers() {
                 <tbody>
                   {users.map((user, i) => (
                     <tr
-                     onClick={()=>handleSeeDetails(user._id)}
-                     title="See details"
+                      onClick={() => handleSeeDetails(user._id)}
+                      title="See details"
                       key={user._id}
                       className={`cursor-pointer border-t ${
                         i % 2 === 0
@@ -181,9 +194,10 @@ export default function RegisteredUsers() {
                       <td className="px-3 py-2">{user.domain}</td>
                       <td className="max-w-[200px] px-3 py-2">{user.status}</td>
                       <td className="max-w-[200px] px-3 py-2">
-                        <button  
-                        // onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")} 
-                        className=" underline text-blue-600">
+                        <button
+                          // onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")}
+                          className=" underline text-blue-600"
+                        >
                           {/* {user.status === "enabled" ? "Disable" : "Enable"} */}
                           Details
                         </button>
@@ -231,7 +245,11 @@ export default function RegisteredUsers() {
                         Actions :
                       </span>
                       <button
-                       onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")}
+                        onClick={() =>
+                          handleStatusChange(
+                            user.status === "enabled" ? "disabled" : "enabled"
+                          )
+                        }
                         className={`rounded-[10px] mr-10 duration-200 text-white px-3 ${
                           user.status === "enabled"
                             ? "bg-red-500 hover:bg-red-600"
@@ -240,7 +258,10 @@ export default function RegisteredUsers() {
                       >
                         {user.status === "enabled" ? "Disable" : "Enable"}
                       </button>
-                      <Link to={`/admin/users/${user._id}`} className="duration-200 rounded-[10px] bg-blue-500 hover:bg-blue-600 text-white px-3">
+                      <Link
+                        to={`/admin/users/${user._id}`}
+                        className="duration-200 rounded-[10px] bg-blue-500 hover:bg-blue-600 text-white px-3"
+                      >
                         Details
                       </Link>
                     </div>
@@ -249,12 +270,11 @@ export default function RegisteredUsers() {
               </div>
             </div>
           </>
-        )
-        : <div className="w-full mt-10 lg:mt-20 min-h-32 flex items-center justify-center">
+        ) : (
+          <div className="w-full mt-10 lg:mt-20 min-h-32 flex items-center justify-center">
             <p>No user found</p>
-        </div>
-      
-      }
+          </div>
+        )}
 
         <Pagination
           currentPage={currentPage}

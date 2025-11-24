@@ -125,7 +125,9 @@ export type TUserFilter =
   | "email"
   | "status"
   | "domain"
-  | "subscription";
+  | "subscription"
+  |"expired"
+  ;
 
 export type TUserRole = "admin" | "user";
 

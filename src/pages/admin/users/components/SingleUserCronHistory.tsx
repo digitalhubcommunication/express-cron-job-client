@@ -24,8 +24,6 @@ export default function SingleUserCronHistory({ userId }: { userId: string }) {
   const [refetch, setRefetch] = useState(false);
   const limit = 50;
 
-  console.log(userId, " user id single user");
-
   useEffect(() => {
     const loadLog = async () => {
       !isLoading && setIsLoading(true);
@@ -56,7 +54,6 @@ export default function SingleUserCronHistory({ userId }: { userId: string }) {
         const query = params.toString();
         const res = await getCronLog(query).unwrap();
         if (res.logs && res.logs?.length > 0) {
-          console.log(res.logs, " response");
           setLogs(res.logs);
           setTotalPages(res.pages);
         } else {

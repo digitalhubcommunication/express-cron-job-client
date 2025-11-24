@@ -24,9 +24,7 @@ export function useQuery() {
 export default function RegisteredUsers() {
   const query = useQuery();
   const expired = query.get("expired");
-  console.log(expired,' expired')
-  console.log(typeof expired,' tpe')
-
+  
   const [loadUsers] = useLazyGetUsersQuery();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<IUser[]>([]);
@@ -100,7 +98,7 @@ export default function RegisteredUsers() {
 
   useEffect(() => {
     loadData();
-  }, [currentPage]);
+  }, [currentPage, expired]);
 
   return (
     <DashboardContainer

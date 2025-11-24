@@ -7,11 +7,11 @@ import ErrorMessage from "@/components/shared/ErrorMessage";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { DashboardInfoCard } from "@/components/shared/Card";
 import { GlobeIcon, UsersIcon } from "@/components/icons/Icons";
+import { Link } from "react-router";
 
 export default function AdminDashboard() {
   const { authUser } = useSelector((state: RootState) => state.auth);
   const { data, isFetching, isError } = useGetDashboardInfoQuery({});
-  console.log(data,' data')
   if (!authUser) return <InvalidUser message="Invalid User" />;
 
   if (isFetching)
@@ -30,7 +30,7 @@ export default function AdminDashboard() {
       />
     );
   if (!authUser) return <InvalidUser message="Invalid User" />;
-
+ const now = new Date().toISOString()
   return (
     <DashboardContainer>
       <section className="section-pb mt-5 xl:mt-10">
@@ -51,7 +51,7 @@ export default function AdminDashboard() {
             </div>
           </DashboardInfoCard>
           <DashboardInfoCard
-            label="Manual Domains"  
+            label="Manual Domains"
             value={data?.totalManualDomains || "0"}
             key="USER_CRONJOBS_DOMAIN_CARD"
           >
@@ -97,20 +97,21 @@ export default function AdminDashboard() {
               <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
             </div>
           </DashboardInfoCard>
-           <DashboardInfoCard
-            label="Total expired users"
-            value={data?.totalExpiredUsers || "0"}
-            key="USER_CRONJOB_EXPIRED_USERS_CARD"
-            valueStyle={`text-red-500 font-semibold`}
-          >
-            <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
-              <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
-            </div>
-          </DashboardInfoCard>
-          
+          <Link to={`/admin/users?expired=${now}`}>
+            <DashboardInfoCard
+              label="Total expired users"
+              value={data?.totalExpiredUsers || "0"}
+              key="USER_CRONJOB_EXPIRED_USERS_CARD"
+              valueStyle={`text-red-500 font-semibold`}
+            >
+              <div className="w-auto p-3 rounded-[5px] border border-slate-300 bg-blue-500 ">
+                <GlobeIcon className="w-6 h-6 lg:w-7 lg:h-7 2xl:w-[30px] 2xl:h-[30px] text-white" />
+              </div>
+            </DashboardInfoCard>
+          </Link>
         </div>
 
-{/* 
+        {/* 
         <h5 className="mb-4 mt-10 md:mt-20">Personal analytics</h5>
         <div className="w-full flex flex-col sm:grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] 2xl:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-5 md:gap-7">
           <DashboardInfoCard

@@ -25,6 +25,8 @@ type TUpdateAction =
   | "PACKAGE_UPDATE"
   | "DOMAIN_UPDATE"
   | "ROOT_DOMAIN"
+  | "EMAIL"
+  | "TELEGRAM_ID"
   | null;
 
 export default function UserDetails() {
@@ -41,7 +43,6 @@ export default function UserDetails() {
   const updateUserInfo = async (data: any) => {
     try {
       const res = await update({ id, data }).unwrap();
-      console.log(res,' res')
       if (res.success) {
         toast.success(res?.message);
       } else {
@@ -91,6 +92,20 @@ export default function UserDetails() {
     });
   };
 
+  const EMAIL_UPDATE_CB = (val: string) => {
+    setUpdateAction("EMAIL");
+    updateUserInfo({
+      email: val,
+    });
+  };
+
+  const TELEGRAM_ID_UPDATE_CB = (val: string) => {
+    setUpdateAction("TELEGRAM_ID");
+    updateUserInfo({
+      telegramId: val,
+    });
+  };
+
   // conditional return
   if (isFetching) return <PageLoading />;
 
@@ -121,9 +136,12 @@ export default function UserDetails() {
           <p className="mt-1">
             <span className="font-semibold">Phone :</span> {user?.mobile || ""}
           </p>
-          <p className="mt-1">
-            <span className="font-semibold">Email :</span> {user?.email || ""}
-          </p>
+          <UserEmail
+            loading={loading}
+            updateAction={updateAction}
+            cb={EMAIL_UPDATE_CB}
+            email={user?.email || ""}
+          />
           <UserDomain
             loading={loading}
             updateAction={updateAction}
@@ -158,10 +176,12 @@ export default function UserDetails() {
           </div>
         </div>
         <div className="w-full">
-          <p className="mt-1">
-            <span className="font-semibold">Telegram ID :</span>{" "}
-            {user?.telegramId || "null"}
-          </p>
+          <UserTelegramId
+            loading={loading}
+            updateAction={updateAction}
+            cb={TELEGRAM_ID_UPDATE_CB}
+            telegram={user?.telegramId || ""}
+          />
           <p className="mt-1">
             <span className="font-semibold">Telegram connected :</span>{" "}
             {user?.telegramConnected ? "Yes" : "No"}
@@ -250,20 +270,25 @@ export default function UserDetails() {
   );
 }
 
-type TUserDomain = {
+type TUserDomainProps = {
   domain: string;
   cb: (val: string) => void;
   loading: boolean;
   updateAction: TUpdateAction;
 };
 
-const UserDomain = ({ domain, cb, loading, updateAction }: TUserDomain) => {
+const UserDomain = ({
+  domain,
+  cb,
+  loading,
+  updateAction,
+}: TUserDomainProps) => {
   const [rootDomain, setRootDomain] = useState("");
 
   useEffect(() => {
     setRootDomain(domain);
-  }, [])
-  
+  }, []);
+
   return (
     <p className="mt-1 flex gap-2 items-center">
       <span className="font-semibold">Domain :</span>
@@ -282,7 +307,11 @@ const UserDomain = ({ domain, cb, loading, updateAction }: TUserDomain) => {
           />
           <button
             onClick={() => cb(rootDomain)}
-            className={`px-2 ecj_fs-sm py-0.5 text-white rounded-sm ${rootDomain===domain ? "bg-gray-400 pointer-events-none":"bg-blue-500 hover:bg-blue-600"}`}
+            className={`px-2 ecj_fs-sm py-0.5 text-white rounded-sm ${
+              rootDomain === domain || !rootDomain
+                ? "bg-gray-400 pointer-events-none"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
           >
             Update
           </button>
@@ -292,3 +321,99 @@ const UserDomain = ({ domain, cb, loading, updateAction }: TUserDomain) => {
   );
 };
 
+type TUserEmailProps = {
+  email: string;
+  cb: (val: string) => void;
+  loading: boolean;
+  updateAction: TUpdateAction;
+};
+
+const UserEmail = ({ email, cb, loading, updateAction }: TUserEmailProps) => {
+  const [mailAddress, setMailAddress] = useState("");
+
+  useEffect(() => {
+    setMailAddress(email);
+  }, []);
+
+  return (
+    <p className="mt-1 flex gap-2 items-center">
+      <span className="font-semibold">Email :</span>
+      {loading && updateAction === "EMAIL" ? (
+        <LoadingSpinner
+          className="min-h-[39.81px]"
+          containerClass="w-3 md:w-4 h-3 2xl:h-4"
+        />
+      ) : (
+        <>
+          <input
+            onChange={(e) => setMailAddress(e.target.value)}
+            defaultValue={email}
+            className="px-2 border rounded-sm"
+            placeholder="Enter email"
+          />
+          <button
+            onClick={() => cb(mailAddress)}
+            className={`px-2 ecj_fs-sm py-0.5 text-white rounded-sm ${
+              mailAddress === email || !mailAddress
+                ? "bg-gray-400 pointer-events-none"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          >
+            Update
+          </button>
+        </>
+      )}
+    </p>
+  );
+};
+
+type TUserTelegramProps = {
+  telegram: string;
+  cb: (val: string) => void;
+  loading: boolean;
+  updateAction: TUpdateAction;
+};
+
+const UserTelegramId = ({
+  telegram,
+  cb,
+  loading,
+  updateAction,
+}: TUserTelegramProps) => {
+  const [val, setVal] = useState("");
+
+  useEffect(() => {
+    setVal(telegram);
+  }, []);
+
+  return (
+    <p className="mt-1 flex gap-2 items-center">
+      <span className="font-semibold">Telegram ID :</span>
+      {loading && updateAction === "TELEGRAM_ID" ? (
+        <LoadingSpinner
+          className="min-h-[39.81px]"
+          containerClass="w-3 md:w-4 h-3 2xl:h-4"
+        />
+      ) : (
+        <>
+          <input
+            onChange={(e) => setVal(e.target.value)}
+            defaultValue={val}
+            className="px-2 border rounded-sm"
+            placeholder="Enter telegram id"
+          />
+          <button
+            onClick={() => cb(val)}
+            className={`px-2 ecj_fs-sm py-0.5 text-white rounded-sm ${
+              val === telegram || !val
+                ? "bg-gray-400 pointer-events-none"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
+          >
+            Update
+          </button>
+        </>
+      )}
+    </p>
+  );
+};

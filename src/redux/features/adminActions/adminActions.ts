@@ -5,7 +5,7 @@ import { userActionApi } from "../userAction/userActionApi";
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
-   tagTypes: ["user_details", "profile", "mails"],
+   tagTypes: ["user_details", "profile", "mails", "users"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -74,6 +74,7 @@ export const adminActionApi = createApi({
         url: `/admin/users?${query}`,
         method: "GET",
       }),
+       providesTags:["users"]
     }),
 
     getSingleUser: builder.query({
@@ -82,6 +83,13 @@ export const adminActionApi = createApi({
         method: "GET",
       }),
       providesTags:["user_details"]
+    }),
+      deleteSingleUser: builder.mutation({
+      query: (userId) => ({
+        url: `/admin/users/${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags:["users"]
     }),
 
       updateUser: builder.mutation({
@@ -218,6 +226,7 @@ export const {
   useUpdateUserMutation,
   useRemoveUserPackageMutation,
   useAssignUserPackageMutation,
+  useDeleteSingleUserMutation,
 
   // domain crud
   useAddAdminManualDomainMutation,

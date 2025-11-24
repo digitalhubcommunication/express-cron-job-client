@@ -4,6 +4,7 @@ import ErrorMessage from "@/components/shared/ErrorMessage";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import ToggleButton from "@/pages/shared/ToggleButton";
 import {
+  useDeleteSingleUserMutation,
   useGetSingleUserQuery,
   useRemoveUserPackageMutation,
   useUpdateUserMutation,
@@ -11,7 +12,7 @@ import {
 import { IUser, TDomain, TManualDomain } from "@/types/types";
 import { getExpiryText, isDateExpired } from "@/utils/utils";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import AssignPackage from "./components/AssignPackage";
 import UserDomainCard from "./components/UserDomainCard";
@@ -27,21 +28,25 @@ type TUpdateAction =
   | "ROOT_DOMAIN"
   | "EMAIL"
   | "TELEGRAM_ID"
+  | "DELETE"
   | null;
 
 export default function UserDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isFetching } = useGetSingleUserQuery(id);
   const [update] = useUpdateUserMutation();
   const [updateAction, setUpdateAction] = useState<TUpdateAction>(null);
   const [removeUserPackage] = useRemoveUserPackageMutation();
   const [loading, setLoading] = useState(false);
+  const [deleteUser] = useDeleteSingleUserMutation();
 
   const user = data?.user || ({} as IUser);
 
   //   handlers
   const updateUserInfo = async (data: any) => {
     try {
+      // return;
       const res = await update({ id, data }).unwrap();
       if (res.success) {
         toast.success(res?.message);
@@ -104,6 +109,27 @@ export default function UserDetails() {
     updateUserInfo({
       telegramId: val,
     });
+  };
+
+  // delete handler
+  const handleDelete = async () => {
+    const agreed = confirm("Are you sure you want to delete this user?");
+    if (!agreed) return;
+
+    setLoading(true);
+    setUpdateAction("DELETE");
+
+    try {
+      const res = await deleteUser(id).unwrap();
+      if (res?.success) {
+        navigate("/admin/users", { replace: true });
+      } else {
+        throw new Error("Error deleting user");
+      }
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message);
+    }
   };
 
   // conditional return
@@ -235,6 +261,22 @@ export default function UserDetails() {
           </div>
         </div>
       </div>
+      <div className="w-full flex items-start py-5 mb-10">
+        {loading && updateAction === "DELETE" ? (
+          <LoadingSpinner
+            className="min-h-[39.81px]"
+            containerClass="w-4 md:w-5 h-4 2xl:h-5 ml-10"
+             squareClasses={["bg-red-600", "bg-red-600", "bg-red-600"]}
+          />
+        ) : (
+          <button
+            onClick={handleDelete}
+            className={`px-2 ecj_fs-sm py-1 text-white rounded-sm duration-200 bg-red-500 hover:bg-red-600`}
+          >
+            Delete this user
+          </button>
+        )}
+      </div>
 
       <h6 className="mb-3 font-semibold mt-10">Default Domains</h6>
       <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
@@ -302,7 +344,7 @@ const UserDomain = ({
           <input
             onChange={(e) => setRootDomain(e.target.value)}
             defaultValue={domain}
-            className="px-2 border rounded-sm"
+            className="px-2 border rounded-sm w-full max-w-[400px]"
             placeholder="Enter domain"
           />
           <button

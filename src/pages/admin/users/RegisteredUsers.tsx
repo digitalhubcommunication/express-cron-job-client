@@ -81,10 +81,12 @@ export default function RegisteredUsers() {
     }
   };
 
-  const handleStatusChange = (status: "enabled" | "disabled") => {
-    const msg = `Are you sure you want to ${status} this user`;
-    const agree = confirm(msg);
+  const handleDeleteUser = (userId:string) => {
+    const isMadAdmin = confirm("Are you out of your mind?");
+    if(isMadAdmin) return;
 
+    const msg = `Are you sure you want to delete this user`;
+    const agree = confirm(msg);
     if (!agree) return;
 
     // Change user status
@@ -102,7 +104,7 @@ export default function RegisteredUsers() {
 
   return (
     <DashboardContainer
-      className={`pt-[110px] ${loading && "pointer-events-none"}`}
+      className={`pt-10 lg:pt-[110px] ${loading && "pointer-events-none"}`}
     >
       <section className="section-pb">
         <div className="w-full mb-5">
@@ -159,9 +161,9 @@ export default function RegisteredUsers() {
         ) : users.length > 0 ? (
           <>
             {/* ====== table heading ======= */}
-            <div className="overflow-x-auto border-t border-b lg:border border-slate-300 rounded-md">
+            <div className="overflow-x-scroll border-t border-b lg:border border-slate-300 rounded-md">
               {/* Desktop Table */}
-              <table className="w-full min-w-[750px] lg:min-w-[800px] text-left border-collapse hidden sm:table">
+              <table className="w-full min-w-[1020px] text-left border-collapse table">
                 <thead className="bg-slate-800 text-white">
                   <tr className="text-sm xl:text-base text-white">
                     <th className="w-20 px-3 py-2">
@@ -193,10 +195,8 @@ export default function RegisteredUsers() {
                       <td className="max-w-[200px] px-3 py-2">{user.status}</td>
                       <td className="max-w-[200px] px-3 py-2">
                         <button
-                          // onClick={()=>handleStatusChange(user.status === "enabled" ? "disabled" : "enabled")}
-                          className=" underline text-blue-600"
+                          className="py-1 underline text-blue-600"
                         >
-                          {/* {user.status === "enabled" ? "Disable" : "Enable"} */}
                           Details
                         </button>
                       </td>
@@ -206,7 +206,7 @@ export default function RegisteredUsers() {
               </table>
 
               {/* ======== Mobile Stack Layout ===== */}
-              <div className="sm:hidden space-y-4 p-2">
+              {/* <div className="hidden space-y-4 p-2">
                 {users.map((user, i) => (
                   <div
                     key={user._id}
@@ -244,7 +244,7 @@ export default function RegisteredUsers() {
                       </span>
                       <button
                         onClick={() =>
-                          handleStatusChange(
+                          handleDeleteUser(
                             user.status === "enabled" ? "disabled" : "enabled"
                           )
                         }
@@ -265,7 +265,7 @@ export default function RegisteredUsers() {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </>
         ) : (

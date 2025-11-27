@@ -98,9 +98,9 @@ export const adminLinks: TSidebarLink[] = [
     to: "/admin/mails",
   },
    {
-    label: "Newslater",
+    label: "Guests",
     Icon: UsersIcon,
-    to: "/admin/newslaters",
+    to: "/admin/guests",
   },
   // {
   //     label: "Connect Telegram",

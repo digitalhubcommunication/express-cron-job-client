@@ -126,8 +126,7 @@ export type TUserFilter =
   | "status"
   | "domain"
   | "subscription"
-  |"expired"
-  ;
+  | "expired";
 
 export type TUserRole = "admin" | "user";
 
@@ -139,10 +138,9 @@ export type TDecodedToken = {
   iat: number;
 };
 
-
 export interface ICronLog {
   _id: string;
-  title:string;
+  title: string;
   userId: string;
   domain: string;
   domainType: "default" | "manual" | ""; // empty string for “all” case
@@ -155,20 +153,17 @@ export interface ICronLog {
   __v: number;
 }
 
-
 export interface IPackage {
-  _id: string;              // optional if coming from MongoDB
-  name: string;              // "Free"
-  price: number;             // 0
+  _id: string; // optional if coming from MongoDB
+  name: string; // "Free"
+  price: number; // 0
   status: "enabled" | "disabled"; // enum for clarity
-  intervalInMs: number;      // 7000
-  manualCronLimit: number;   // 3
-  validity: number;          // 2 (in days)
-  createdAt: string;         // ISO date string
-  updatedAt: string;         // ISO date string
+  intervalInMs: number; // 7000
+  manualCronLimit: number; // 3
+  validity: number; // 2 (in days)
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
 }
-
-
 
 export interface IInitializeTransactionResponse {
   success: boolean;
@@ -180,30 +175,37 @@ export interface IInitializeTransactionResponse {
 }
 
 export interface ITransaction {
-  _id:string;
+  _id: string;
   userId: string;
   status: "success" | "fail" | "pending";
   amount: number;
   transactionHash: string;
   packageId: string;
-  createdAt:string;
-  updatedAt:string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IMail {
-  _id:string;
-  name:string;
-  email:string;
-  subject:string;
-  message:string;
-  createdAt:string;
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: string;
 }
 
 export type TCountry = {
-   name: string;
-    code: string;
-    dialCode: string;
-    flag: string;
-    format: RegExp;
-    example: string;
+  name: string;
+  code: string;
+  dialCode: string;
+  flag: string;
+  format: RegExp;
+  example: string;
+};
+
+export interface IGuestUser {
+  _id:string;
+  email: string;
+  domain: string;
+  type: "newslater" | "promotional";
 }

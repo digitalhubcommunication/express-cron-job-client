@@ -5,7 +5,7 @@ import { userActionApi } from "../userAction/userActionApi";
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
-   tagTypes: ["user_details", "profile", "mails", "users"],
+  tagTypes: ["user_details", "profile", "mails", "users", "guest"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -39,10 +39,10 @@ export const adminActionApi = createApi({
     }),
 
     //====== cron log history ======
-        getAdminCronHistory:builder.query({
+    getAdminCronHistory: builder.query({
       query: (query) => ({
         url: `/admin/cron-log?${query}`,
-        method: 'GET'
+        method: "GET",
       }),
     }),
 
@@ -74,7 +74,7 @@ export const adminActionApi = createApi({
         url: `/admin/users?${query}`,
         method: "GET",
       }),
-       providesTags:["users"]
+      providesTags: ["users"],
     }),
 
     getSingleUser: builder.query({
@@ -82,130 +82,158 @@ export const adminActionApi = createApi({
         url: `/admin/users/${userId}`,
         method: "GET",
       }),
-      providesTags:["user_details"]
+      providesTags: ["user_details"],
     }),
-      deleteSingleUser: builder.mutation({
+    deleteSingleUser: builder.mutation({
       query: (userId) => ({
         url: `/admin/users/${userId}`,
         method: "DELETE",
       }),
-      invalidatesTags:["users"]
+      invalidatesTags: ["users"],
     }),
-      updateUser: builder.mutation({
-      query: ({id, data}) => ({
+    updateUser: builder.mutation({
+      query: ({ id, data }) => ({
         url: `/admin/users/${id}`,
         method: "PUT",
-        body:data,
+        body: data,
       }),
-      invalidatesTags:['user_details']
+      invalidatesTags: ["user_details"],
     }),
 
-     removeUserPackage: builder.mutation({
+    removeUserPackage: builder.mutation({
       query: (data) => ({
         url: "/admin/users/removepackage",
         method: "DELETE",
-        body:data,
+        body: data,
       }),
-      invalidatesTags:['user_details']
+      invalidatesTags: ["user_details"],
     }),
 
-     assignUserPackage: builder.mutation({
+    assignUserPackage: builder.mutation({
       query: (data) => ({
         url: "/admin/users/assignPackage",
         method: "PUT",
-        body:data,
+        body: data,
       }),
-      invalidatesTags:['user_details']
+      invalidatesTags: ["user_details"],
     }),
 
-
     // domain crud
-      addAdminManualDomain:builder.mutation({
+    addAdminManualDomain: builder.mutation({
       query: (data) => ({
         url: "/admin/crons",
-        method: 'POST',
-        body:data
+        method: "POST",
+        body: data,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
-          await queryFulfilled; 
-          dispatch(
-            userActionApi.util.invalidateTags(['profile'])
-          );
+          await queryFulfilled;
+          dispatch(userActionApi.util.invalidateTags(["profile"]));
         } catch (error) {
           // Handle error if needed
-          console.log(error)
+          console.log(error);
         }
       },
-      invalidatesTags:["profile"]
+      invalidatesTags: ["profile"],
     }),
 
-
-    updateAdminManualDomain:builder.mutation({
-      query: ({id,data}) => ({
+    updateAdminManualDomain: builder.mutation({
+      query: ({ id, data }) => ({
         url: `/admin/crons/${id}`,
-        method: 'PUT',
-        body:data
+        method: "PUT",
+        body: data,
       }),
     }),
 
-     deleteAdminManualDomain:builder.mutation({
+    deleteAdminManualDomain: builder.mutation({
       query: (id) => ({
         url: `/admin/crons/${id}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
     }),
 
     // transaction history
-      getAllTransactionHistory: builder.query({
+    getAllTransactionHistory: builder.query({
       query: (query) => ({
         url: `/admin/transaction-history?${query}`,
-        method: 'GET',
+        method: "GET",
       }),
     }),
 
-    // mails 
+    // mails
     getUserMails: builder.query({
       query: (query) => ({
         url: `/admin/mails?${query}`,
-        method: 'GET',
+        method: "GET",
       }),
-      providesTags:['mails']
+      providesTags: ["mails"],
     }),
-      getUserMailDetails: builder.query({
+    getUserMailDetails: builder.query({
       query: (id) => ({
         url: `/admin/mails/${id}`,
-        method: 'GET',
+        method: "GET",
       }),
     }),
-      deleteUserMails: builder.mutation({
+    deleteUserMails: builder.mutation({
       query: () => ({
         url: `/admin/mails`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags:['mails']
+      invalidatesTags: ["mails"],
     }),
 
     sendMailToUser: builder.mutation({
       query: (data) => ({
         url: `/admin/send-mail`,
-        method: 'POST',
-        body:data
+        method: "POST",
+        body: data,
       }),
     }),
-     sendMailToAllUser: builder.mutation({
+    sendMailToAllUser: builder.mutation({
       query: (data) => ({
         url: `/admin/send-bulk-mail`,
-        method: 'POST',
-        body:data
+        method: "POST",
+        body: data,
       }),
     }),
+
+    // === guest users action =====
+    getGuestUsers: builder.query({
+      query: (query) => ({
+        url: `/admin/guest-users?${query}`,
+        method: "GET",
+      }),
+      providesTags: ["guest"],
+    }),
+    addGuestUser: builder.mutation({
+      query: (data) => ({
+        url: `/admin/guest-users`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["guest"],
+    }),
+    deleteGuestUser: builder.mutation({
+      query: (id) => ({
+        url: `/admin/guest-users/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["guest"],
+    }),
+    sendMessageToGuestUsers: builder.mutation({
+      query: (data) => ({
+        url: `/admin/guest-users/mail`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     // ====== admin action ends =======
   }),
 });
 
 export const {
-  // package 
+  // package
   useDeletePackageMutation,
   useAddPackageMutation,
   useLazyGetPackagesQuery,
@@ -226,6 +254,12 @@ export const {
   useRemoveUserPackageMutation,
   useAssignUserPackageMutation,
   useDeleteSingleUserMutation,
+
+  // guest user query
+  useLazyGetGuestUsersQuery,
+  useAddGuestUserMutation,
+  useDeleteGuestUserMutation,
+  useSendMessageToGuestUsersMutation,
 
   // domain crud
   useAddAdminManualDomainMutation,

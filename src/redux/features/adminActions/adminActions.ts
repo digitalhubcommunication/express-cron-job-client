@@ -91,7 +91,6 @@ export const adminActionApi = createApi({
       }),
       invalidatesTags:["users"]
     }),
-
       updateUser: builder.mutation({
       query: ({id, data}) => ({
         url: `/admin/users/${id}`,

@@ -97,6 +97,11 @@ export const adminLinks: TSidebarLink[] = [
     Icon: MailBulkIcon,
     to: "/admin/mails",
   },
+   {
+    label: "Newslater",
+    Icon: UsersIcon,
+    to: "/admin/newslaters",
+  },
   // {
   //     label: "Connect Telegram",
   //     Icon: TelegramIcon,

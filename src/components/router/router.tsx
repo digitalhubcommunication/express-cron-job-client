@@ -34,6 +34,7 @@ import AvailablePackages from "@/pages/user/packages/AvailablePackages";
 import AllTransactions from "@/pages/admin/allTransactions/AllTransactions";
 import Mails from "@/pages/admin/mails/Mails";
 import SingleMail from "@/pages/admin/mails/SingleMail";
+import NewsLaters from "@/pages/admin/NewsLaters/NewsLaters";
 
 export const router = createBrowserRouter([
   {
@@ -197,6 +198,10 @@ export const router = createBrowserRouter([
       {
         path: "mails/:id",
         element: <SingleMail />,
+      },
+        {
+        path: "newslaters",
+        element: <NewsLaters />,
       },
       {
         path: "all-transactions",

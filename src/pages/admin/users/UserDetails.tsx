@@ -18,8 +18,11 @@ import AssignPackage from "./components/AssignPackage";
 import UserDomainCard from "./components/UserDomainCard";
 import SendMessageBtn from "./components/SendMessageBtn";
 import SingleUserCronHistory from "./components/SingleUserCronHistory";
-
-type TUpdateAction =
+import AddManualDomain, { TAddManualDomainFormData } from "./components/AddManualDomain";
+import { useDispatch } from "react-redux";
+import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
+ 
+export type TUpdateAction =
   | "STATUS"
   | "PERMISSION"
   | "URLS_STATUS"
@@ -29,10 +32,12 @@ type TUpdateAction =
   | "EMAIL"
   | "TELEGRAM_ID"
   | "DELETE"
+  | "ADD_DOMAIN"
   | null;
 
 export default function UserDetails() {
   const { id } = useParams();
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const { data, isFetching } = useGetSingleUserQuery(id);
   const [update] = useUpdateUserMutation();
@@ -58,6 +63,7 @@ export default function UserDetails() {
       toast.error(error?.data?.message);
     } finally {
       setUpdateAction(null);
+      dispatch(toggleModal(null));
     }
   };
 
@@ -108,6 +114,13 @@ export default function UserDetails() {
     setUpdateAction("TELEGRAM_ID");
     updateUserInfo({
       telegramId: val,
+    });
+  };
+
+    const MANUAL_DOMAIN_ADD_CB = (data:TAddManualDomainFormData) => {
+    setUpdateAction("ADD_DOMAIN");
+    updateUserInfo({
+      newManualDomain: data,
     });
   };
 
@@ -295,7 +308,10 @@ export default function UserDetails() {
       </div>
       {!!user?.manualDomains?.length && (
         <>
+          <div className="flex items-center gap-5 justify-between flex-wrap mt-10">
           <h6 className="mb-3 font-semibold mt-10">Manual Domains</h6>
+          <AddManualDomain loading={loading} updateAction={updateAction} cb={MANUAL_DOMAIN_ADD_CB} user={user} />
+          </div>
           <div className="w-full grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(600px,1fr))] gap-5 mt-5">
             {user?.manualDomains.map((domain: TManualDomain) => (
               <UserDomainCard

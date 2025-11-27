@@ -1,55 +1,52 @@
 import { PlusIcon } from "@/components/icons/Icons";
 import { CustomModal, CustomModalHeader } from "@/components/modal/CustomModal";
 import { toggleModal } from "@/redux/features/modalToggler/ModalTogglerSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { RootState } from "@/redux/store";
-import { useAddManualDomainMutation } from "@/redux/features/userAction/userActionApi";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { setManualDomain } from "@/redux/features/auth/AuthSlice";
+import { IUser } from "@/types/types";
+import { TUpdateAction } from "../UserDetails";
+import { useEffect } from "react";
 
-type FormData = {
+export type TAddManualDomainFormData = {
   url: string;
   title: string;
   executeInMs: string;
 };
 
-const AddNewCron = () => {
-  const ACTIVE_KEY = "OPEN_ADD_NEW_CRON_MODAL";
+type TProps = {
+  user: IUser;
+  loading: boolean;
+  cb: (data: TAddManualDomainFormData) => void;
+  updateAction: TUpdateAction;
+};
+
+const AddManualDomain = ({ loading, updateAction, cb, user }: TProps) => {
+  const ACTIVE_KEY = "OPEN_ADMIN_ADD_NEW_CRON_MODAL";
   const dispatch = useDispatch();
-  const [addManualDomain, { isLoading }] = useAddManualDomainMutation();
-  const { authUser } = useSelector((state: RootState) => state.auth);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormData>();
+  } = useForm<TAddManualDomainFormData>();
 
   // Handle URL submission
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: TAddManualDomainFormData) => {
     if (!data || !data.title || !data.url || !data.executeInMs) return;
-
-    try {
-      const res = await addManualDomain(data).unwrap();
-      if (res.success) {
-        toast.success(res?.message);
-        dispatch(toggleModal(null));
-        console.log(res.domain,' domain response')
-        dispatch(setManualDomain(res.domain));
-        reset();
-      }
-    } catch (error: any) {
-      console.log(error, " error updating data");
-      toast.error(error?.data?.message || "Something went wrong");
-    }
+    cb(data);
   };
 
-  if(!authUser) return <></>;
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, []);
 
-  const limit = authUser?.subscription?.manualCronLimit || 3;
-  const remainingLimit = limit - authUser?.manualCronCount;
+  if (!user) return <></>;
+
+  const limit = user?.subscription?.manualCronLimit || 3;
+  const remainingLimit = limit - user?.manualCronCount;
 
   return (
     <>
@@ -72,7 +69,7 @@ const AddNewCron = () => {
         <div className="w-full h-full p-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3 flex-wrap gap-5 flex items-center justify-between my-5">
-              <h6 className="">Domain: {authUser?.domain || ""}</h6>
+              <h6 className="">Domain: {user?.domain || ""}</h6>
               <p>Allowed to add : {remainingLimit}</p>
             </div>
             <div className="flex flex-col gap-4">
@@ -107,9 +104,16 @@ const AddNewCron = () => {
                       : "border-gray-300"
                   }`}
                 >
-                  <option value="1800000">30 Minutes</option>
-                  <option value="3600000">1 Hour</option>
-                  <option value="10800000">3 Hours</option>
+                  <option value="27000">27 Seconds</option>
+                  <option value="24000">24 Seconds</option>
+                  <option value="21000">21 Seconds</option>
+                  <option value="18000">18 Seconds</option>
+                  <option value="15000">15 Seconds</option>
+                  <option value="12000">12 Seconds</option>
+                  <option value="9000">9 Seconds</option>
+                  <option value="7000">7 Seconds</option>
+                  <option value="5000">5 Seconds</option>
+                  <option value="3000">3 Seconds</option>
                 </select>
               </div>
               <div>
@@ -133,7 +137,7 @@ const AddNewCron = () => {
 
             {/* Submit Button */}
             <div className="w-full flex flex-wrap gap-5 justify-between items-center mt-6">
-              {isLoading ? (
+              {loading && updateAction === "ADD_DOMAIN" ? (
                 <LoadingSpinner
                   className="min-h-6 ml-10 mr-3"
                   containerClass="w-4.5 h-4.5"
@@ -155,4 +159,4 @@ const AddNewCron = () => {
   );
 };
 
-export default AddNewCron;
+export default AddManualDomain;

@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { ICronLog } from "@/types/types";
 import { useLazyGetAdminCronHistoryQuery } from "@/redux/features/adminActions/adminActions";
 import CronLogs from "./CronLogs";
-import ClearCronLogBtn from "@/pages/user/cronHistory/components/ClearCronLogBtn";
 import DeleteCronHistory from "./DeleteCronHistory";
 
 export type TCronType = "" | "manual" | "default";

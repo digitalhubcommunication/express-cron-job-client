@@ -1,11 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../baseQuery";
 import { userActionApi } from "../userAction/userActionApi";
+import { IGuestUser } from "@/types/types";
 
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",
   baseQuery,
-  tagTypes: ["user_details", "profile", "mails", "users", "guest"],
+  tagTypes: ["user_details", "profile", "mails", "users", "guests"],
   endpoints: (builder) => ({
     // packages
     getPackages: builder.query({
@@ -203,7 +204,7 @@ export const adminActionApi = createApi({
         url: `/admin/guest-users?${query}`,
         method: "GET",
       }),
-      providesTags: ["guest"],
+      providesTags: ["guests"],
     }),
     addGuestUser: builder.mutation({
       query: (data) => ({
@@ -211,14 +212,14 @@ export const adminActionApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["guest"],
+      invalidatesTags: ["guests"],
     }),
     deleteGuestUser: builder.mutation({
       query: (id) => ({
         url: `/admin/guest-users/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["guest"],
+      invalidatesTags: ["guests"],
     }),
     sendMessageToGuestUsers: builder.mutation({
       query: (data) => ({
@@ -227,6 +228,7 @@ export const adminActionApi = createApi({
         body: data,
       }),
     }),
+
 
     // ====== admin action ends =======
   }),

@@ -51,12 +51,13 @@ export default function SendMail() {
   };
 
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
+    console.log('clicked');
+    return;
     // In a real application, you would send this data to your backend
     try {
-      const res =
-        messageType === "bulk"
-          ? await sendMessageToAllUser(data).unwrap()
-          : await sendMessage(data).unwrap();
+      const sendMessageFN =
+        messageType === "bulk" ? sendMessageToAllUser : sendMessage;
+      const res = await sendMessageFN(data).unwrap();
       if (res.success) {
         reset();
         toast.success(res.message);
@@ -84,6 +85,8 @@ export default function SendMail() {
       console.error("Error deleting:", error);
     }
   };
+
+      console.log('rebder');
 
   if (!authUser) return <></>;
   return (

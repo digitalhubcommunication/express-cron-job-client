@@ -13,7 +13,7 @@ import {
 } from "@/redux/features/userAction/userActionApi";
 import { RootState } from "@/redux/store";
 import { TManualDomain } from "@/types/types";
-import { splitUrlIntoSpans } from "@/utils/utils";
+import { msToTimeString, splitUrlIntoSpans } from "@/utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -100,7 +100,7 @@ export default function ManualDomainCard({
       </p>
       <p className="flex items-center gap-2">
         <span className="font-semibold">Execution Time: </span>
-        <span>{executeInMs ? executeInMs / 1000 / 60 : 30} Minutes</span>
+        <span>{executeInMs ? msToTimeString(executeInMs):0}</span>
       </p>
       <div className="flex items-center justify-between gap-5">
         <div className="flex items-center gap-2">

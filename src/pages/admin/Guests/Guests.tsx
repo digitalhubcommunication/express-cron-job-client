@@ -1,6 +1,9 @@
 import PageLoading from "@/components/loading/PageLoading";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
-import { useLazyGetGuestUsersQuery } from "@/redux/features/adminActions/adminActions";
+import {
+  useDeleteGuestUserMutation,
+  useLazyGetGuestUsersQuery,
+} from "@/redux/features/adminActions/adminActions";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { IGuestUser, IUser, TUserFilter } from "@/types/types";
 import { toast } from "react-toastify";
@@ -10,20 +13,20 @@ import {
   SearchIcon,
   SpinnerIcon,
 } from "@/components/icons/Icons";
-import {
-  buildUserFilterQuery,
-  getUserFilterInputPlaceholderText,
-} from "@/utils/utils";
+import { buildUserFilterQuery } from "@/utils/utils";
 import Pagination from "@/pages/shared/Pagination";
 import Buttons from "./components/Buttons";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 export default function Guests() {
   const [loadUsers, { isLoading }] = useLazyGetGuestUsersQuery();
+  const [deleteUser, { isLoading: deleting }] = useDeleteGuestUserMutation();
   const [users, setUsers] = useState<IGuestUser[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   // handlers
   const handleKeyChange = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -39,20 +42,24 @@ export default function Guests() {
     } catch (error) {}
   };
 
-  const handleDelete = async () => {
-      // In a real application, you would send this data to your backend
-      try {
-        const res = await deleteUser({}).unwrap();
-        if (res.success) {
-          toast.success(res.message);
-        } else {
-          throw new Error(res.message);
-        }
-      } catch (error: any) {
-        toast.error(error?.data?.message);
-        console.error("Error deleting:", error);
+  const handleDelete = async (id: string) => {
+    const agree  = confirm("Are you sure! You want to delete this guest user ?")
+    if(!agree) return;
+
+    setDeletingId(id);
+    try {
+      const res = await deleteUser(id).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        loadData();
+      } else {
+        throw new Error(res.message);
       }
-    };
+    } catch (error: any) {
+      toast.error(error?.data?.message);
+      console.error("Error deleting:", error);
+    }
+  };
 
   const loadData = async () => {
     try {
@@ -92,45 +99,41 @@ export default function Guests() {
           <div className="w-full md:pt-5 mb-5">
             {/* ====== actions ====== */}
             <div className="grow flex items-center flex-wrap md:justify-start gap-2 md:gap-5">
-              <Buttons />
+              <Buttons loadData={loadData} />
             </div>
-            {users.length > 0 ? (
-              <div className="w-full flex items-center flex-wrap md:justify-end gap-2 md:gap-5">
-                <div className="flex items-center gap-3 md:gap-5 ">
-                  <FilterIcon className="w-6 h-6" />
-                  <span>Email</span>
-                </div>
-                <div
-                  className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
-                    focused ? "border-slate-400" : "border-slate-300"
-                  }  `}
-                >
-                  <input
-                    ref={inputRef}
-                    onKeyUp={handleKeyChange}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
-                    id="guestEmailFilterInput"
-                    placeholder="Enter email"
-                    type="email"
-                    className=" outline-none  py-1.5 lg:text-[18px] px-4 w-full"
-                  />
-                  <button
-                    onClick={handleFilter}
-                    disabled={isLoading}
-                    className="cursor-pointer duration-200 w-auto h-auto  px-3 flex items-center justify-center"
-                  >
-                    {isLoading ? (
-                      <SpinnerIcon className="w-5 md:w-6 h-5 md:h-6" />
-                    ) : (
-                      <SearchIcon className="w-5 md:w-6 h-5 md:h-6" />
-                    )}
-                  </button>
-                </div>
+            <div className="w-full flex items-center flex-wrap md:justify-end gap-2 md:gap-5">
+              <div className="flex items-center gap-3 md:gap-5 ">
+                <FilterIcon className="w-6 h-6" />
+                <span>Email</span>
               </div>
-            ) : (
-              <></>
-            )}
+              <div
+                className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
+                  focused ? "border-slate-400" : "border-slate-300"
+                }  `}
+              >
+                <input
+                  ref={inputRef}
+                  onKeyUp={handleKeyChange}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  id="guestEmailFilterInput"
+                  placeholder="Enter email"
+                  type="email"
+                  className=" outline-none  py-1.5 lg:text-[18px] px-4 w-full"
+                />
+                <button
+                  onClick={handleFilter}
+                  disabled={isLoading}
+                  className="cursor-pointer duration-200 w-auto h-auto  px-3 flex items-center justify-center"
+                >
+                  {isLoading ? (
+                    <SpinnerIcon className="w-5 md:w-6 h-5 md:h-6" />
+                  ) : (
+                    <SearchIcon className="w-5 md:w-6 h-5 md:h-6" />
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         {isLoading ? (
@@ -148,7 +151,7 @@ export default function Guests() {
                     </th>
                     <th className="max-w-[300px] px-3 py-2">Email</th>
                     <th className="px-3 py-2">Domain</th>
-                    <th className="max-w-[200px] px-3 py-2">Action</th>
+                    <th className="max-w-[300px] px-3 py-2 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,10 +168,20 @@ export default function Guests() {
                       <td className="w-20 px-3 py-2">{i + 1}</td>
                       <td className="max-w-[300px] px-3 py-2">{user.email}</td>
                       <td className="px-3 py-2">{user.domain}</td>
-                      <td className="max-w-[200px] px-3 py-2">
-                        <button className="py-1 underline text-red-600">
-                          Delete
-                        </button>
+                      <td className="max-w-[200px] px-3 py-2 text-center">
+                        {deletingId === user._id && deleting ? (
+                          <LoadingSpinner
+                            totalVisuals={3}
+                            containerClass="w-3 md:w-4 h-3 2xl:h-4"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => handleDelete(user._id)}
+                            className="btn btn-danger !px-5 lg:!px-10 !py-1"
+                          >
+                            Delete
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}

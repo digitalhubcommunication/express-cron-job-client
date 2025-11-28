@@ -12,7 +12,6 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { formatDateForDisplay, removeProtocolRegex } from "@/utils/utils";
 import ClearCronLogBtn from "./components/ClearCronLogBtn";
-import DeleteCronHistory from "@/pages/admin/cronHistory/DeleteCronHistory";
 
 export type TCronType = '' | "manual" | "default";
 export type TFilterBy = "title" | "status";
@@ -110,7 +109,7 @@ params.append("status", statusCode);
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
               >
-                { !!logs.length  && cronType==="" ? <DeleteCronHistory setLogs={setLogs}  setCurrentPage={setCurrentPage} />:<></>}
+                { !!logs.length  && cronType==="" ? <ClearCronLogBtn setLogs={setLogs}  setCurrentPage={setCurrentPage} />:<></>}
               </SearchBar>
               <div className="w-full table-shadow rounded-[10px] max-w-full overflow-x-auto max-h-[60vh] mt-10 lg:mt-0">
                 <table className="relative text-[16px] md:text-1 2xl:text-[16px] min-w-full divide-y divide-gray-200">

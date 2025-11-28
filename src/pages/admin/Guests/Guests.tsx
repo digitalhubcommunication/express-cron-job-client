@@ -4,8 +4,8 @@ import {
   useDeleteGuestUserMutation,
   useLazyGetGuestUsersQuery,
 } from "@/redux/features/adminActions/adminActions";
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { IGuestUser, IUser, TUserFilter } from "@/types/types";
+import {  KeyboardEvent, useEffect, useRef, useState } from "react";
+import { IGuestUser } from "@/types/types";
 import { toast } from "react-toastify";
 import {
   FilterIcon,

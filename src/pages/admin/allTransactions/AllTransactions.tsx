@@ -1,4 +1,4 @@
-import { CheckIcon, CopyIcon, XMarkIcon } from "@/components/icons/Icons";
+import {  CopyIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import Pagination from "@/pages/shared/Pagination";
@@ -6,7 +6,7 @@ import SearchBar from "@/pages/user/transactionHistory/SearchBar";
 import { TStatusCode } from "@/pages/user/transactionHistory/TransactionHistory";
 import { useLazyGetAllTransactionHistoryQuery } from "@/redux/features/adminActions/adminActions";
 import { IPackage, IUser } from "@/types/types";
-import { formatDateForDisplay, splitUrlIntoSpans } from "@/utils/utils";
+import {  splitUrlIntoSpans } from "@/utils/utils";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";

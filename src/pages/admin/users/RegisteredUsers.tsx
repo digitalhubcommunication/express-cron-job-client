@@ -15,7 +15,7 @@ import {
   getUserFilterInputPlaceholderText,
 } from "@/utils/utils";
 import Pagination from "@/pages/shared/Pagination";
-import { Link, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -79,17 +79,6 @@ export default function RegisteredUsers() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleDeleteUser = (userId:string) => {
-    const isMadAdmin = confirm("Are you out of your mind?");
-    if(isMadAdmin) return;
-
-    const msg = `Are you sure you want to delete this user`;
-    const agree = confirm(msg);
-    if (!agree) return;
-
-    // Change user status
   };
 
   // navigate to user details page

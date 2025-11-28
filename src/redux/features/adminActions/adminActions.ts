@@ -1,7 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "../baseQuery";
 import { userActionApi } from "../userAction/userActionApi";
-import { IGuestUser } from "@/types/types";
 
 export const adminActionApi = createApi({
   reducerPath: "adminActionApi",

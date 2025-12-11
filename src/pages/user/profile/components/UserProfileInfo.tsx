@@ -31,7 +31,7 @@ export default function UserProfileInfo() {
         <p className=""><span className="font-semibold">Domain Name :</span> {authUser.domain}</p>
         <p className=""><span className="font-semibold">Email :</span> {authUser.email}</p>
         <p className=""><span className="font-semibold">Phone :</span> {authUser.mobile}</p>
-        <p className=""><span className="font-semibold">Current Package :</span> {authUser.subscription.name}</p>
+        <p className=""><span className="font-semibold">Current Package :</span> {authUser.subscription?.name || ""}</p>
         <p><span className="font-semibold">{getExpiryText(authUser.packageExpiresAt).label} : </span>{getExpiryText(authUser.packageExpiresAt).date}</p>
       </div>
     </>

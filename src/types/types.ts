@@ -1,0 +1,216 @@
+import { FC } from "react";
+
+export type TSidebarLink = {
+  label: string;
+  Icon: FC;
+  to: string;
+};
+
+export type TLink = {
+  label: string;
+  to: string;
+};
+
+export type UserRole = "admin" | "user";
+export type SubscriptionType = "silver" | "gold" | "diamond" | "trial";
+
+export type TDomain = {
+  status: "enabled" | "disabled";
+  url: string;
+  _id: string;
+};
+
+export type TManualDomain = {
+  status: "enabled" | "disabled";
+  url: string;
+  title: string;
+  executeInMs: number;
+  _id: string;
+};
+
+interface NotificationPreferences {
+  telegram: boolean;
+  email: boolean;
+}
+
+interface SubscriptionInfo {
+  createdAt: string;
+  intervalInMs: number;
+  manualCronLimit: number;
+  name: string;
+  price: number;
+  status: "enabled" | "disabled";
+  updatedAt: Date;
+  validity: number;
+  _id: string;
+}
+
+interface Profile {
+  avatarUrl?: string;
+  bio?: string;
+}
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  username: string;
+  mobile: string;
+  status: "pending" | "enabled" | "disabled" | "deleted" | "blocked";
+  role: UserRole;
+  domain: string;
+  accessToken: string;
+  refreshToken: string;
+  defaultDomains: TDomain[];
+  manualDomains?: TManualDomain[];
+  telegramId?: string;
+  telegramConnected: boolean;
+  packageExpiresAt: string;
+  subscription: SubscriptionInfo;
+  manualCronCount: number;
+  allowedToAddManualDomains: boolean;
+  notificationPreferences: NotificationPreferences;
+  twoFactorEnabled: boolean;
+  profile: Profile;
+}
+
+// --- Table Row Data Structure ---
+export interface CronJobRowData {
+  _id: string;
+  url: string;
+  cronType: "Default" | "Manual";
+  status: "enabled" | "disabled";
+}
+
+export type TCronHistory = {
+  _id: string;
+  domain: string;
+  status: number;
+  type: "manual" | "default";
+  success: boolean;
+  responseTime: number;
+  message: string;
+};
+
+// package type
+export type TPackage = {
+  _id: string;
+  name: string;
+  validity: number;
+  intervalInMs: number;
+  price: number;
+  manualCronLimit: number;
+  status: "enabled" | "disabled";
+};
+
+export type TDistributor = {
+  _id: string;
+  company_name: string;
+  category: string;
+  address: string;
+  website: string;
+  email: string;
+  contacts: {
+    whatsAppUrl: string;
+    telegramBotUrl: string;
+    telegramChannelUrl: string;
+  };
+};
+
+
+export type TFeature = {
+  title: string;
+  Icon: FC;
+  des: string;
+};
+
+// user lists
+export type TUserFilter =
+  | "name"
+  | "email"
+  | "status"
+  | "domain"
+  | "subscription"
+  | "expired";
+
+export type TUserRole = "admin" | "user";
+
+export type TDecodedToken = {
+  role: TUserRole;
+  id: string;
+  email: string;
+  exp: number;
+  iat: number;
+};
+
+export interface ICronLog {
+  _id: string;
+  title: string;
+  userId: string;
+  domain: string;
+  domainType: "default" | "manual" | ""; // empty string for “all” case
+  message: string;
+  status: number;
+  responseTime: number;
+  timestamp: string; // ISO string
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface IPackage {
+  _id: string; // optional if coming from MongoDB
+  name: string; // "Free"
+  price: number; // 0
+  status: "enabled" | "disabled"; // enum for clarity
+  intervalInMs: number; // 7000
+  manualCronLimit: number; // 3
+  validity: number; // 2 (in days)
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+}
+
+export interface IInitializeTransactionResponse {
+  success: boolean;
+  message: string;
+  paymentId: string;
+  wallet_address: string;
+  expiresAt: string; // ISO date string
+  package: IPackage;
+}
+
+export interface ITransaction {
+  _id: string;
+  userId: string;
+  status: "success" | "fail" | "pending";
+  amount: number;
+  transactionHash: string;
+  packageId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IMail {
+  _id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: string;
+}
+
+export type TCountry = {
+  name: string;
+  code: string;
+  dialCode: string;
+  flag: string;
+  format: RegExp;
+  example: string;
+};
+
+export interface IGuestUser {
+  _id: string;
+  email: string;
+  domain: string;
+  type: "newslater" | "promotional";
+}

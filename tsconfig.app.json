@@ -1,0 +1,36 @@
+// tsconfig.app.json
+{
+  "extends": "./tsconfig.json", // This line means it inherits from your root tsconfig.json
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // ************* ADD OR VERIFY THESE LINES HERE *************
+    "baseUrl": ".", // Make sure this is present
+    "paths": {
+      "@/*": ["./src/*"] // Make sure this is present
+    }
+    // **********************************************************
+  },
+  "include": ["src"], // Ensure your 'src' directory is included here
+  "exclude": ["node_modules"] // Standard exclusion
+}

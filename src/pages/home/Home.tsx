@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Features from "./components/Features";
 import LatestUpdates from "../package/components/LatestUpdates";
 import Distributor from "../about/components/Distributor";
+import FAQ from "./components/FAQ";
 
 export default function Home() {
   return (
@@ -49,6 +50,7 @@ export default function Home() {
         </Link>
       </LatestUpdates>
       <Distributor />
+      <FAQ />
       <section className="section w-full">
         <Container>
           <h3 className="text-center mb-2 font-semibold">Get you domain automated</h3>

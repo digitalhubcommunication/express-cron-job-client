@@ -69,6 +69,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-    </div>
+    </div >
   );
 }

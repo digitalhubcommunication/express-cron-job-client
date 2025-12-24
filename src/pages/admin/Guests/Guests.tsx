@@ -4,7 +4,7 @@ import {
   useDeleteGuestUserMutation,
   useLazyGetGuestUsersQuery,
 } from "@/redux/features/adminActions/adminActions";
-import {  KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { IGuestUser } from "@/types/types";
 import { toast } from "react-toastify";
 import {
@@ -36,15 +36,17 @@ export default function Guests() {
   };
 
   const handleFilter = () => {
-    if (!inputRef?.current || !inputRef?.current?.value) return;
+    // if (!inputRef?.current || !inputRef?.current?.value) return;
     try {
       loadData();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error filtering:", error);
+    }
   };
 
   const handleDelete = async (id: string) => {
-    const agree  = confirm("Are you sure! You want to delete this guest user ?")
-    if(!agree) return;
+    const agree = confirm("Are you sure! You want to delete this guest user ?")
+    if (!agree) return;
 
     setDeletingId(id);
     try {
@@ -63,15 +65,16 @@ export default function Guests() {
 
   const loadData = async () => {
     try {
-      let query = buildUserFilterQuery(
+      const query = buildUserFilterQuery(
         "email",
         inputRef.current?.value || "",
-        currentPage
+        currentPage,
       );
 
       const result = await loadUsers(query).unwrap();
+      console.log("Guest users:", result);
       if (result?.success) {
-        setUsers(result.users || []);
+        setUsers(result.data || []);
         setTotalPages(result.totalPages);
       } else {
         throw new Error(result.message);
@@ -86,6 +89,9 @@ export default function Guests() {
     loadData();
   }, [currentPage]);
 
+
+  // starting page
+  const startingIndex = (currentPage - 1) * 20 + 1;
   return (
     <DashboardContainer
       className={`pt-10 lg:pt-[110px] ${isLoading && "pointer-events-none"}`}
@@ -107,9 +113,8 @@ export default function Guests() {
                 <span>Email</span>
               </div>
               <div
-                className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
-                  focused ? "border-slate-400" : "border-slate-300"
-                }  `}
+                className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${focused ? "border-slate-400" : "border-slate-300"
+                  }  `}
               >
                 <input
                   ref={inputRef}
@@ -159,13 +164,12 @@ export default function Guests() {
                     <tr
                       title="See details"
                       key={user._id}
-                      className={`cursor-pointer border-t ${
-                        i % 2 === 0
-                          ? "hover:bg-slate-100/50"
-                          : "bg-slate-100 hover:bg-slate-200/50"
-                      } border-slate-300 text-sm xl:text-base`}
+                      className={`cursor-pointer border-t ${i % 2 === 0
+                        ? "hover:bg-slate-100/50"
+                        : "bg-slate-100 hover:bg-slate-200/50"
+                        } border-slate-300 text-sm xl:text-base`}
                     >
-                      <td className="w-20 px-3 py-2">{i + 1}</td>
+                      <td className="w-20 px-3 py-2">{startingIndex + i}</td>
                       <td className="max-w-[300px] px-3 py-2">{user.email}</td>
                       <td className="px-3 py-2">{user.domain}</td>
                       <td className="max-w-[200px] px-3 py-2 text-center">
@@ -196,12 +200,14 @@ export default function Guests() {
         )}
 
         {totalPages > 1 ? (
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalPages={totalPages}
-            containerStyle="flex items-center justify-center gap-5"
-          />
+          <>
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+              containerStyle="flex items-center justify-center gap-5"
+            />
+          </>
         ) : (
           <></>
         )}

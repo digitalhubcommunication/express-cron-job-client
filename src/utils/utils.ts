@@ -84,8 +84,8 @@ export function isTokenExpired(token?: string): boolean {
 }
 
 
-export const buildUserFilterQuery = (key: TUserFilter, value: string, currentPage: number) => {
-  const limit = 20;
+export const buildUserFilterQuery = (key: TUserFilter, value: string, currentPage: number, limit: number = 20) => {
+  // const limit = 20;
   const params = new URLSearchParams({
     [key]: value,
     page: currentPage.toString(),

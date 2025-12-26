@@ -27,6 +27,7 @@ export default function Guests() {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [limit, setLimit] = useState(20);
 
   // handlers
   const handleKeyChange = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -69,6 +70,7 @@ export default function Guests() {
         "email",
         inputRef.current?.value || "",
         currentPage,
+        limit
       );
 
       const result = await loadUsers(query).unwrap();
@@ -87,11 +89,11 @@ export default function Guests() {
 
   useEffect(() => {
     loadData();
-  }, [currentPage]);
+  }, [currentPage, limit]);
 
 
   // starting page
-  const startingIndex = (currentPage - 1) * 20 + 1;
+  const startingIndex = (currentPage - 1) * limit + 1;
   return (
     <DashboardContainer
       className={`pt-10 lg:pt-[110px] ${isLoading && "pointer-events-none"}`}
@@ -206,6 +208,8 @@ export default function Guests() {
               setCurrentPage={setCurrentPage}
               totalPages={totalPages}
               containerStyle="flex items-center justify-center gap-5"
+              limit={limit}
+              setLimit={setLimit}
             />
           </>
         ) : (

@@ -18,6 +18,8 @@ export default function Pagination({
   setCurrentPage,
   buttonStyle = "",
   containerStyle = "",
+  limit = 20,
+  setLimit,
 }: Props) {
   const maxVisiblePages = useResponsivePageWindow();
   const [jumpPage, setJumpPage] = useState("");
@@ -157,7 +159,9 @@ export default function Pagination({
       {/* data limit */}
       <div className="flex gap-4 items-center">
         <p>Select Page</p>
-        <select className="border border-slate-500 rounded-md px-1" >
+        <select value={limit} onChange={(e) => {
+          if (setLimit) setLimit(Number(e.target.value));
+        }} className="border border-slate-500 rounded-md px-1" >
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>

@@ -95,6 +95,9 @@ const AddNewCron = () => {
                     }`}
                   placeholder="Enter title"
                 />
+                {!!errors?.title && (
+                  <p className="mt-1 text-red-500">{errors.title?.message}</p>
+                )}
               </div>
               <div>
                 <label className="mb-1" htmlFor="url">
@@ -129,6 +132,10 @@ const AddNewCron = () => {
                     }`}
                   placeholder="Enter cron URL"
                 />
+
+                {!!errors?.url && (
+                  <p className="mt-1 text-red-500">{errors.url?.message}</p>
+                )}
               </div>
             </div>
 

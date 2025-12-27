@@ -201,20 +201,14 @@ export default function Guests() {
           </div>
         )}
 
-        {totalPages > 1 ? (
-          <>
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={totalPages}
-              containerStyle="flex items-center justify-center gap-5"
-              limit={limit}
-              setLimit={setLimit}
-            />
-          </>
-        ) : (
-          <></>
-        )}
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+          containerStyle="flex items-center justify-center gap-5"
+          limit={limit}
+          setLimit={setLimit}
+        />
       </section>
     </DashboardContainer>
   );

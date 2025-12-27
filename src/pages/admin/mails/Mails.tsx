@@ -107,7 +107,7 @@ export default function Mails() {
               </div>
             </>
           )}
-          {totalPages > 1 && !isLoading && mails?.length && (
+          {!isLoading && mails?.length && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

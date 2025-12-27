@@ -13,7 +13,7 @@ export type TFilterBy = "hash" | "status";
 export type TStatusCode = "success" | "failed";
 
 export default function TransactionHistory() {
-  const [getHistory, {}] = useLazyGetTransactionHistoryQuery();
+  const [getHistory, { }] = useLazyGetTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
@@ -31,7 +31,7 @@ export default function TransactionHistory() {
       let params: URLSearchParams = new URLSearchParams({
         page: currentPage.toString(),
         transactionHash,
-        status:statusCode,
+        status: statusCode,
         limit: `${limit}`,
       });
 
@@ -171,7 +171,7 @@ export default function TransactionHistory() {
               </div>
             </>
           )}
-          {totalPages > 1 && !isLoading && transactions?.length && (
+          {!isLoading && transactions?.length && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

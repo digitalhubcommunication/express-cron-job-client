@@ -244,7 +244,7 @@ export default function AllTransactions() {
                 </table> */}
             </>
           )}
-          {totalPages > 1 && !isLoading && transactions?.length && (
+          {!isLoading && transactions?.length && (
             <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

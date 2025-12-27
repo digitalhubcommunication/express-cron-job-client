@@ -76,89 +76,93 @@ export default function Pagination({
 
   return (
     <div className={`flex flex-wrap items-center gap-5 lg:gap-10 my-5 xl:my-10 ${containerStyle}`}>
-      {/* Pagination Controls */}
-      <div className="flex justify-center text-xs md:text-sm lg:text-base gap-1 md:gap-2 flex-wrap items-center">
-        {/* First */}
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((currentPage - 10) > 1 ? currentPage - 10 : 1)}
-          className={`px-2 py-1 rounded bg-slate-200 disabled:opacity-50 ${buttonStyle}`}
-        >
-          ⏮
-        </button>
 
-        {/* Prev */}
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((p) => p - 1)}
-          className={`px-2 py-1 rounded bg-slate-200 flex items-center justify-center disabled:opacity-50 ${buttonStyle}`}
-        >
-          <AngleLeftIcon />
-        </button>
-
-        {/* Page numbers */}
-        {pageRange.map((page, idx) =>
-          page === "..." ? (
-            <span key={`ellipsis-${idx}`} className="px-2 py-1">
-              ...
-            </span>
-          ) : (
+      {
+        totalPages > 1 ? <>
+          <div className="flex justify-center text-xs md:text-sm lg:text-base gap-1 md:gap-2 flex-wrap items-center">
+            {/* First */}
             <button
-              key={page}
-              onClick={() => setCurrentPage(Number(page))}
-              className={`px-3 py-1 rounded transition-colors ${currentPage === page
-                ? "bg-blue-600 text-white"
-                : "bg-slate-200 hover:bg-slate-300"
-                } ${buttonStyle}`}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((currentPage - 10) > 1 ? currentPage - 10 : 1)}
+              className={`px-2 py-1 rounded bg-slate-200 disabled:opacity-50 ${buttonStyle}`}
             >
-              {page}
+              ⏮
             </button>
-          )
-        )}
 
-        {/* Next */}
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((p) => p + 1)}
-          className={`px-2 py-1 rounded bg-slate-200 flex items-center justify-center disabled:opacity-50 ${buttonStyle}`}
-        >
-          <AngleRightIcon />
-        </button>
+            {/* Prev */}
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+              className={`px-2 py-1 rounded bg-slate-200 flex items-center justify-center disabled:opacity-50 ${buttonStyle}`}
+            >
+              <AngleLeftIcon />
+            </button>
 
-        {/* Last */}
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((currentPage + 10) < totalPages ? currentPage + 10 : totalPages)}
-          className={`px-2 py-1 rounded bg-slate-200 disabled:opacity-50 ${buttonStyle}`}
-        >
-          ⏭
-        </button>
-      </div>
+            {/* Page numbers */}
+            {pageRange.map((page, idx) =>
+              page === "..." ? (
+                <span key={`ellipsis-${idx}`} className="px-2 py-1">
+                  ...
+                </span>
+              ) : (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(Number(page))}
+                  className={`px-3 py-1 rounded transition-colors ${currentPage === page
+                    ? "bg-blue-600 text-white"
+                    : "bg-slate-200 hover:bg-slate-300"
+                    } ${buttonStyle}`}
+                >
+                  {page}
+                </button>
+              )
+            )}
 
-      {/* Jump to Page */}
-      <div className="flex justify-center items-center gap-2">
-        <p className="text-sm">Jump to</p>
-        <input
-          type="number"
-          value={jumpPage}
-          onChange={(e) => setJumpPage(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleJump()}
-          className="border border-slate-300 p-1 px-2 w-14 rounded-md text-center text-sm focus:outline-none focus:ring focus:ring-blue-200"
-          min={1}
-          max={totalPages}
-        />
-        <button
-          onClick={handleJump}
-          className="bg-blue-600 text-white text-sm py-1 px-3 rounded-md hover:bg-blue-700"
-        >
-          Go
-        </button>
-      </div>
+            {/* Next */}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+              className={`px-2 py-1 rounded bg-slate-200 flex items-center justify-center disabled:opacity-50 ${buttonStyle}`}
+            >
+              <AngleRightIcon />
+            </button>
+
+            {/* Last */}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((currentPage + 10) < totalPages ? currentPage + 10 : totalPages)}
+              className={`px-2 py-1 rounded bg-slate-200 disabled:opacity-50 ${buttonStyle}`}
+            >
+              ⏭
+            </button>
+          </div>
+
+          {/* Jump to Page */}
+          <div className="flex justify-center items-center gap-2">
+            <p className="text-sm">Jump to</p>
+            <input
+              type="number"
+              value={jumpPage}
+              onChange={(e) => setJumpPage(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleJump()}
+              className="border border-slate-300 p-1 px-2 w-14 rounded-md text-center text-sm focus:outline-none focus:ring focus:ring-blue-200"
+              min={1}
+              max={totalPages}
+            />
+            <button
+              onClick={handleJump}
+              className="bg-blue-600 text-white text-sm py-1 px-3 rounded-md hover:bg-blue-700"
+            >
+              Go
+            </button>
+          </div>
+        </> : <></>
+      }
 
 
       {/* data limit */}
       <div className="flex gap-4 items-center">
-        <p>Select Page</p>
+        <p>Select items</p>
         <select value={limit} onChange={(e) => {
           if (setLimit) setLimit(Number(e.target.value));
         }} className="border border-slate-500 rounded-md px-1" >

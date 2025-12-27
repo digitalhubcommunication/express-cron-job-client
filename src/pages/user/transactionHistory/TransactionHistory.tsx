@@ -13,22 +13,23 @@ export type TFilterBy = "hash" | "status";
 export type TStatusCode = "success" | "failed";
 
 export default function TransactionHistory() {
-  const [getHistory, { }] = useLazyGetTransactionHistoryQuery();
+  const [getHistory] = useLazyGetTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
-
+  const [limit, setLimit] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [statusCode, setStatusCode] = useState<TStatusCode>("success");
   const [transactionHash, setTransactionHash] = useState("");
-  const limit = 50;
 
   // requried fields
   useEffect(() => {
     const loadLog = async () => {
-      !isLoading && setIsLoading(true);
-      let params: URLSearchParams = new URLSearchParams({
+      if (!isLoading) {
+        setIsLoading(true);
+      }
+      const params: URLSearchParams = new URLSearchParams({
         page: currentPage.toString(),
         transactionHash,
         status: statusCode,
@@ -59,6 +60,7 @@ export default function TransactionHistory() {
   }, [
     currentPage,
     statusCode,
+    limit
   ]);
 
   const startingIndex = (currentPage - 1) * limit;
@@ -176,6 +178,8 @@ export default function TransactionHistory() {
               totalPages={totalPages}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
+              limit={limit}
+              setLimit={setLimit}
             />
           )}
         </div>

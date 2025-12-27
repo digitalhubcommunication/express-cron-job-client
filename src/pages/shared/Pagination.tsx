@@ -162,6 +162,8 @@ export default function Pagination({
         <select value={limit} onChange={(e) => {
           if (setLimit) setLimit(Number(e.target.value));
         }} className="border border-slate-500 rounded-md px-1" >
+          <option value="1">1</option>
+          <option value="2">2</option>
           <option value="20">20</option>
           <option value="30">30</option>
           <option value="50">50</option>

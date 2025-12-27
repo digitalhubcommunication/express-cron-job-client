@@ -11,7 +11,7 @@ export type TFilterBy = "title" | "status";
 export type TStatusCode = "200" | "400" | "";
 
 export default function UserCronHistory() {
-  const [getCronLog, {}] = useLazyGetAdminCronHistoryQuery();
+  const [getCronLog] = useLazyGetAdminCronHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
@@ -20,16 +20,19 @@ export default function UserCronHistory() {
   const [filterBy, setFilterBy] = useState<TFilterBy>("status");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(50);
   const [statusCode, setStatusCode] = useState<TStatusCode>("");
   const [domainTitle, setDomainTitle] = useState("");
   const [refetch, setRefetch] = useState(false);
-  const limit = 50;
 
   // requried fields
   useEffect(() => {
     const loadLog = async () => {
-      !isLoading && setIsLoading(true);
-      let params: URLSearchParams = new URLSearchParams({
+      if (!isLoading) {
+        setIsLoading(true);
+      }
+
+      const params: URLSearchParams = new URLSearchParams({
         page: currentPage.toString(),
         limit: `${limit}`,
         filterBy,
@@ -81,6 +84,7 @@ export default function UserCronHistory() {
     statusCode,
     domainTitle,
     refetch === true,
+    limit
   ]);
   return (
     <DashboardContainer>
@@ -103,6 +107,7 @@ export default function UserCronHistory() {
           currentPage={currentPage}
           isLoading={isLoading}
           setCronType={setCronType}
+          setLimit={setLimit}
           key="ALL_USERS_CRON"
         >
           {!!logs.length && cronType === "" ? (

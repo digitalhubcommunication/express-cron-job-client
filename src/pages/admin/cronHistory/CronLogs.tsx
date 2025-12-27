@@ -24,6 +24,7 @@ type Props = {
   setStatusCode: Dispatch<SetStateAction<TStatusCode>>;
   setCurrentPage: Dispatch<SetStateAction<number>>;
   limit: number;
+  setLimit?: Dispatch<SetStateAction<number>>;
   currentPage: number;
   totalPages: number;
   children: ReactNode;
@@ -140,7 +141,7 @@ export default function CronLogs(props: Props) {
                   ) : (
                     props.logs?.map((history, index) => (
                       <tr
-                        onClick={()=>toast.info(history.message)}
+                        onClick={() => toast.info(history.message)}
                         key={history._id}
                         className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                       >
@@ -199,6 +200,8 @@ export default function CronLogs(props: Props) {
             totalPages={props.totalPages}
             currentPage={props.currentPage}
             setCurrentPage={props.setCurrentPage}
+            setLimit={props.setLimit}
+            limit={props.limit}
           />
         ) : (
           <></>

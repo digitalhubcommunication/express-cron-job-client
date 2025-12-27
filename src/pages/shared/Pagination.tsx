@@ -24,7 +24,7 @@ export default function Pagination({
   const maxVisiblePages = useResponsivePageWindow();
   const [jumpPage, setJumpPage] = useState("");
 
-  if (totalPages <= 1) return null;
+  // if (totalPages <= 1) return null;
 
   // ✅ Helper: build a compact, dynamic page range
   const getMiddlePageRange = () => {

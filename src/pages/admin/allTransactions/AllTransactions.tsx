@@ -24,7 +24,7 @@ export interface ITransaction {
 
 export default function AllTransactions() {
   //  const { authUser } = useSelector((state: RootState) => state.auth);
-  const [getHistory, { }] = useLazyGetAllTransactionHistoryQuery();
+  const [getHistory] = useLazyGetAllTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);

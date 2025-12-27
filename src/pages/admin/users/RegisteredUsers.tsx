@@ -24,15 +24,17 @@ export function useQuery() {
 export default function RegisteredUsers() {
   const query = useQuery();
   const expired = query.get("expired");
-  
+
   const [loadUsers] = useLazyGetUsersQuery();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<IUser[]>([]);
   const [filterType, setFilterType] = useState<TUserFilter>("name");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(1);
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
 
   // handlers
   const handleFilterChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -51,7 +53,9 @@ export default function RegisteredUsers() {
     try {
       setLoading(true);
       loadData();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const loadData = async () => {
@@ -59,11 +63,12 @@ export default function RegisteredUsers() {
       let query = buildUserFilterQuery(
         filterType,
         inputRef.current?.value || "",
-        currentPage
+        currentPage,
+        limit
       );
 
-      if(expired){
-        query+= `&expired=${expired}`;
+      if (expired) {
+        query += `&expired=${expired}`;
       }
 
       const result = await loadUsers(query).unwrap();
@@ -89,7 +94,9 @@ export default function RegisteredUsers() {
 
   useEffect(() => {
     loadData();
-  }, [currentPage, expired]);
+  }, [currentPage, expired, limit]);
+
+  const indexOffset = (currentPage - 1) * limit;
 
   return (
     <DashboardContainer
@@ -117,9 +124,8 @@ export default function RegisteredUsers() {
               </select>
             </div>
             <div
-              className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${
-                focused ? "border-slate-400" : "border-slate-300"
-              }  `}
+              className={`w-full duration-200 overflow-hidden rounded-[5px] lg:rounded-[7px] flex max-w-[500px] border ${focused ? "border-slate-400" : "border-slate-300"
+                }  `}
             >
               <input
                 ref={inputRef}
@@ -171,13 +177,12 @@ export default function RegisteredUsers() {
                       onClick={() => handleSeeDetails(user._id)}
                       title="See details"
                       key={user._id}
-                      className={`cursor-pointer border-t ${
-                        i % 2 === 0
-                          ? "hover:bg-slate-100/50"
-                          : "bg-slate-100 hover:bg-slate-200/50"
-                      } border-slate-300 text-sm xl:text-base`}
+                      className={`cursor-pointer border-t ${i % 2 === 0
+                        ? "hover:bg-slate-100/50"
+                        : "bg-slate-100 hover:bg-slate-200/50"
+                        } border-slate-300 text-sm xl:text-base`}
                     >
-                      <td className="w-20 px-3 py-2">{i + 1}</td>
+                      <td className="w-20 px-3 py-2">{indexOffset + i + 1}</td>
                       <td className="max-w-[200px] px-3 py-2">{user.name}</td>
                       <td className="max-w-[300px] px-3 py-2">{user.email}</td>
                       <td className="px-3 py-2">{user.domain}</td>
@@ -268,6 +273,8 @@ export default function RegisteredUsers() {
           setCurrentPage={setCurrentPage}
           totalPages={totalPages}
           containerStyle="flex items-center justify-center gap-5"
+          limit={limit}
+          setLimit={setLimit}
         />
       </section>
     </DashboardContainer>

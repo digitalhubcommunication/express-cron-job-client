@@ -4,6 +4,9 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "noImplicitAny": false
+  }
   // No compilerOptions directly here if they are extended/defined in referenced files
 }

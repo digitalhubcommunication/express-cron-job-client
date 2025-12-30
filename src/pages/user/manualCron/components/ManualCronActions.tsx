@@ -36,7 +36,7 @@ const AddNewCron = () => {
       if (res.success) {
         toast.success(res?.message);
         dispatch(toggleModal(null));
-        console.log(res.domain,' domain response')
+        console.log(res.domain, ' domain response')
         dispatch(setManualDomain(res.domain));
         reset();
       }
@@ -46,7 +46,7 @@ const AddNewCron = () => {
     }
   };
 
-  if(!authUser) return <></>;
+  if (!authUser) return <></>;
 
   const limit = authUser?.subscription?.manualCronLimit || 3;
   const remainingLimit = limit - authUser?.manualCronCount;
@@ -84,14 +84,20 @@ const AddNewCron = () => {
                   type="text"
                   {...register("title", {
                     required: "Title is required",
+                    maxLength: {
+                      value: 30,
+                      message: "Title cannot exceed 30 characters",
+                    },
                   })}
-                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                    errors.title
-                      ? "border-[var(--clr-danger)]"
-                      : "border-gray-300"
-                  }`}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.title
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                    }`}
                   placeholder="Enter title"
                 />
+                {!!errors?.title && (
+                  <p className="mt-1 text-red-500">{errors.title?.message}</p>
+                )}
               </div>
               <div>
                 <label className="mb-1" htmlFor="url">
@@ -101,11 +107,10 @@ const AddNewCron = () => {
                   {...register("executeInMs", {
                     required: "Execution time is required",
                   })}
-                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                    errors.executeInMs
-                      ? "border-[var(--clr-danger)]"
-                      : "border-gray-300"
-                  }`}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.executeInMs
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                    }`}
                 >
                   <option value="1800000">30 Minutes</option>
                   <option value="3600000">1 Hour</option>
@@ -121,13 +126,16 @@ const AddNewCron = () => {
                   {...register("url", {
                     required: "Url is required",
                   })}
-                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                    errors.url
-                      ? "border-[var(--clr-danger)]"
-                      : "border-gray-300"
-                  }`}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.url
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                    }`}
                   placeholder="Enter cron URL"
                 />
+
+                {!!errors?.url && (
+                  <p className="mt-1 text-red-500">{errors.url?.message}</p>
+                )}
               </div>
             </div>
 

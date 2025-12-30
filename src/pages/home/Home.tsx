@@ -5,6 +5,8 @@ import { Button } from "@/components/button/Button";
 import { Link } from "react-router-dom";
 import Features from "./components/Features";
 import LatestUpdates from "../package/components/LatestUpdates";
+import Distributor from "../about/components/Distributor";
+import FAQ from "./components/FAQ";
 
 export default function Home() {
   return (
@@ -24,11 +26,11 @@ export default function Home() {
             </p>
             <div className="w-full flex flex-wrap lg:flex-nowrap items-center gap-3 lg:gap-5 items-center">
               <Link to="/packages">
-              <Button className="ecj_fs-base" label="Get Now" />
-            </Link>
-            <Link className="block " target="_blank" to="https://telegram.me/ExpressCronJOB">
-              <Button className="!bg-blue-500 !text-white ecj_fs-base" label="Join our telegram channel" />
-            </Link>
+                <Button className="ecj_fs-base" label="Get Now" />
+              </Link>
+              <Link className="block " target="_blank" to="https://telegram.me/ExpressCronJOB">
+                <Button className="!bg-blue-500 !text-white ecj_fs-base" label="Join our telegram channel" />
+              </Link>
             </div>
           </div>
         </Container>
@@ -47,9 +49,8 @@ export default function Home() {
           <Button className="ecj_fs-base" label="Get Now" />
         </Link>
       </LatestUpdates>
-      {/* ====== our distributors =========
       <Distributor />
-      */}
+      <FAQ />
       <section className="section w-full">
         <Container>
           <h3 className="text-center mb-2 font-semibold">Get you domain automated</h3>
@@ -68,6 +69,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-    </div>
+    </div >
   );
 }

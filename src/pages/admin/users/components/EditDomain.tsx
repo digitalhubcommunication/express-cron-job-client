@@ -13,6 +13,7 @@ import { useUpdateUserMutation } from "@/redux/features/adminActions/adminAction
 type TDomainStatus = "enabled" | "disabled";
 
 type FormData = {
+  title: string;
   url: string;
   executeInMs: number;
   status: TDomainStatus;
@@ -51,7 +52,7 @@ export default function EditDomain({ domain, userId }: Props) {
 
   // Handle URL submission
   const onSubmit = async (data: FormData) => {
-    if (!data || !data.status || !data.url || !data.executeInMs) return;
+    if (!data || !data.status || !data.url || !data.executeInMs || !data.title) return;
 
     const dataToUpdate: { [key: string]: any } = {
       _id: domain._id,
@@ -60,6 +61,11 @@ export default function EditDomain({ domain, userId }: Props) {
     if (data.executeInMs && data.executeInMs !== domain.executeInMs) {
       dataToUpdate["executeInMs"] = data.executeInMs;
     }
+
+    if (data.title && data.title !== domain.title) {
+      dataToUpdate["title"] = data.title;
+    }
+
     if (data.url && data.url !== domain.url) {
       dataToUpdate["url"] = data.url;
     }
@@ -117,15 +123,32 @@ export default function EditDomain({ domain, userId }: Props) {
         containerStyle="bg-white max-w-[600px] md:p-1 lg:p-2"
         wrapperContainerStyle="bg-slate-500/70"
       >
-        <CustomModalHeader title="Add new cron" />
+        <CustomModalHeader title="Edit cron" />
 
         <div className="w-full h-full p-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4">
-              <p className="flex items-center gap-2">
-                <span className="font-semibold">Title: </span>
-                <span>{domain.title}</span>
-              </p>
+              <div>
+                <label className="mb-1" htmlFor="url">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  {...register("title", {
+                    required: "Title is required",
+                  })}
+                  defaultValue={domain.title}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.title
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                    }`}
+                  placeholder="Enter cron title"
+                />
+                {!!errors?.title && (
+                  <p className="mt-1 text-red-500">Title is required</p>
+                )}
+              </div>
+
               {domain.domainType === "default" ? (
                 <></>
               ) : (
@@ -142,11 +165,10 @@ export default function EditDomain({ domain, userId }: Props) {
                         message: "Minimum 3000 MS is required",
                       },
                     })}
-                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                      errors.executeInMs
-                        ? "border-[var(--clr-danger)]"
-                        : "border-gray-300"
-                    }`}
+                    className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.executeInMs
+                      ? "border-[var(--clr-danger)]"
+                      : "border-gray-300"
+                      }`}
                     placeholder="Enter execution time in seconds"
                   />
                   {!!errors?.executeInMs && (
@@ -166,11 +188,10 @@ export default function EditDomain({ domain, userId }: Props) {
                   {...register("url", {
                     required: "Url is required",
                   })}
-                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${
-                    errors.url
-                      ? "border-[var(--clr-danger)]"
-                      : "border-gray-300"
-                  }`}
+                  className={`w-full px-4 py-2 border rounded-md outline-none focus:ring-1 focus:ring-slate-400 ${errors.url
+                    ? "border-[var(--clr-danger)]"
+                    : "border-gray-300"
+                    }`}
                   placeholder="Enter cron URL"
                 />
                 {!!errors?.url && (

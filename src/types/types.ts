@@ -105,13 +105,18 @@ export type TPackage = {
 
 export type TDistributor = {
   _id: string;
-  name: string;
-  phone: string;
-  whatsApp: string;
-  faceebook: string;
-  telegram: string;
-  siteUrl: string;
+  company_name: string;
+  category: string;
+  address: string;
+  website: string;
+  email: string;
+  contacts: {
+    whatsAppUrl: string;
+    telegramBotUrl: string;
+    telegramChannelUrl: string;
+  };
 };
+
 
 export type TFeature = {
   title: string;
@@ -204,7 +209,7 @@ export type TCountry = {
 };
 
 export interface IGuestUser {
-  _id:string;
+  _id: string;
   email: string;
   domain: string;
   type: "newslater" | "promotional";

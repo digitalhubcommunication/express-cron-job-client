@@ -7,6 +7,7 @@ import { CheckIcon, XMarkIcon } from "@/components/icons/Icons";
 import { formatDateForDisplay } from "@/utils/utils";
 import Pagination from "@/pages/shared/Pagination";
 import { ICronLog } from "@/types/types";
+import { toast } from "react-toastify";
 
 type Props = {
   setFilterBy: Dispatch<SetStateAction<TFilterBy>>;
@@ -139,6 +140,7 @@ export default function CronLogs(props: Props) {
                   ) : (
                     props.logs?.map((history, index) => (
                       <tr
+                        onClick={()=>toast.info(history.message)}
                         key={history._id}
                         className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                       >

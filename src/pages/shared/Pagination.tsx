@@ -8,6 +8,8 @@ type Props = {
   setCurrentPage: Dispatch<SetStateAction<number>>;
   containerStyle?: string;
   buttonStyle?: string;
+  limit?: number;
+  setLimit?: Dispatch<SetStateAction<number>>;
 };
 
 export default function Pagination({
@@ -16,6 +18,8 @@ export default function Pagination({
   setCurrentPage,
   buttonStyle = "",
   containerStyle = "",
+  limit = 20,
+  setLimit,
 }: Props) {
   const maxVisiblePages = useResponsivePageWindow();
   const [jumpPage, setJumpPage] = useState("");
@@ -71,7 +75,7 @@ export default function Pagination({
   };
 
   return (
-    <div className={`my-5 xl:my-10 ${containerStyle}`}>
+    <div className={`flex flex-wrap items-center gap-5 lg:gap-10 my-5 xl:my-10 ${containerStyle}`}>
       {/* Pagination Controls */}
       <div className="flex justify-center text-xs md:text-sm lg:text-base gap-1 md:gap-2 flex-wrap items-center">
         {/* First */}
@@ -102,11 +106,10 @@ export default function Pagination({
             <button
               key={page}
               onClick={() => setCurrentPage(Number(page))}
-              className={`px-3 py-1 rounded transition-colors ${
-                currentPage === page
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-200 hover:bg-slate-300"
-              } ${buttonStyle}`}
+              className={`px-3 py-1 rounded transition-colors ${currentPage === page
+                ? "bg-blue-600 text-white"
+                : "bg-slate-200 hover:bg-slate-300"
+                } ${buttonStyle}`}
             >
               {page}
             </button>
@@ -125,7 +128,7 @@ export default function Pagination({
         {/* Last */}
         <button
           disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((currentPage + 10) < totalPages?currentPage + 10:totalPages)}
+          onClick={() => setCurrentPage((currentPage + 10) < totalPages ? currentPage + 10 : totalPages)}
           className={`px-2 py-1 rounded bg-slate-200 disabled:opacity-50 ${buttonStyle}`}
         >
           ⏭
@@ -133,7 +136,7 @@ export default function Pagination({
       </div>
 
       {/* Jump to Page */}
-      <div className="flex justify-center items-center gap-2 mt-4">
+      <div className="flex justify-center items-center gap-2">
         <p className="text-sm">Jump to</p>
         <input
           type="number"
@@ -150,6 +153,26 @@ export default function Pagination({
         >
           Go
         </button>
+      </div>
+
+
+      {/* data limit */}
+      <div className="flex gap-4 items-center">
+        <p>Select Page</p>
+        <select value={limit} onChange={(e) => {
+          if (setLimit) setLimit(Number(e.target.value));
+        }} className="border border-slate-500 rounded-md px-1" >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value="300">300</option>
+          <option value="500">500</option>
+          <option value="1000">1000</option>
+        </select>
       </div>
     </div>
   );

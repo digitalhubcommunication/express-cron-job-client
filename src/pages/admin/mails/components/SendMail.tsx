@@ -51,8 +51,8 @@ export default function SendMail() {
   };
 
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    console.log('clicked');
-    return;
+    // console.log('clicked');
+    // return;
     // In a real application, you would send this data to your backend
     try {
       const sendMessageFN =
@@ -85,8 +85,6 @@ export default function SendMail() {
       console.error("Error deleting:", error);
     }
   };
-
-      console.log('rebder');
 
   if (!authUser) return <></>;
   return (
@@ -148,11 +146,10 @@ export default function SendMail() {
                   id="name"
                   type="text"
                   {...register("name", { required: "Name is required" })}
-                  className={`w-full px-3 py-2 border ${
-                    errors.name
-                      ? "border-red-500"
-                      : "border-gray-300 focus:border-gray-500"
-                  } rounded-md outline-none transition-all duration-200`}
+                  className={`w-full px-3 py-2 border ${errors.name
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-gray-500"
+                    } rounded-md outline-none transition-all duration-200`}
                   placeholder="Your Name"
                 />
                 {errors.name && (
@@ -176,11 +173,10 @@ export default function SendMail() {
                 {...register("subject", {
                   required: "Subject is required",
                 })}
-                className={`w-full px-3 py-2 border ${
-                  errors.subject
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                } rounded-md outline-none transition-all duration-200`}
+                className={`w-full px-3 py-2 border ${errors.subject
+                  ? "border-red-500"
+                  : "border-gray-300 focus:border-gray-500"
+                  } rounded-md outline-none transition-all duration-200`}
                 placeholder="Enter subject"
               />
               {errors.subject && (
@@ -208,11 +204,10 @@ export default function SendMail() {
                       message: "Invalid email address",
                     },
                   })}
-                  className={`w-full px-3 py-2 border ${
-                    errors.email
-                      ? "border-red-500"
-                      : "border-gray-300 focus:border-gray-500"
-                  } rounded-md outline-none transition-all duration-200`}
+                  className={`w-full px-3 py-2 border ${errors.email
+                    ? "border-red-500"
+                    : "border-gray-300 focus:border-gray-500"
+                    } rounded-md outline-none transition-all duration-200`}
                   placeholder="you@example.com"
                 />
                 {errors.email && (
@@ -233,11 +228,10 @@ export default function SendMail() {
                 id="message"
                 rows={5}
                 {...register("message", { required: "Message is required" })}
-                className={`w-full px-3 py-2 border ${
-                  errors.message
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                } rounded-md outline-none transition-all duration-200`}
+                className={`w-full px-3 py-2 border ${errors.message
+                  ? "border-red-500"
+                  : "border-gray-300 focus:border-gray-500"
+                  } rounded-md outline-none transition-all duration-200`}
                 placeholder="Your message..."
               ></textarea>
               {errors.message && (

@@ -1,4 +1,4 @@
-import {  CopyIcon } from "@/components/icons/Icons";
+import { CopyIcon } from "@/components/icons/Icons";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import DashboardContainer from "@/components/wrapper/DashboardContainer";
 import Pagination from "@/pages/shared/Pagination";
@@ -6,7 +6,7 @@ import SearchBar from "@/pages/user/transactionHistory/SearchBar";
 import { TStatusCode } from "@/pages/user/transactionHistory/TransactionHistory";
 import { useLazyGetAllTransactionHistoryQuery } from "@/redux/features/adminActions/adminActions";
 import { IPackage, IUser } from "@/types/types";
-import {  splitUrlIntoSpans } from "@/utils/utils";
+import { splitUrlIntoSpans } from "@/utils/utils";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -24,7 +24,7 @@ export interface ITransaction {
 
 export default function AllTransactions() {
   //  const { authUser } = useSelector((state: RootState) => state.auth);
-  const [getHistory, {}] = useLazyGetAllTransactionHistoryQuery();
+  const [getHistory] = useLazyGetAllTransactionHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
@@ -38,8 +38,10 @@ export default function AllTransactions() {
   // requried fields
   useEffect(() => {
     const loadLog = async () => {
-      !isLoading && setIsLoading(true);
-      let params: URLSearchParams = new URLSearchParams({
+      if (!isLoading) {
+        setIsLoading(true);
+      }
+      const params: URLSearchParams = new URLSearchParams({
         page: currentPage.toString(),
         transactionHash,
         status: statusCode,
@@ -49,7 +51,7 @@ export default function AllTransactions() {
       try {
         const query = params.toString();
         const res = await getHistory(query).unwrap();
-        console.log(res,' res')
+        console.log(res, ' res')
         if (res.transactions && res.transactions?.length > 0) {
           setTransactions(res.transactions);
           setTotalPages(res.pages);
@@ -131,7 +133,7 @@ export default function AllTransactions() {
                       </p>
                       <p className=" w-full overflow-hidden whitespace-nowrap">
                         <span className="font-semibold">Package: </span>
-                        {history.packageId.name} (${history.amount})
+                        {history.packageId?.name} (${history.amount})
                       </p>
                       <p className="overflow-hidden flex gap-2 flex-wrap">
                         <span className="whitespace-nowrap font-semibold">

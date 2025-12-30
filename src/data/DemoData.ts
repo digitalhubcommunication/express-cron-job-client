@@ -27,6 +27,104 @@ export const distributors: TDistributor[] = [
       "telegramChannelUrl": "https://t.me/ADYunlockerNews"
     }
   },
+
+  {
+    "_id": "ady_6728384_gsm",
+    "company_name": "Heart Unlocks",
+    "category": "Wholesale GSM Server",
+    "address": "Bangladesh/UAE/Brazil/Kuwait/USA",
+    "website": "https://heartunlocks.com",
+    "email": "heartunlocks@gmail.com",
+    "contacts": {
+      "whatsAppUrl": "https://wa.me/96599095810",
+      "telegramBotUrl": "",
+      "telegramChannelUrl": "https://t.me/heartunlocks_news"
+    },
+  }
+]
+
+
+export const reseller: TDistributor[] = [
+  {
+    _id: "reseller_gsmpure",
+    company_name: "GSMPure | PureUnlocker",
+    category: "Wholesale GSM Server",
+    address: "WorldWide - Bangladesh",
+    website: "https://gsmpure.com/",
+    email: "gsmpure24h@gmail.com",
+    contacts: {
+      whatsAppUrl: "https://wa.me/8801762612284",
+      telegramBotUrl: "",
+      telegramChannelUrl: "https://t.me/+MnhbFCQ-98ExOTNl"
+    }
+  },
+  {
+    _id: "reseller_phhalidunlocker",
+    company_name: "phhalidunlocker",
+    category: "Wholesale GSM Server",
+    address: "Philippines",
+    website: "https://phhalidunlocker.com/",
+    email: "",
+    contacts: {
+      whatsAppUrl: "https://wa.link/xc6bhp",
+      telegramBotUrl: "",
+      telegramChannelUrl: "https://t.me/Phhalidunlocker20"
+    }
+  },
+  {
+    _id: "reseller_gem_flash",
+    company_name: "GEM-FLASH",
+    category: "Wholesale GSM Server",
+    address: "EGYPT",
+    website: "https://unlock.gem-flash.com/",
+    email: "Support2@gem-flash.com",
+    contacts: {
+      whatsAppUrl: "https://url.gem-flash.com/AJZW",
+      telegramBotUrl: "https://t.me/GEMFLASH_Support",
+      telegramChannelUrl: "https://t.me/gemunlock"
+    }
+  },
+  {
+    _id: "reseller_iraq_server",
+    company_name: "Iraq Server",
+    category: "Wholesale GSM Server",
+    address: "Iraq",
+    website: "https://www.iraq-server.com/",
+    email: "husseinqasim101hq@gmail.com",
+    contacts: {
+      whatsAppUrl: "https://wa.me/9647723627105",
+      telegramBotUrl: "https://clients.iraq-server.com/telegram-support-portal",
+      telegramChannelUrl: "https://t.me/iraqserver"
+    }
+  },
+  {
+    _id: "reseller_gsm_tech_africa",
+    company_name: "GSM TECH AFRICA",
+    category: "Wholesale GSM Server",
+    address: "Africa",
+    website: "https://gsmtechafrica.com/",
+    email: "gsmtechafrica@gmail.com",
+    contacts: {
+      whatsAppUrl: "https://wa.me/27718007200",
+      telegramBotUrl: "",
+      telegramChannelUrl: "https://t.me/gsmtechafrica_official"
+    }
+  },
+
+  {
+    _id: "reseller_imei_star",
+    company_name: "IMEI STAR",
+    category: "Wholesale GSM Server",
+    address: "",
+    website: "https://imeistar.com/",
+    email: "",
+    contacts: {
+      whatsAppUrl: "https://wa.me/18186509749",
+      telegramBotUrl: "https://t.me/imeistar",
+      telegramChannelUrl: "https://t.me/ImeiStar01"
+    }
+  }
+  ,
 ]
 
 

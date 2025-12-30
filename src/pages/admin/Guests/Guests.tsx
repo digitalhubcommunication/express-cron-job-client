@@ -86,7 +86,6 @@ export default function Guests() {
       toast.error(error?.data?.message);
     }
   };
-
   useEffect(() => {
     loadData();
   }, [currentPage, limit]);

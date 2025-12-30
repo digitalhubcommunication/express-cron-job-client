@@ -35,6 +35,7 @@ import AllTransactions from "@/pages/admin/allTransactions/AllTransactions";
 import Mails from "@/pages/admin/mails/Mails";
 import SingleMail from "@/pages/admin/mails/SingleMail";
 import Guests from "@/pages/admin/Guests/Guests";
+import PartnersPage from "@/pages/partners/Partners";
 
 export const router = createBrowserRouter([
   {
@@ -58,10 +59,14 @@ export const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
+        path: "partners",
+        element: <PartnersPage />,
+      },
+      {
         path: "login",
         element: <LoginPage />,
       },
-        {
+      {
         path: "reset-password",
         element: <ResetPassword />,
       },
@@ -120,8 +125,8 @@ export const router = createBrowserRouter([
         element: <CronHistoryPage />,
       },
       {
-        path:"initialize-transaction",
-        element:<InitializeTransaction />
+        path: "initialize-transaction",
+        element: <InitializeTransaction />
       },
       {
         path: "transaction-history",
@@ -171,7 +176,7 @@ export const router = createBrowserRouter([
         element: <AdminDashboardPage />,
       },
       {
-        path:"domains",
+        path: "domains",
         element: <AddedDomains />
       }
       ,
@@ -179,7 +184,7 @@ export const router = createBrowserRouter([
         path: "users",
         element: <RegisteredUsersPage />,
       },
-        {
+      {
         path: "users/:id",
         element: <UserDetails />,
       },
@@ -191,7 +196,7 @@ export const router = createBrowserRouter([
         path: "all-packages",
         element: <AllPackagesPage />,
       },
-       {
+      {
         path: "mails",
         element: <Mails />,
       },
@@ -199,7 +204,7 @@ export const router = createBrowserRouter([
         path: "mails/:id",
         element: <SingleMail />,
       },
-        {
+      {
         path: "guests",
         element: <Guests />,
       },

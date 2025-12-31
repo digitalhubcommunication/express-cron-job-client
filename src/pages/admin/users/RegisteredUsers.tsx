@@ -31,7 +31,7 @@ export default function RegisteredUsers() {
   const [filterType, setFilterType] = useState<TUserFilter>("name");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 

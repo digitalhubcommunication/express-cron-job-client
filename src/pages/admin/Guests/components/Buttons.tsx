@@ -11,7 +11,7 @@ import {
   useAddGuestUserMutation,
   useSendMessageToGuestUsersMutation,
 } from "@/redux/features/adminActions/adminActions";
-import {  useState } from "react";
+import { useState } from "react";
 
 interface ContactFormInputs {
   subject: string;
@@ -22,7 +22,7 @@ interface ContactFormInputs {
 
 type TActiveForm = "MESSAGE" | "USER";
 
-export default function Buttons({loadData}:{loadData:any}) {
+export default function Buttons({ loadData }: { loadData: any }) {
   const ACTIVE_KEY = "OPEN_EMAIL_SEND_TO_SPECIFIC_USER_MODAL";
   const dispatch = useDispatch();
   const [activeForm, setActiveForm] = useState<TActiveForm>("USER");
@@ -40,13 +40,15 @@ export default function Buttons({loadData}:{loadData:any}) {
   // handlers
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     try {
+      alert("Form clicked")
       const formSubmitFN = activeForm === "USER" ? addUser : sendMessage;
       const res = await formSubmitFN(data).unwrap();
+      console.log("Submission response:", res);
       if (res.success) {
         reset();
         toast.success(res.message);
         dispatch(toggleModal(null));
-        if(activeForm ==="USER"){
+        if (activeForm === "USER") {
           loadData()
         }
       } else {
@@ -116,11 +118,10 @@ export default function Buttons({loadData}:{loadData:any}) {
                     {...register("subject", {
                       required: "Subject is required",
                     })}
-                    className={`w-full px-3 py-2 border ${
-                      errors.subject
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
+                    className={`w-full px-3 py-2 border ${errors.subject
+                      ? "border-red-500"
+                      : "border-gray-300 focus:border-gray-500"
+                      } rounded-md outline-none transition-all duration-200`}
                     placeholder="Enter subject"
                   />
                   {errors.subject && (
@@ -142,11 +143,10 @@ export default function Buttons({loadData}:{loadData:any}) {
                     {...register("message", {
                       required: "Message is required",
                     })}
-                    className={`w-full px-3 py-2 border ${
-                      errors.message
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
+                    className={`w-full px-3 py-2 border ${errors.message
+                      ? "border-red-500"
+                      : "border-gray-300 focus:border-gray-500"
+                      } rounded-md outline-none transition-all duration-200`}
                     placeholder="Your message..."
                   ></textarea>
                   {errors.message && (
@@ -171,11 +171,10 @@ export default function Buttons({loadData}:{loadData:any}) {
                     {...register("email", {
                       required: "Enter email",
                     })}
-                    className={`w-full px-3 py-2 border ${
-                      errors.email
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
+                    className={`w-full px-3 py-2 border ${errors.email
+                      ? "border-red-500"
+                      : "border-gray-300 focus:border-gray-500"
+                      } rounded-md outline-none transition-all duration-200`}
                     placeholder="Enter email"
                   />
                   {errors.email && (
@@ -197,11 +196,10 @@ export default function Buttons({loadData}:{loadData:any}) {
                     {...register("domain", {
                       required: "Enter domain",
                     })}
-                    className={`w-full px-3 py-2 border ${
-                      errors.domain
-                        ? "border-red-500"
-                        : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
+                    className={`w-full px-3 py-2 border ${errors.domain
+                      ? "border-red-500"
+                      : "border-gray-300 focus:border-gray-500"
+                      } rounded-md outline-none transition-all duration-200`}
                     placeholder="Enter domain"
                   />
                   {errors.domain && (

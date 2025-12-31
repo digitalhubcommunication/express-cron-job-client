@@ -76,7 +76,7 @@ export default function Guests() {
       const result = await loadUsers(query).unwrap();
       console.log("Guest users:", result);
       if (result?.success) {
-        setUsers(result.data || []);
+        setUsers(result.users || []);
         setTotalPages(result.totalPages);
       } else {
         throw new Error(result.message);

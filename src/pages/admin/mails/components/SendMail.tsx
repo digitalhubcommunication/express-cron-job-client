@@ -51,12 +51,11 @@ export default function SendMail() {
   };
 
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    // console.log('clicked');
-    // return;
-    // In a real application, you would send this data to your backend
     try {
       const sendMessageFN =
         messageType === "bulk" ? sendMessageToAllUser : sendMessage;
+
+      console.log("Form clicked", loading);
       const res = await sendMessageFN(data).unwrap();
       if (res.success) {
         reset();
@@ -129,7 +128,7 @@ export default function SendMail() {
         <CustomModalHeader
           title={`Send mail ${messageType === "bulk" ? "to all users" : ""}`}
         />
-        <div className="w-full h-full p-4">
+        <div className="w-full h-full p-4 overflow-y-auto max-h-[80vh]  ">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}

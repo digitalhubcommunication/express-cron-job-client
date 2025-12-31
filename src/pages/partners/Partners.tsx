@@ -46,10 +46,13 @@ export default function PartnersPage() {
                     <div className='min-w-[350px]'>
                         <p className="ecj_fs-md text-center md:text-left mt-3 md:mt-0"> </p>
                     </div>
-                    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] mt-7 lg:mt-10  gap-6">
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(400px,1fr))] mt-7 lg:mt-10  gap-6">
                         {reseller.map((item) => (
                             <DistributorCard key={item._id} distributor={item} />
                         ))}
+                        <div className="border flex items-center justify-center p-4 md:p-5 border-slate-200 bg-blue-50/70 hover:bg-blue-50 hover:shadow-xl duration-300 rounded-[10px] overflow-hidden">
+                            <p>We are waiting for you...</p>
+                        </div>
                         <div className="border flex items-center justify-center p-4 md:p-5 border-slate-200 bg-blue-50/70 hover:bg-blue-50 hover:shadow-xl duration-300 rounded-[10px] overflow-hidden">
                             <p>We are waiting for you...</p>
                         </div>

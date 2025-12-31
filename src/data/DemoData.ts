@@ -18,7 +18,7 @@ export const distributors: TDistributor[] = [
     "_id": "ady_6728384_gsm",
     "company_name": "ADYunlocker",
     "category": "Wholesale GSM Server",
-    "address": "Dubai",
+    "address": "Dubai - WorldWide",
     "website": "https://adyunlocker.com",
     "email": "adyunlockerorders@gmail.com",
     "contacts": {
@@ -49,7 +49,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_gsmpure",
     company_name: "GSMPure | PureUnlocker",
     category: "Wholesale GSM Server",
-    address: "WorldWide - Bangladesh",
+    address: "Bangladesh - WorldWide",
     website: "https://gsmpure.com/",
     email: "gsmpure24h@gmail.com",
     contacts: {
@@ -62,7 +62,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_phhalidunlocker",
     company_name: "phhalidunlocker",
     category: "Wholesale GSM Server",
-    address: "Philippines",
+    address: "Philippines - WorldWide",
     website: "https://phhalidunlocker.com/",
     email: "",
     contacts: {
@@ -75,7 +75,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_gem_flash",
     company_name: "GEM-FLASH",
     category: "Wholesale GSM Server",
-    address: "EGYPT",
+    address: "EGYPT - WorldWide",
     website: "https://unlock.gem-flash.com/",
     email: "Support2@gem-flash.com",
     contacts: {
@@ -88,7 +88,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_iraq_server",
     company_name: "Iraq Server",
     category: "Wholesale GSM Server",
-    address: "Iraq",
+    address: "Iraq - WorldWide",
     website: "https://www.iraq-server.com/",
     email: "husseinqasim101hq@gmail.com",
     contacts: {
@@ -101,7 +101,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_gsm_tech_africa",
     company_name: "GSM TECH AFRICA",
     category: "Wholesale GSM Server",
-    address: "Africa",
+    address: "Africa - WorldWide",
     website: "https://gsmtechafrica.com/",
     email: "gsmtechafrica@gmail.com",
     contacts: {
@@ -115,7 +115,7 @@ export const reseller: TDistributor[] = [
     _id: "reseller_imei_star",
     company_name: "IMEI STAR",
     category: "Wholesale GSM Server",
-    address: "",
+    address: "WorldWide",
     website: "https://imeistar.com/",
     email: "",
     contacts: {

@@ -95,7 +95,7 @@ export default function Guests() {
   const startingIndex = (currentPage - 1) * limit + 1;
   return (
     <DashboardContainer
-      className={`pt-10 lg:pt-[110px] ${isLoading && "pointer-events-none"}`}
+      className={`pt-1 ${isLoading && "pointer-events-none"}`}
     >
       <section className="section-pb">
         <div className="w-full mb-5">

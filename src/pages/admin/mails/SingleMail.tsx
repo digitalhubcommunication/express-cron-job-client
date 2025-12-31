@@ -6,10 +6,10 @@ import { useParams } from "react-router";
 export default function SingleMail() {
   const { id } = useParams();
   const { data, isFetching } = useGetUserMailDetailsQuery(id);
-  
 
-  if(isFetching) return <PageLoading />
-  
+
+  if (isFetching) return <PageLoading />
+
   if (!data?.success)
     return (
       <div className="w-full min-h-[600px] flex items-center justify-center">

@@ -65,7 +65,7 @@ export default function Mails() {
 
   return (
     <DashboardContainer>
-      <section className="mt-5 xl:mt-10">
+      <section className="mt-3">
         <h3 className="text-center">Mails From User</h3>
         <div className=" w-full mt-5">
           {isLoading ? (
@@ -79,7 +79,7 @@ export default function Mails() {
           ) : (
             <>
               <div className="w-full">
-                <SendMail />
+                <SendMail setMails={setMails} />
                 <SearchFilter
                   filterMail={filterMail}
                   setFilterMail={setFilterMail}

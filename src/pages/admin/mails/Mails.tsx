@@ -21,8 +21,8 @@ export default function Mails() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [filterMail, setFilterMail] = useState("");
-  const limit = 50;
 
   // requried fields
   useEffect(() => {
@@ -60,7 +60,8 @@ export default function Mails() {
     currentPage,
     filterMail,
     isLoading,
-    getMails
+    getMails,
+    limit
   ]);
 
   return (
@@ -112,6 +113,8 @@ export default function Mails() {
               totalPages={totalPages}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
+              setLimit={setLimit}
+              limit={limit}
             />
           )}
         </div>

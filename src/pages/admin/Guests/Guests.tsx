@@ -73,8 +73,9 @@ export default function Guests() {
         limit
       );
 
+      console.log("Loading with query:", query);
+
       const result = await loadUsers(query).unwrap();
-      console.log("Guest users:", result);
       if (result?.success) {
         setUsers(result.users || []);
         setTotalPages(result.totalPages);

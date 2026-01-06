@@ -99,6 +99,14 @@ export const adminActionApi = createApi({
       }),
       invalidatesTags: ["user_details"],
     }),
+    deleteUserCronHistory: builder.mutation({
+      query: ({ id }) => ({
+        url: `/admin/users/cron-log`,
+        method: "PUT",
+        body: { userId: id },
+      }),
+      invalidatesTags: ["user_details"],
+    }),
 
     removeUserPackage: builder.mutation({
       query: (data) => ({
@@ -255,6 +263,7 @@ export const {
   useRemoveUserPackageMutation,
   useAssignUserPackageMutation,
   useDeleteSingleUserMutation,
+  useDeleteUserCronHistoryMutation,
 
   // guest user query
   useLazyGetGuestUsersQuery,

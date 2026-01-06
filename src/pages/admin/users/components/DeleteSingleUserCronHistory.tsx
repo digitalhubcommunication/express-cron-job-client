@@ -1,5 +1,5 @@
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import { useDeleteAdminCronHistoryMutation } from "@/redux/features/adminActions/adminActions";
+import { useDeleteUserCronHistoryMutation } from "@/redux/features/adminActions/adminActions";
 import { ICronLog } from "@/types/types";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
@@ -11,13 +11,13 @@ type Props = {
 }
 
 export default function DeleteSingleUserCronHistory({ setCurrentPage, setLogs, userId }: Props) {
-    const [clearLog, { isLoading }] = useDeleteAdminCronHistoryMutation()
+    const [clearLog, { isLoading }] = useDeleteUserCronHistoryMutation()
     console.log(userId);
     const handleClear = async () => {
         try {
             //   toast.success("Log deleted")
             //   return;
-            const res = await clearLog({}).unwrap();
+            const res = await clearLog({ id: userId }).unwrap();
             if (res?.deletedCount) {
                 setCurrentPage(1);
                 setLogs([]);

@@ -5,7 +5,7 @@ import { Button } from "@/components/button/Button";
 import { Link } from "react-router-dom";
 import Features from "./components/Features";
 import LatestUpdates from "../package/components/LatestUpdates";
-import Distributor from "../about/components/Distributor";
+// import Distributor from "../about/components/Distributor";
 import FAQ from "./components/FAQ";
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
           <Button className="ecj_fs-base" label="Get Now" />
         </Link>
       </LatestUpdates>
-      <Distributor />
+      {/* <Distributor /> */}
       <FAQ />
       <section className="section w-full">
         <Container>
@@ -69,6 +69,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-    </div>
+    </div >
   );
 }

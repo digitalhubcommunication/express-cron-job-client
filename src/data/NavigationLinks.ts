@@ -97,7 +97,7 @@ export const adminLinks: TSidebarLink[] = [
     Icon: MailBulkIcon,
     to: "/admin/mails",
   },
-   {
+  {
     label: "Guests",
     Icon: UsersIcon,
     to: "/admin/guests",
@@ -128,6 +128,11 @@ export const navLinks: TLink[] = [
     label: "Packages",
     to: "/packages",
   },
+  {
+    label: "Partners",
+    to: "/partners",
+  },
+
   {
     label: "About",
     to: "/about",

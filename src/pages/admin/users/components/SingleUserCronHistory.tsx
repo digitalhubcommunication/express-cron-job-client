@@ -3,14 +3,14 @@ import CronLogs from "../../cronHistory/CronLogs";
 import { useEffect, useState } from "react";
 import { ICronLog } from "@/types/types";
 import { toast } from "react-toastify";
-import DeleteCronHistory from "../../cronHistory/DeleteCronHistory";
+import DeleteSingleUserCronHistory from "./DeleteSingleUserCronHistory";
 
 export type TCronType = "" | "manual" | "default";
 export type TFilterBy = "title" | "status";
 export type TStatusCode = "200" | "400" | "";
 
 export default function SingleUserCronHistory({ userId }: { userId: string }) {
-  const [getCronLog, {}] = useLazyGetAdminCronHistoryQuery();
+  const [getCronLog] = useLazyGetAdminCronHistoryQuery();
 
   const [isLoading, setIsLoading] = useState(true);
   const [logs, setLogs] = useState<ICronLog[]>([]);
@@ -26,8 +26,10 @@ export default function SingleUserCronHistory({ userId }: { userId: string }) {
 
   useEffect(() => {
     const loadLog = async () => {
-      !isLoading && setIsLoading(true);
-      let params: URLSearchParams = new URLSearchParams({
+      if (!isLoading) {
+        setIsLoading(true)
+      }
+      const params: URLSearchParams = new URLSearchParams({
         page: currentPage.toString(),
         limit: `${limit}`,
         userId,
@@ -100,12 +102,13 @@ export default function SingleUserCronHistory({ userId }: { userId: string }) {
         currentPage={currentPage}
         isLoading={isLoading}
         setCronType={setCronType}
-        key="ALL_USERS_CRON"
+        key={`USER_CRON_LOG_${userId}`}
       >
         {!!logs.length && cronType === "" ? (
-          <DeleteCronHistory
+          <DeleteSingleUserCronHistory
             key="ADMIN_CRON_LOG_FILTER"
             setLogs={setLogs}
+            userId={userId}
             setCurrentPage={setCurrentPage}
           />
         ) : (

@@ -76,7 +76,7 @@ export default function Guests() {
       const result = await loadUsers(query).unwrap();
       console.log("Guest users:", result);
       if (result?.success) {
-        setUsers(result.data || []);
+        setUsers(result.users || []);
         setTotalPages(result.totalPages);
       } else {
         throw new Error(result.message);
@@ -86,7 +86,6 @@ export default function Guests() {
       toast.error(error?.data?.message);
     }
   };
-
   useEffect(() => {
     loadData();
   }, [currentPage, limit]);
@@ -96,7 +95,7 @@ export default function Guests() {
   const startingIndex = (currentPage - 1) * limit + 1;
   return (
     <DashboardContainer
-      className={`pt-10 lg:pt-[110px] ${isLoading && "pointer-events-none"}`}
+      className={`pt-1 ${isLoading && "pointer-events-none"}`}
     >
       <section className="section-pb">
         <div className="w-full mb-5">

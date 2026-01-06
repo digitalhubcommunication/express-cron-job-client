@@ -16,94 +16,115 @@ import {
   useSendMailToAllUserMutation,
   useSendMailToUserMutation,
 } from "@/redux/features/adminActions/adminActions";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { IMail } from "@/types/types";
 
-interface ContactFormInputs {
+/* ================= TYPES ================= */
+
+interface SingleMailInputs {
   name: string;
   subject: string;
   email: string;
   message: string;
 }
 
+interface BulkMailInputs {
+  subject: string;
+  message: string;
+}
+
 type TMessageType = "single" | "bulk";
 
-export default function SendMail() {
+/* ================= COMPONENT ================= */
+
+export default function SendMail({ setMails }: { setMails: Dispatch<SetStateAction<IMail[]>> }) {
   const ACTIVE_KEY = "OPEN_EMAIL_SEND_TO_NEW_USER_MODAL";
   const dispatch = useDispatch();
   const { authUser } = useSelector((state: RootState) => state.auth);
   const [messageType, setMessageType] = useState<TMessageType>("single");
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<ContactFormInputs>();
 
-  const [sendMessage, { isLoading }] = useSendMailToUserMutation();
-  const [sendMessageToAllUser, { isLoading: loading }] =
+  /* ================= FORMS ================= */
+
+  const singleForm = useForm<SingleMailInputs>();
+  const bulkForm = useForm<BulkMailInputs>();
+
+  /* ================= MUTATIONS ================= */
+
+  const [sendSingleMail, { isLoading: sendingSingle }] =
+    useSendMailToUserMutation();
+
+  const [sendBulkMail, { isLoading: sendingBulk }] =
     useSendMailToAllUserMutation();
-  const [deleteMails, { isLoading: deleting }] = useDeleteUserMailsMutation();
 
-  // handlers
-  const openMessageModal = (TMessageType: TMessageType) => {
+  const [deleteMails, { isLoading: deleting }] =
+    useDeleteUserMailsMutation();
+
+  /* ================= HANDLERS ================= */
+
+  const openMessageModal = (type: TMessageType) => {
+    setMessageType(type);
     dispatch(toggleModal(ACTIVE_KEY));
-    setMessageType(TMessageType);
   };
 
-  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
-    // console.log('clicked');
-    // return;
-    // In a real application, you would send this data to your backend
+  const onSubmitSingle: SubmitHandler<SingleMailInputs> = async (data) => {
     try {
-      const sendMessageFN =
-        messageType === "bulk" ? sendMessageToAllUser : sendMessage;
-      const res = await sendMessageFN(data).unwrap();
+      const res = await sendSingleMail(data).unwrap();
       if (res.success) {
-        reset();
+        singleForm.reset();
         toast.success(res.message);
         dispatch(toggleModal(null));
-      } else {
-        throw new Error(res.message);
       }
     } catch (error: any) {
       toast.error(error?.data?.message);
-      console.error("Submission error:", error);
+    }
+  };
+
+  const onSubmitBulk: SubmitHandler<BulkMailInputs> = async (data) => {
+    try {
+      const res = await sendBulkMail(data).unwrap();
+      if (res.success) {
+        bulkForm.reset();
+        toast.success(res.message);
+        dispatch(toggleModal(null));
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.message);
     }
   };
 
   const handleDelete = async () => {
-    // In a real application, you would send this data to your backend
     try {
       const res = await deleteMails({}).unwrap();
       if (res.success) {
         toast.success(res.message);
-      } else {
-        throw new Error(res.message);
+        setMails([]);
       }
     } catch (error: any) {
       toast.error(error?.data?.message);
-      console.error("Error deleting:", error);
     }
   };
 
-  if (!authUser) return <></>;
+  if (!authUser) return null;
+
+  /* ================= UI ================= */
+
   return (
     <>
       <div className="w-full flex items-center gap-5">
         <button
           onClick={() => openMessageModal("single")}
-          className="btn btn-success !py-2 flex items-center gap-2"
+          className="btn btn-success !py-2"
         >
-          <span>
-            <NewMailIcon />
-          </span>
+          <NewMailIcon />
         </button>
+
         <button
           onClick={() => openMessageModal("bulk")}
-          className="btn btn-success !py-2 flex items-center gap-2"
+          className="btn btn-success !py-2"
         >
           <GroupMailIcon />
         </button>
+
         {deleting ? (
           <LoadingSpinner
             className="min-h-[39.81px]"
@@ -112,149 +133,109 @@ export default function SendMail() {
         ) : (
           <button
             onClick={handleDelete}
-            className="btn btn-danger !py-2 flex items-center gap-2"
+            className="btn btn-danger !py-2"
           >
             <TrashIcon />
           </button>
         )}
       </div>
 
-      {/* ======= modal to open add new cron form ======= */}
       <CustomModal
         activeKey={ACTIVE_KEY}
         key={ACTIVE_KEY}
-        containerStyle="bg-white max-w-[600px] overflow-y-auto md:p-1 lg:p-2"
+        containerStyle="bg-white max-w-[600px]"
         wrapperContainerStyle="bg-slate-500/70"
       >
         <CustomModalHeader
-          title={`Send mail ${messageType === "bulk" ? "to all users" : ""}`}
+          title={
+            messageType === "bulk"
+              ? "Send mail to all users"
+              : "Send mail to user"
+          }
         />
-        <div className="w-full h-full p-4">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={`space-y-6 ${isLoading ? "pointer-events-none" : ""}`}
-          >
-            {messageType === "single" && (
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block ecj_fs-md font-medium mb-1"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  {...register("name", { required: "Name is required" })}
-                  className={`w-full px-3 py-2 border ${errors.name
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
-                  placeholder="Your Name"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.name?.message}
-                  </p>
-                )}
-              </div>
-            )}
 
-            <div>
-              <label
-                htmlFor="subject"
-                className="block ecj_fs-md font-medium text-gray-700 mb-1"
-              >
-                Subject
-              </label>
+        <div className="p-4 max-h-[80vh] overflow-y-auto">
+
+          {/* ===== SINGLE USER FORM ===== */}
+          {messageType === "single" && (
+            <form
+              onSubmit={singleForm.handleSubmit(onSubmitSingle)}
+              className="space-y-6 flex flex-col w-full"
+            >
               <input
-                id="subject"
-                type="text"
-                {...register("subject", {
+                {...singleForm.register("name", {
+                  required: "Name is required",
+                })}
+                placeholder="Name"
+                className="input-expand"
+              />
+
+              <input
+                {...singleForm.register("email", {
+                  required: "Email is required",
+                })}
+                placeholder="Email"
+                className="input-expand"
+              />
+
+              <input
+                {...singleForm.register("subject", {
                   required: "Subject is required",
                 })}
-                className={`w-full px-3 py-2 border ${errors.subject
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-gray-500"
-                  } rounded-md outline-none transition-all duration-200`}
-                placeholder="Enter subject"
+                placeholder="Subject"
+                className="input-expand"
               />
-              {errors.subject && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.subject.message}
-                </p>
-              )}
-            </div>
-            {messageType === "single" && (
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block ecj_fs-md font-medium text-gray-700 mb-1"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value:
-                        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  className={`w-full px-3 py-2 border ${errors.email
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-gray-500"
-                    } rounded-md outline-none transition-all duration-200`}
-                  placeholder="you@example.com"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-            )}
-            <div>
-              <label
-                htmlFor="message"
-                className="block ecj_fs-md font-medium text-gray-700 mb-1"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={5}
-                {...register("message", { required: "Message is required" })}
-                className={`w-full px-3 py-2 border ${errors.message
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-gray-500"
-                  } rounded-md outline-none transition-all duration-200`}
-                placeholder="Your message..."
-              ></textarea>
-              {errors.message && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.message.message}
-                </p>
-              )}
-            </div>
 
-            {isLoading || loading ? (
-              <LoadingSpinner
-                className="min-h-[39.81px]"
-                containerClass="w-6 md:w-8 h-6 2xl:h-8"
+              <textarea
+                {...singleForm.register("message", {
+                  required: "Message is required",
+                })}
+                placeholder="Message"
+                className="input-expand"
+                rows={5}
               />
-            ) : (
-              <Button
-                disabled={isSubmitting}
-                type="submit"
-                className="!rounded-[10px] ecj_fs-md w-full"
-                label="Send Message"
+
+              {sendingSingle ? (
+                <LoadingSpinner />
+              ) : (
+                <Button type="submit" label="Send Message" />
+              )}
+            </form>
+          )}
+
+          {/* ===== BULK USER FORM ===== */}
+          {messageType === "bulk" && (
+            <form
+              onSubmit={bulkForm.handleSubmit(onSubmitBulk)}
+              className="space-y-6 flex flex-col w-full"
+            >
+              <input
+                {...bulkForm.register("subject", {
+                  required: "Subject is required",
+                })}
+                placeholder="Subject"
+                className="input-expand"
               />
-            )}
-          </form>
+
+              <textarea
+                {...bulkForm.register("message", {
+                  required: "Message is required",
+                })}
+                placeholder="Message"
+                className="input-expand"
+                rows={5}
+              />
+
+              {sendingBulk ? (
+                <LoadingSpinner />
+              ) : (
+                <Button
+                  type="submit"
+                  label="Send Message to All"
+                />
+              )}
+            </form>
+          )}
         </div>
       </CustomModal>
     </>

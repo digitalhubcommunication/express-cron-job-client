@@ -9,7 +9,7 @@ export default function Partners() {
             slidesPerView={1}
             modules={[Autoplay]}
             autoplay={{
-                delay: 2000,
+                delay: 4000,
                 disableOnInteraction: false,
             }}
         >

@@ -8,13 +8,24 @@ export default function Partners() {
     return (
         <Swiper
             spaceBetween={20}
-            slidesPerView={3}
+            loop={true}                    // ♾ Infinite
+            slidesPerView={3}              // Desktop default
             modules={[Autoplay]}
             autoplay={{
                 delay: 4000,
                 disableOnInteraction: false,
             }}
-
+            breakpoints={{
+                0: {
+                    slidesPerView: 1,          // 📱 Mobile
+                },
+                768: {
+                    slidesPerView: 2,          // 📱 Tablet
+                },
+                1024: {
+                    slidesPerView: 3,          // 🖥 Desktop
+                },
+            }}
         >
             <SwiperSlide className="">
                 <Card className="min-h-[129px]">
@@ -39,13 +50,19 @@ export default function Partners() {
 
             <SwiperSlide className="">
                 <Card className="min-h-[129px]">
-                    <div className="text-center ecj_fs-md text-white">Coming soon...</div>
+                    <div className="text-center ecj_fs-md text-white">
+                        <p>We are waiting for your ads</p>
+                        <p>Contact for paid promotion ads</p>
+                    </div>
                 </Card>
             </SwiperSlide>
 
             <SwiperSlide className="">
                 <Card className="min-h-[129px]">
-                    <div className="text-center ecj_fs-md text-white">Coming soon...</div>
+                    <div className="text-center ecj_fs-md text-white">
+                        <p>We are waiting for your ads</p>
+                        <p>Contact for paid promotion ads</p>
+                    </div>
                 </Card>
             </SwiperSlide>
         </Swiper>

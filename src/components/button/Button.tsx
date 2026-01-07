@@ -6,7 +6,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   labelStyle?: string;
-  type?:"button"|"submit";
+  type?: "button" | "submit";
 }
 
 // global button component
@@ -16,9 +16,9 @@ export const Button: React.FC<ButtonProps> = ({
   cb,
   disabled = false,
   labelStyle = "",
-  type='button',
+  type = 'button',
 }) => {
-  
+
   // handlers
   const handleClick = () => {
     if (typeof cb === "function") {

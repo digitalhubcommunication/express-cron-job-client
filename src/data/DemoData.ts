@@ -15,6 +15,19 @@ export const distributors: TDistributor[] = [
     }
   },
   {
+    "_id": "ecj_owner_david_gsm_manager",
+    "company_name": "GSM Manager",
+    "category": "Cron Job Services / Automation",
+    "address": "Dhaka, Bangladesh, WorldWide",
+    "website": "https://gsmmanager.com/",
+    "email": "support@gsmmanager.com",
+    "contacts": {
+      "whatsAppUrl": "https://wa.me/8801314355527",
+      "telegramBotUrl": "",
+      "telegramChannelUrl": "https://t.me/gsmmanagerofficial"
+    }
+  },
+  {
     "_id": "ady_6728384_gsm",
     "company_name": "ADYunlocker",
     "category": "Wholesale GSM Server",
@@ -39,6 +52,19 @@ export const distributors: TDistributor[] = [
       "whatsAppUrl": "https://wa.me/96599095810",
       "telegramBotUrl": "",
       "telegramChannelUrl": "https://t.me/heartunlocks_news"
+    },
+  },
+  {
+    "_id": "ady_6728384_gsm_fastest",
+    "company_name": "GSMFASTEST | FutueLink Trading ",
+    "category": "Wholesale GSM Server",
+    "address": "United Arab Emirates - WorldWide",
+    "website": "https://www.gsmfastest.com/",
+    "email": "support@gsmfastest.com",
+    "contacts": {
+      "whatsAppUrl": "https://wa.me/+971502605999",
+      "telegramBotUrl": "",
+      "telegramChannelUrl": "https://t.me/gsmfastest"
     },
   }
 ]

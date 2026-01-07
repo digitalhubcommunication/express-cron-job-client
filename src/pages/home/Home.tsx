@@ -7,6 +7,7 @@ import Features from "./components/Features";
 import LatestUpdates from "../package/components/LatestUpdates";
 // import Distributor from "../about/components/Distributor";
 import FAQ from "./components/FAQ";
+import Partners from "./components/Partners";
 
 export default function Home() {
   return (
@@ -37,10 +38,7 @@ export default function Home() {
       </section>
       <section className="py-5 !bg-slate-800 w-full">
         <Container>
-          <p className="text-center ecj_fs-md text-white">
-            Your dedicated partner in seamless scheduling, offering a
-            high-performance solution.
-          </p>
+          <Partners />
         </Container>
       </section>
       <Features />

@@ -19,24 +19,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+          cache: "npm"
 
-      # 3 Setup pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
-
-      # 4 Install dependencies
+      # 3 Install dependencies
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
-      # 5 Build the project
+      # 4 Build the project
       - name: Build Project
-        run: pnpm run build
+        run: npm run build
 
-      # 6 Remove existing dist folder on server
+      # 5 remove existing dist folder
       - name: Clean old dist folder
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -47,7 +40,7 @@ jobs:
             echo "Cleaning old dist folder..."
             rm -rf ${{ secrets.APP_DIRECTORY }}/dist
 
-      # 7 Upload build files
+      # 6 Deploy built files (dist/) to your server via SCP
       - name: Upload Build to Server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -57,7 +50,7 @@ jobs:
           source: "dist"
           target: "${{ secrets.APP_DIRECTORY }}"
 
-      # 8 Update environment file
+      # 7 Create/update .env file remotely (if needed)
       - name: Update Environment File
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -68,7 +61,7 @@ jobs:
             cd ${{ secrets.APP_DIRECTORY }}
             echo "API_URL=https://expresscronjob.com/api" > .env
 
-      # 9 Reload NGINX
+      # 7 Reload NGINX
       - name: Reload NGINX
         uses: appleboy/ssh-action@v0.1.10
         with:

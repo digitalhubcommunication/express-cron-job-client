@@ -360,3 +360,133 @@ export const countries = [
   { name: 'Zambia', code: 'ZM', dialCode: '+260', flag: '🇿🇲', format: /^\d{9}$/, example: 'e.g., 971234567' },
   { name: 'Zimbabwe', code: 'ZW', dialCode: '+263', flag: '🇿🇼', format: /^\d{9}$/, example: 'e.g., 712345678' },
 ];
+
+
+
+
+
+// ========== database =========
+/*
+  {
+    _id: ObjectId('68fe1d56a79e771e17870d37'),
+    name: 'Diamond',
+    __v: 0,
+    createdAt: ISODate('2025-10-26T13:08:38.986Z'),
+    intervalInMs: 5000,
+    manualCronLimit: 70,
+    price: 29.99,
+    status: 'enabled',
+    updatedAt: ISODate('2026-01-08T17:10:21.890Z'),
+    validity: 180
+  },
+  {
+    _id: ObjectId('690755b4f305a53ba88ff73f'),
+    name: 'Platinum ( New Year Offer Extra 3 Month )',
+    price: 49.99,
+    status: 'enabled',
+    validity: 455,
+    intervalInMs: 3000,
+    manualCronLimit: 100,
+    createdAt: ISODate('2025-11-02T12:59:32.042Z'),
+    updatedAt: ISODate('2025-11-30T16:20:32.229Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('690c99c097c032a0fbbc5c99'),
+    name: 'Free',
+    __v: 0,
+    createdAt: ISODate('2025-11-06T12:51:12.510Z'),
+    intervalInMs: 7000,
+    manualCronLimit: 50,
+    price: 0,
+    status: 'enabled',
+    updatedAt: ISODate('2026-01-08T17:10:21.661Z'),
+    validity: 5
+  },
+  {
+    _id: ObjectId('691b4eadfbacc8b8f49ef78d'),
+    name: 'New Year Offer Package',
+    price: 0,
+    status: 'enabled',
+    validity: 29,
+    intervalInMs: 7000,
+    manualCronLimit: 50,
+    createdAt: ISODate('2025-11-17T16:34:53.390Z'),
+    updatedAt: ISODate('2025-11-30T16:23:41.166Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('69393ba598a936f88161aea9'),
+    name: 'Platinum',
+    __v: 0,
+    createdAt: ISODate('2025-12-10T09:21:41.642Z'),
+    intervalInMs: 3000,
+    manualCronLimit: 100,
+    price: 59.99,
+    status: 'enabled',
+    updatedAt: ISODate('2026-01-08T17:10:21.899Z'),
+    validity: 365
+  },
+  {
+    _id: ObjectId('6943000a98a936f881715768'),
+    name: 'Silver',
+    __v: 0,
+    createdAt: ISODate('2025-12-17T19:10:02.412Z'),
+    intervalInMs: 7000,
+    manualCronLimit: 50,
+    price: 14.99,
+    status: 'enabled',
+    updatedAt: ISODate('2026-01-08T17:10:21.766Z'),
+    validity: 90
+  },
+  {
+    _id: ObjectId('6950b495f6c74696004d0f4b'),
+    name: 'Diamond V2',
+    price: 29.99,
+    status: 'enabled',
+    validity: 180,
+    intervalInMs: 10000,
+    manualCronLimit: 70,
+    createdAt: ISODate('2025-12-28T04:39:49.316Z'),
+    updatedAt: ISODate('2025-12-28T04:42:16.767Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('695aa56045aedbff05859b99'),
+    name: 'GSM Theme',
+    price: 29.99,
+    status: 'enabled',
+    validity: 365,
+    intervalInMs: 12000,
+    manualCronLimit: 100,
+    createdAt: ISODate('2026-01-04T17:37:36.601Z'),
+    updatedAt: ISODate('2026-01-06T17:27:27.799Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('695aa5bd45aedbff05859bae'),
+    name: 'GSM X TOOL',
+    price: 39.99,
+    status: 'enabled',
+    validity: 365,
+    intervalInMs: 12000,
+    manualCronLimit: 100,
+    createdAt: ISODate('2026-01-04T17:39:09.750Z'),
+    updatedAt: ISODate('2026-01-06T17:27:21.366Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('695e9d943a787e01ad974499'),
+    name: 'Test Someting',
+    price: 0,
+    status: 'disabled',
+    validity: 3,
+    intervalInMs: 12000,
+    manualCronLimit: 10,
+    createdAt: ISODate('2026-01-07T17:53:24.913Z'),
+    updatedAt: ISODate('2026-01-07T17:55:25.581Z'),
+    __v: 0
+  }
+]
+
+*/ 

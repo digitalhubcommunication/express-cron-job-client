@@ -15,14 +15,24 @@ export default function AvailablePackages() {
   if (!data?.packages?.length)
     return <p className="text-center mt-10">No package found</p>;
 
+  const HIDDEN_PACKAGE_NAMES = [
+    "Platinum ( New Year Offer Extra 3 Month )",
+    "New Year Offer Package",
+    "Diamond V2",
+  ];
+
   let allPackages: TPackage[] = data.packages || [];
 
+  // hide unwanted packages by name
+  allPackages = allPackages.filter(
+    (pkg) => !HIDDEN_PACKAGE_NAMES.includes(pkg.name)
+  );
   // filter the subscribed package
   if (authUser) {
     allPackages = (data?.packages || []).filter((p: TPackage) => p.price > 0);
   }
 
-  
+
 
   return (
     <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-7 lg:mt-10 gap-10">

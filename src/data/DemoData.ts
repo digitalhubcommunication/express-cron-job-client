@@ -85,6 +85,19 @@ export const reseller: TDistributor[] = [
     }
   },
   {
+    _id: "reseller_mobile_unlock_king",
+    company_name: "MOBILE UNLOCK KING",
+    category: "Wholesale GSM Server",
+    address: "Bangladesh - WorldWide",
+    website: "https://mobileunlockking.com",
+    email: "tkphotography44@gmail.com",
+    contacts: {
+      whatsAppUrl: "https://wa.me/8801846670021",
+      telegramBotUrl: "https://t.me/jahidul_king",
+      telegramChannelUrl: "https://t.me/MobileUnlockKing_News"
+    }
+  },
+  {
     _id: "reseller_phhalidunlocker",
     company_name: "phhalidunlocker",
     category: "Wholesale GSM Server",
